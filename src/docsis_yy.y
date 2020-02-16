@@ -651,3 +651,18 @@ int parse_config_file ( char *file, struct tlv **parse_tree_result )
   fclose(cf);
   return rval;
 }
+
+int parse_config_string ( unsigned char *file_content, unsigned file_size, struct tlv **parse_tree_result )
+{
+
+  FILE *cf = fmemopen(file_content, file_size, "r");
+  int rval;
+  yyin = cf ;
+#ifdef DEBUG
+  yydebug = 1;
+#endif
+  rval = yyparse();
+  if (!rval) *parse_tree_result = _my_tlvtree_head;
+  fclose(cf);
+  return rval;
+}
