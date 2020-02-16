@@ -125,9 +125,9 @@ add_cmts_mic (unsigned char *tlvbuf, unsigned int tlvbuflen,
 	    }
 	}
     }
-  fprintf (stdout, "##### Calculating CMTS MIC using TLVs:\n");
-  decode_main_aggregate (cmts_tlvs, dp - cmts_tlvs);
-  fprintf (stdout, "##### End of CMTS MIC TLVs\n");
+  //fprintf (stdout, "##### Calculating CMTS MIC using TLVs:\n");
+  //decode_main_aggregate (cmts_tlvs, dp - cmts_tlvs);
+  //fprintf (stdout, "##### End of CMTS MIC TLVs\n");
   hmac_md5 (cmts_tlvs, dp - cmts_tlvs, key, keylen, digest);
   md5_print_digest (digest);
   tlvbuf[tlvbuflen] = 7;	/* CMTS MIC */
@@ -505,7 +505,8 @@ int encode_one_file ( char *input_file, char *output_file,
   unsigned int buflen;
   unsigned char *buffer;
   FILE *of;
-
+  init_global_symtable ();
+  setup_mib_flags(0,0);
   /* It's not an error to specify the input and output as "-". */
   if (!strcmp (input_file, output_file) && strcmp (input_file, "-"))
   {
@@ -580,6 +581,8 @@ int encode_one_file ( char *input_file, char *output_file,
     }
   fclose (of);
   free(buffer);
+  free(global_symtable);
+  //shutdown_mib();
   return 0;
 
   /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */
@@ -734,4 +737,78 @@ char *get_output_name ( char *input_path, char *extension_string )
 
   return new_path;
   /* !!! caller has to free the new string after using it !!!  */
+}
+
+
+int encode_one_string ( unsigned char *file_content, unsigned file_content_size, unsigned char **bufferp,
+      unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash)
+{
+  int parse_result=0;
+  unsigned int buflen;
+  unsigned char* buffer;
+  FILE *of;
+  init_global_symtable ();
+  setup_mib_flags(0,0);
+  /* It's not an error to specify the input and output as "-". */
+
+
+  parse_result = parse_config_string (file_content,file_content_size, &global_tlvtree_head );
+
+  if (parse_result || global_tlvtree_head == NULL)
+    {
+      fprintf(stderr, "Error parsing config file \n");
+      return 0;
+    }
+/* Check whether we're encoding PacketCable */
+
+  if (global_tlvtree_head->docs_code == 254) {
+  fprintf(stderr, "First TLV is MtaConfigDelimiter, forcing PacketCable MTA file.\n");
+  encode_docsis=0;
+  }
+
+/* walk the tree to find out how much memory we need */
+  /* leave some room for CM MIC, CMTS MIC, pad, and a HUGE PC20 dialplan */
+  buflen = tlvtreelen (global_tlvtree_head);
+  *bufferp = (unsigned char *) malloc ( buflen + 255 + 8192 );
+  buffer = *bufferp;
+  buflen = flatten_tlvsubtree(buffer, 0, global_tlvtree_head);
+
+
+#ifdef DEBUG
+  fprintf(stderr, "TLVs found in parsed config file:\n");
+  decode_main_aggregate (buffer, buflen);
+#endif
+
+  if (encode_docsis)
+    {
+      /* CM config file => add CM MIC, CMTS MIC, End-of-Data and pad */
+      buflen = add_cm_mic (buffer, buflen);
+      buflen = add_cmts_mic (buffer, buflen, key, keylen);
+      buflen = add_eod_and_pad (buffer, buflen);
+    }
+
+  if (dialplan == 1) {
+    //printf("Adding PC20 dialplan from external file.\n");
+    buflen = add_dialplan (buffer, buflen);
+  }
+
+  if (hash == 1) {
+    //printf("Adding NA ConfigHash to MTA file.\n");
+    buflen = add_mta_hash (buffer, buflen, hash);
+  }
+  if (hash == 2) {
+    //printf("Adding EU ConfigHash to MTA file.\n");
+    buflen = add_mta_hash (buffer, buflen, hash);
+  }
+
+  //fprintf (stdout, "Final content of config file:\n");
+
+  //decode_main_aggregate (buffer, buflen);
+//fprintf (stdout, "Final content of config file:%d\n", buflen);  
+  //free(buffer);
+  free(global_symtable);
+  //shutdown_mib();
+  return buflen;
+
+  /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */
 }
