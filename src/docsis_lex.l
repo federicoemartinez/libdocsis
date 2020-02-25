@@ -174,6 +174,7 @@ struct symbol_entry
         }
  }
  fprintf(stderr, "Unrecognized symbol %s at line %d\n", sym_str, line);
- exit(-1);
+ 
+        yyterminate();
 }
 

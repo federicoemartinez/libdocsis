@@ -144,16 +144,16 @@ main_stmt: 	T_MAIN '{' assignment_list '}' {
 			_my_tlvtree_head->parent = NULL; }
 		;
 
-assignment_list: assignment_list assignment_stmt { $$ = add_tlv_sibling ($1,$2); }
-		| assignment_stmt {  $$=add_tlv_sibling(NULL,$1); }
+assignment_list: assignment_list assignment_stmt { $$ = add_tlv_sibling ($1,$2); if($$ == 0) YYABORT;}
+		| assignment_stmt {  $$=add_tlv_sibling(NULL,$1);if($$ == 0) YYABORT; }
 		| assignment_list subsettings_stmt {
-			$$ = merge_tlvlist($1,$2);  }
+			$$ = merge_tlvlist($1,$2);  if($$ == 0) YYABORT;}
 		| subsettings_stmt {
-			$$ = merge_tlvlist (NULL, $1); }
+			$$ = merge_tlvlist (NULL, $1);if($$ == 0) YYABORT; }
 		;
 
-generic_assignment_list: generic_assignment_list generic_stmt { $$ = add_tlv_sibling ($1,$2); }
-			 | generic_stmt { $$=add_tlv_sibling(NULL,$1); }
+generic_assignment_list: generic_assignment_list generic_stmt { $$ = add_tlv_sibling ($1,$2);if($$ == 0) YYABORT; }
+			 | generic_stmt { $$=add_tlv_sibling(NULL,$1); if($$ == 0) YYABORT;}
 			 ;
 
 
@@ -190,45 +190,46 @@ assignment_stmt:  T_IDENTIFIER T_INTEGER ';' {
 		| T_IDENTIFIER T_LABEL_OID ';' {
 			$$ = create_tlv ($1, (union t_val *)&$2);}
 		| T_IDENT_CVC T_STRING ';'  {
-			$$ = create_external_file_tlv ($1, (union t_val *)&$2);}
+			$$ = create_external_file_tlv ($1, (union t_val *)&$2);  if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPW T_LABEL_OID T_INTEGER ';' {
-			$$ = create_snmpw_tlv ( $1, $2, (union t_val *) &$3 ); }
+			$$ = create_snmpw_tlv ( $1, $2, (union t_val *) &$3 ); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_INT T_INTEGER ';' {
-			$$ = create_snmpset_tlv($1,$2,'i',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'i',(union t_val *)&$4);
+			if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_GAUGE T_INTEGER ';' {
-			$$ = create_snmpset_tlv($1,$2,'g',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'g',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_UINT T_INTEGER ';' {
-			$$ = create_snmpset_tlv($1,$2,'u',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'u',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_COUNTER T_INTEGER ';' {
-			$$ = create_snmpset_tlv($1,$2,'c',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'c',(union t_val *)&$4); if($$ == 0) YYABORT; }
 	        | T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_IP T_IP ';' {
-			$$ = create_snmpset_tlv($1,$2,'a',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'a',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_STRING T_STRING ';' {
-			$$ = create_snmpset_tlv($1,$2,'s',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'s',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_HEXSTR T_HEX_STRING ';' {
-			$$ = create_snmpset_tlv($1,$2,'x',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'x',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_OBJID T_LABEL_OID ';' {
-			$$ = create_snmpset_tlv($1,$2,'o',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'o',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPSET T_LABEL_OID T_ASNTYPE_TIMETICKS T_INTEGER ';' {
-			$$ = create_snmpset_tlv($1,$2,'t',(union t_val *)&$4); }
+			$$ = create_snmpset_tlv($1,$2,'t',(union t_val *)&$4); if($$ == 0) YYABORT; }
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_STR_VALUE T_STRING ';' {
-			$$ = create_generic_str_tlv($1,$3, (union t_val *)&$5); }
+			$$ = create_generic_str_tlv($1,$3, (union t_val *)&$5); if($$ == 0) YYABORT;}
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_STRZERO_VALUE T_STRING ';' {
-			$$ = create_generic_strzero_tlv($1,$3, (union t_val *)&$5); }
+			$$ = create_generic_strzero_tlv($1,$3, (union t_val *)&$5); if($$ == 0) YYABORT;}
 		| generic_stmt {
 			$$ = $1; }
 		;
 
 generic_stmt:	T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_LENGTH T_INTEGER T_TLV_VALUE T_HEX_STRING ';' {
-			$$ = create_generic_tlv($1,$3,$5, (union t_val *)&$7); }
+			$$ = create_generic_tlv($1,$3,$5, (union t_val *)&$7); if($$ == 0) YYABORT; }
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_TYPE T_ASNTYPE_INT T_TLV_VALUE T_INTEGER ';' {
-			$$ = create_generic_typed_tlv($1,$3,encode_uint, (union t_val *)&$7); }
+			$$ = create_generic_typed_tlv($1,$3,encode_uint, (union t_val *)&$7); if($$ == 0) YYABORT;}
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_TYPE T_ASNTYPE_SHORT T_TLV_VALUE T_INTEGER ';' {
-			$$ = create_generic_typed_tlv($1,$3,encode_ushort, (union t_val *)&$7); }
+			$$ = create_generic_typed_tlv($1,$3,encode_ushort, (union t_val *)&$7); if($$ == 0) YYABORT;}
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_TYPE T_ASNTYPE_CHAR T_TLV_VALUE T_INTEGER ';' {
-			$$ = create_generic_typed_tlv($1,$3,encode_uchar, (union t_val *)&$7); }
+			$$ = create_generic_typed_tlv($1,$3,encode_uchar, (union t_val *)&$7); if($$ == 0) YYABORT;}
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_TYPE T_ASNTYPE_IP T_TLV_VALUE T_IP ';' {
-			$$ = create_generic_typed_tlv($1,$3,encode_ip, (union t_val *)&$7); }
+			$$ = create_generic_typed_tlv($1,$3,encode_ip, (union t_val *)&$7); if($$ == 0) YYABORT;}
                 ;
 %%
 
@@ -258,7 +259,7 @@ create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
   tlvbuf->tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
 /*		if (tlvbuf->tlv_len <= 0 ) {
 			fprintf(stderr, "Got 0-length value while scanning for %s at line %d\n",sym_ptr->sym_ident,line );
-			exit (-1);
+			return 0;
    		} */
   return tlvbuf;
 }
@@ -285,7 +286,7 @@ create_snmpset_tlv ( struct symbol_entry *sym_ptr,
 
 		if (tlvbuf->tlv_len <= 0 ) {
 			fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,line );
-			exit (-1);
+			return 0;
    		}
   free(oid_string);
 /* We only free non-string values since we parse strings into a static buffer in docsis_lex.l */
@@ -317,7 +318,7 @@ create_snmpw_tlv ( struct symbol_entry *sym_ptr,
 
                 if (tlvbuf->tlv_len <= 0 ) {
                         fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,line );
-                        exit (-1);
+                        return 0;
                 }
   tlvbuf->tlv_value[tlvbuf->tlv_len] = (unsigned char) value->intval ;
   tlvbuf->tlv_len++;
@@ -345,12 +346,12 @@ create_generic_tlv ( struct symbol_entry *sym_ptr,
                 if (tlvbuf->tlv_len <= 0 ) {
                         fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,
 line );
-                        exit (-1);
+                        return 0;
                 }
                 if (tlvbuf->tlv_len != tlv_length ) {
                         fprintf(stderr, "Length mismatch while encoding GenericTLV: given length %d, value length %d at line %d\n", tlvbuf->tlv_len, tlv_length, line );
 
-                        exit (-1);
+                        return 0;
 		}
   return tlvbuf;
 }
@@ -374,7 +375,8 @@ create_generic_str_tlv ( struct symbol_entry *sym_ptr,
                 if (tlvbuf->tlv_len <= 0 ) {
                         fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,
 line );
-                        exit (-1);
+                        
+                        return 0;
                 }
                 if (tlvbuf->tlv_len > 255 ) {
                         fprintf(stderr, "Warning: string length %d longer than 255, line %d\n",tlvbuf->tlv_len, line );
@@ -403,7 +405,7 @@ create_generic_strzero_tlv ( struct symbol_entry *sym_ptr,
                 if (tlvbuf->tlv_len <= 0 ) {
                         fprintf(stderr, "got 0-length value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,
 line );
-                        exit (-1);
+                        return 0;
                 }
                 if (tlvbuf->tlv_len > 254 ) {
                         fprintf(stderr, "Warning: total string length %d longer than 255, line %d\n",tlvbuf->tlv_len, line );
@@ -431,14 +433,14 @@ create_external_file_tlv ( struct symbol_entry *sym_ptr,
 
   if ((ext_file = fopen (value->strval, "rb")) == NULL) {
 	fprintf(stderr, "Error: can't open external file %s at line %d\n", value->strval, line);
-	exit (-5);
+	return 0;
   }
 
   while ( !feof(ext_file) ) {
  	if (! (read_len = fread (read_buffer, 1, 254, ext_file)) ) {
 	  fprintf (stderr, "Error reading data from %s\n", value->strval) ;
   	  fclose (ext_file);
-	  exit(-5);
+	  return 0;
   	}
 
 	new_tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
@@ -473,7 +475,7 @@ create_generic_typed_tlv ( struct symbol_entry *sym_ptr,
 
   if (tlvbuf->tlv_len <= 0 ) {
     fprintf (stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,line );
-    exit (-1);
+    return 0;
   }
   return tlvbuf;
 }
@@ -489,7 +491,7 @@ struct tlv *add_tlv_sibling (struct tlv *tlv, struct tlv *newtlv)
 
   if (newtlv == NULL ) {
 	fprintf(stderr, "Error: add_tlv_sibling called with NULL tlv sibling ! \n " ) ;
-	exit(-23);
+	return 0;
   }
 
   if (tlv != NULL ) {
@@ -514,7 +516,7 @@ merge_tlvlist(struct tlv *tlv1, struct tlv *tlv2)
   struct tlv *tlvptr, *last_sibling;
   if ( tlv2 == NULL ) {
 	fprintf(stderr, "merge_tlvlist called with NULL tlv2\n");
-	exit(-2);
+	return 0;
   }
 
   if ( tlv1 == NULL ) {
@@ -567,7 +569,7 @@ unsigned int flatten_tlvsubtree ( unsigned char *buf, unsigned int used_size, st
 
   if ( buf == NULL ) {
 	fprintf(stderr, "Error: can't flatten tlvlist in a NULL destination buffer\n" );
-	exit (-2);
+	return 0;
   }
 
   cp = buf + used_size;

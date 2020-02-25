@@ -757,6 +757,7 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
   if (parse_result || global_tlvtree_head == NULL)
     {
       fprintf(stderr, "Error parsing config file \n");
+      free(global_symtable);
       return 0;
     }
 /* Check whether we're encoding PacketCable */
