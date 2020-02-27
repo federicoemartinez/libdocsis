@@ -44,8 +44,8 @@
 #include "md5.h"
 #include "sha1.h"
 
-struct tlv *global_tlvtree_head;
-symbol_type *global_symtable;
+
+symbol_type global_symtable[125576];
 unsigned int nohash = 0;
 unsigned int dialplan = 0;
 
@@ -298,6 +298,7 @@ usage ()
   exit (-10);
 }
 
+
 int
 main (int argc, char *argv[])
 {
@@ -493,7 +494,7 @@ main (int argc, char *argv[])
 	}
 	/* encode argv[1] */
   }
-  free(global_symtable);
+  //free(global_symtable);
   shutdown_mib();
   return 0;
 }
@@ -504,9 +505,10 @@ int encode_one_file ( char *input_file, char *output_file,
   int parse_result=0;
   unsigned int buflen;
   unsigned char *buffer;
+  struct tlv *global_tlvtree_head;
   FILE *of;
-  init_global_symtable ();
-  setup_mib_flags(0,0);
+  //init_global_symtable ();
+  //setup_mib_flags(0,0);
   /* It's not an error to specify the input and output as "-". */
   if (!strcmp (input_file, output_file) && strcmp (input_file, "-"))
   {
@@ -581,7 +583,7 @@ int encode_one_file ( char *input_file, char *output_file,
     }
   fclose (of);
   free(buffer);
-  free(global_symtable);
+  //free(global_symtable);
   //shutdown_mib();
   return 0;
 
@@ -591,13 +593,16 @@ int encode_one_file ( char *input_file, char *output_file,
 int
 init_global_symtable (void)
 {
-  global_symtable =
-    (symbol_type *) malloc (sizeof (symbol_type) * NUM_IDENTIFIERS);
-  if (global_symtable == NULL)
-    {
-      fprintf(stderr, "Error allocating memory\n");
-      exit (255);
-    }
+  //fprintf(stderr, "LALA %lu\n", sizeof (symbol_type) * NUM_IDENTIFIERS);
+  //exit(0);
+  //global_symtable =
+  //  (symbol_type *) malloc (sizeof (symbol_type) * NUM_IDENTIFIERS);
+
+  //if (global_symtable == NULL)
+  //  {
+  //    fprintf(stderr, "Error allocating memory\n");
+  //    return 0;
+  //  }
   memcpy (global_symtable, symtable, sizeof (symbol_type) * NUM_IDENTIFIERS);
   return 1;
 }
@@ -607,6 +612,7 @@ decode_file (char *file)
 {
   int ifd;
   unsigned char *buffer;
+
   unsigned int buflen = 0;
   int rv = 0;
   struct stat st;
@@ -739,16 +745,23 @@ char *get_output_name ( char *input_path, char *extension_string )
   /* !!! caller has to free the new string after using it !!!  */
 }
 
-
 int encode_one_string ( unsigned char *file_content, unsigned file_content_size, unsigned char **bufferp,
       unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash)
 {
   int parse_result=0;
   unsigned int buflen;
   unsigned char* buffer;
+  struct tlv *global_tlvtree_head;
   FILE *of;
-  init_global_symtable ();
-  setup_mib_flags(0,0);
+  //int global_table_inialized = init_global_symtable ();
+  //if( ! global_table_inialized){
+  //  fprintf(stderr, "Unable to initialize global table");
+  //  return 0;
+  //}
+  //if(!mibs_loaded){
+  //  setup_mib_flags(0,0);
+  //  mibs_loaded = 1;
+  //}
   /* It's not an error to specify the input and output as "-". */
 
 
@@ -757,7 +770,7 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
   if (parse_result || global_tlvtree_head == NULL)
     {
       fprintf(stderr, "Error parsing config file \n");
-      free(global_symtable);
+      //free(global_symtable);
       return 0;
     }
 /* Check whether we're encoding PacketCable */
@@ -807,9 +820,14 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
   //decode_main_aggregate (buffer, buflen);
 //fprintf (stdout, "Final content of config file:%d\n", buflen);  
   //free(buffer);
-  free(global_symtable);
+  //free(global_symtable);
   //shutdown_mib();
   return buflen;
 
   /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */
+}
+
+void initialize_lib(){
+  setup_mib_flags(0,0);
+  init_global_symtable ();
 }

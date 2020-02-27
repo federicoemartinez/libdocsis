@@ -42,13 +42,14 @@
 %option noyywrap
 %option noinput
 %option nounput
+%option reentrant bison-bridge 
 
 %{
 #include "docsis.h"
 #include "docsis_yy.h"
 
 extern int yydebug;
-extern symbol_type *global_symtable;
+extern symbol_type global_symtable[125576];
 
 unsigned int line=1; /* On parse errors, we print the line number */
 
@@ -61,23 +62,23 @@ char *tsave;
 %x COMMENT
 %%
 
-([0-9]+,){1,127}[0-9]+		{ TSAVE(yytext);yylval.strval=tsave; return T_SUBMGT_FILTERS;	  }
-([0-9]+\.){3}[0-9]+	 	{ TSAVE(yytext);yylval.strval=tsave; return T_IP;	  }
-(([0-9]+\.){3}[0-9]+,){1,15}([0-9]+\.){3}[0-9]+  { TSAVE(yytext);yylval.strval=tsave; return T_IP_LIST; }
-0[Xx]([0-9A-Fa-f])+		{ TSAVE(yytext);yylval.strval=tsave; return T_HEX_STRING; }
-([0-9A-Fa-f][0-9A-Fa-f]:){5}[0-9A-Fa-f][0-9A-Fa-f]\/([0-9A-Fa-f][0-9A-Fa-f]:){5}[0-9A-Fa-f][0-9A-Fa-f]  { TSAVE(yytext);yylval.strval=tsave; return T_ETHERMASK; }
-([0-9]+\.){3}[0-9]+\/[0-9]+	 	{ TSAVE(yytext);yylval.strval=tsave; return T_IP_IP6_PORT; }
-([0-9A-Fa-f][0-9A-Fa-f]:){5}[0-9A-Fa-f][0-9A-Fa-f]  { TSAVE(yytext);yylval.strval=tsave; return T_MAC; 			       }
+([0-9]+,){1,127}[0-9]+		{ TSAVE(yytext);yylval->strval=tsave; return T_SUBMGT_FILTERS;	  }
+([0-9]+\.){3}[0-9]+	 	{ TSAVE(yytext);yylval->strval=tsave; return T_IP;	  }
+(([0-9]+\.){3}[0-9]+,){1,15}([0-9]+\.){3}[0-9]+  { TSAVE(yytext);yylval->strval=tsave; return T_IP_LIST; }
+0[Xx]([0-9A-Fa-f])+		{ TSAVE(yytext);yylval->strval=tsave; return T_HEX_STRING; }
+([0-9A-Fa-f][0-9A-Fa-f]:){5}[0-9A-Fa-f][0-9A-Fa-f]\/([0-9A-Fa-f][0-9A-Fa-f]:){5}[0-9A-Fa-f][0-9A-Fa-f]  { TSAVE(yytext);yylval->strval=tsave; return T_ETHERMASK; }
+([0-9]+\.){3}[0-9]+\/[0-9]+	 	{ TSAVE(yytext);yylval->strval=tsave; return T_IP_IP6_PORT; }
+([0-9A-Fa-f][0-9A-Fa-f]:){5}[0-9A-Fa-f][0-9A-Fa-f]  { TSAVE(yytext);yylval->strval=tsave; return T_MAC; 			       }
 
-(\.{1})*([A-Za-z0-9_-]+\.)+[A-Za-z0-9]+	{ TSAVE(yytext);yylval.strval=tsave; return T_LABEL_OID; }
-(\.{1})*([A-Za-z0-9_-]+\.)+'[\[A-Za-z0-9@,:_\-\.\]]+'	{ TSAVE(yytext);yylval.strval=tsave; return T_LABEL_OID; }
-(\.{1})*([A-Za-z0-9_-]+\.)+((\"{1})*[A-Za-z0-9,:_\-\.]+(\"{1})*)+	{ TSAVE(yytext);yylval.strval=tsave; return T_LABEL_OID; }
-([0-9]+:){3}[0-9]+\.[0-9]+	{ TSAVE(yytext);yylval.strval=tsave; return T_TIMETICKS; }
-[Mm][Aa][Ii][Nn]        { yylval.strval=yytext;return T_MAIN; }
-SnmpWriteControl	{ yylval.symptr=find_symbol_by_name(yytext);return T_IDENT_SNMPW;   }
-SnmpMibObject		{ yylval.symptr=find_symbol_by_name(yytext);return T_IDENT_SNMPSET; }
-ManufacturerCVC		{ yylval.symptr=find_symbol_by_name(yytext);return T_IDENT_CVC; }
-CoSignerCVC		{ yylval.symptr=find_symbol_by_name(yytext);return T_IDENT_CVC; }
+(\.{1})*([A-Za-z0-9_-]+\.)+[A-Za-z0-9]+	{ TSAVE(yytext);yylval->strval=tsave; return T_LABEL_OID; }
+(\.{1})*([A-Za-z0-9_-]+\.)+'[\[A-Za-z0-9@,:_\-\.\]]+'	{ TSAVE(yytext);yylval->strval=tsave; return T_LABEL_OID; }
+(\.{1})*([A-Za-z0-9_-]+\.)+((\"{1})*[A-Za-z0-9,:_\-\.]+(\"{1})*)+	{ TSAVE(yytext);yylval->strval=tsave; return T_LABEL_OID; }
+([0-9]+:){3}[0-9]+\.[0-9]+	{ TSAVE(yytext);yylval->strval=tsave; return T_TIMETICKS; }
+[Mm][Aa][Ii][Nn]        { yylval->strval=yytext;return T_MAIN; }
+SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_SNMPW;   }
+SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_SNMPSET; }
+ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_CVC; }
+CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_CVC; }
 Integer			{ return T_ASNTYPE_INT; 	}
 Unsigned32		{ return T_ASNTYPE_UINT; 	}
 Short			{ return T_ASNTYPE_SHORT;       }
@@ -96,7 +97,7 @@ BigInt			{ return T_ASNTYPE_BIGINT; 	}
 UnsignedBigInt		{ return T_ASNTYPE_UBIGINT; 	}
 Float			{ return T_ASNTYPE_FLOAT; 	}
 Double			{ return T_ASNTYPE_DOUBLE; 	}
-GenericTLV 		{ yylval.symptr=find_symbol_by_name(yytext);return T_IDENT_GENERIC;   }
+GenericTLV 		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_GENERIC;   }
 TlvCode 		{ return T_TLV_CODE; 	}
 TlvLength 		{ return T_TLV_LENGTH; 	}
 TlvValue		{ return T_TLV_VALUE; 	}
@@ -104,10 +105,10 @@ TlvString		{ return T_TLV_STR_VALUE; 	}
 TlvStringZero		{ return T_TLV_STRZERO_VALUE; 	}
 TlvType			{ return T_TLV_TYPE;		}
 [A-Za-z]+[A-Za-z0-9]*	{
-				yylval.symptr=find_symbol_by_name(yytext);
+				yylval->symptr=find_symbol_by_name(yytext);
 		  	  	if(yydebug)
-				        fprintf(stderr, "yylex:returning T_IDENTIFIER, yylval.symptr->sym_ident=%s\n",
-					yylval.symptr->sym_ident);
+				        fprintf(stderr, "yylex:returning T_IDENTIFIER, yylval->symptr->sym_ident=%s\n",
+					yylval->symptr->sym_ident);
 			 	return T_IDENTIFIER;
 			}
 
@@ -132,7 +133,7 @@ TlvType			{ return T_TLV_TYPE;		}
 		}
 <STRING>\n	{ fprintf(stderr, "line %d: \\n not allowed in string, unmatched \" ?\n",line); exit(-1); }
 <STRING>\t	{ fprintf(stderr, "line %d: \\t not allowed in string, unmatched \" ?\n",line); exit(-1); }
-<STRING>\"	{ *str=0; BEGIN 0; yylval.strval=strbuf; return T_STRING; }
+<STRING>\"	{ *str=0; BEGIN 0; yylval->strval=strbuf; return T_STRING; }
 <STRING>.	{
 			if (strsize<2048)
 			{
@@ -148,19 +149,19 @@ TlvType			{ return T_TLV_TYPE;		}
 <COMMENT>\/[*]+	{ fprintf(stderr, "line %d: comment-in-comment not supported", line) ; }
 <COMMENT>[*]+\/	{ BEGIN 0; }
 
-[0-9]+	 { yylval.intval=atoi(yytext);return T_INTEGER; }
--[0-9]+	 { yylval.intval=atoi(yytext);return T_INTEGER; }
+[0-9]+	 { yylval->intval=atoi(yytext);return T_INTEGER; }
+-[0-9]+	 { yylval->intval=atoi(yytext);return T_INTEGER; }
 [ \t]+	 ;
 \r\n	 { line++; }
 \n	 { line++; }
-\{ 	 { yylval.strval=yytext;return '{'; }
-\}	 { yylval.strval=yytext;return '}'; }
-;	 { yylval.strval=yytext;return ';'; }
+\{ 	 { yylval->strval=yytext;return '{'; }
+\}	 { yylval->strval=yytext;return '}'; }
+;	 { yylval->strval=yytext;return ';'; }
 .	 { fprintf(stderr, "Unrecognized char \"%c\" at line %d\n",*yytext,line); exit(-1); }
-(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))		{ TSAVE(yytext);yylval.strval=tsave; return T_IP6;	  }
-(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+		{ TSAVE(yytext);yylval.strval=tsave; return T_IP_IP6_PORT;	  }
-((::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+,){1,14}(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+		{ TSAVE(yytext);yylval.strval=tsave; return T_IP6_PREFIX_LIST;	  }
-((::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2})),){1,15}(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))		{ TSAVE(yytext);yylval.strval=tsave; return T_IP6_LIST;		}
+(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))		{ TSAVE(yytext);yylval->strval=tsave; return T_IP6;	  }
+(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+		{ TSAVE(yytext);yylval->strval=tsave; return T_IP_IP6_PORT;	  }
+((::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+,){1,14}(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+		{ TSAVE(yytext);yylval->strval=tsave; return T_IP6_PREFIX_LIST;	  }
+((::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2})),){1,15}(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))		{ TSAVE(yytext);yylval->strval=tsave; return T_IP6_LIST;		}
 %%
 
 struct symbol_entry

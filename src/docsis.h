@@ -40,7 +40,7 @@
 
 #include "docsis_common.h"
 
-int yyerror (char *s);
+//int yyerror (char *s);
 
 /*
  * create a TLV from scratch, return pointer to TLV struct
@@ -96,12 +96,16 @@ int init_global_symtable (void);
 unsigned int tlvtreelen  (struct tlv *tlv);
 int parse_config_file (char *file, struct tlv **parse_tree_result);
 int parse_config_string (unsigned char *content, unsigned file_size, struct tlv **parse_tree_result);
-int yylex (void);
+#ifndef YY_TYPEDEF_YY_SCANNER_T
+#define YY_TYPEDEF_YY_SCANNER_T
+typedef void* yyscan_t;
+#endif
+//int yylex (yyscan_t yyscanner);
 void decode_file (char *file);
 int encode_one_file (char *input_file, char *output_file,
 		       unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash);
 int encode_one_string (unsigned char *content, unsigned content_size, unsigned char **bufferp,
 		       unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash);
 char *get_output_name (char *input_path, char *new_extension);
-
+void initialize_lib();
 #endif /* __DOCSIS_H */

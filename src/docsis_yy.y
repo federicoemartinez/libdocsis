@@ -22,6 +22,7 @@
  */
 
 %{
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -35,13 +36,24 @@ extern char yytext[];
 #endif
 
 extern unsigned int line; 	/* current line number, defined in a.l */
-extern struct tlv *global_tlvtree_head; /* Global list of all config TLVs */
-extern symbol_type *global_symtable;
+//extern struct tlv *global_tlvtree_head; /* Global list of all config TLVs */
+//extern symbol_type *global_symtable;
 extern FILE *yyin;
 
 struct tlv *_my_tlvtree_head;
 
 %}
+
+%code requires {
+  typedef void* yyscan_t;
+}
+%code {
+  int yylex(YYSTYPE* yylvalp, yyscan_t scanner);
+  void yyerror(yyscan_t unused, const char* msg);
+  int yylex_destroy  (yyscan_t yyscanner);
+  int yylex_init(yyscan_t* ptr_yy_globals);
+  void yyset_in  (FILE * _in_str ,yyscan_t yyscanner );
+}
 
 %union { 	/* Token types */
 	int intval;			/* For integers */
@@ -106,7 +118,8 @@ struct tlv *_my_tlvtree_head;
 %type <tlvptr>  assignment_list
 %type <tlvptr>  generic_assignment_list
 %type <tlvptr>  subsettings_stmt
-
+%define api.pure full
+%param { yyscan_t scanner }
 %%
 
 /*
@@ -233,10 +246,11 @@ generic_stmt:	T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_LENGTH T_INTEGER T_TLV_
                 ;
 %%
 
-int yyerror(char *s) {
-	fprintf(stderr, "%d:%s token %s\n",line,s,yytext );
-	return 0;
+void yyerror(yyscan_t unused, const char* s){
+	fprintf(stderr, "%d:%s token \n",line,s );
 }
+	
+
 
 #define TLVINIT(p) if(p) p->first_child=NULL; p->next_sibling=NULL; p->parent=NULL
 
@@ -633,7 +647,7 @@ int parse_config_file ( char *file, struct tlv **parse_tree_result )
 {
   FILE *cf;
   int rval;
-
+yyscan_t scanner;       
   if ( !strcmp(file, "-") )
   {
 	cf = stdin;
@@ -643,12 +657,16 @@ int parse_config_file ( char *file, struct tlv **parse_tree_result )
 	fprintf (stderr, "docsis: Can't open input file %s\n", file );
 	return -1;
   }
-
-  yyin = cf ;
+  
+  //yyin = cf ;
 #ifdef DEBUG
   yydebug = 1;
 #endif
-  rval = yyparse();
+   
+  yylex_init(&scanner);
+  yyset_in(cf, scanner);
+  rval = yyparse(scanner);          
+  yylex_destroy(scanner);
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
   return rval;
@@ -659,11 +677,15 @@ int parse_config_string ( unsigned char *file_content, unsigned file_size, struc
 
   FILE *cf = fmemopen(file_content, file_size, "r");
   int rval;
-  yyin = cf ;
+  yyscan_t scanner;       
+  //yyin = cf ;
 #ifdef DEBUG
   yydebug = 1;
 #endif
-  rval = yyparse();
+    yylex_init(&scanner);
+    yyset_in(cf, scanner);
+  rval = yyparse(scanner);          
+  yylex_destroy(scanner);
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
   return rval;
