@@ -42,25 +42,24 @@
 
 extern unsigned int line; 	/* defined in docsis_lex.l */
 
-
 int encode_uint ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
 {
   unsigned int int_value;
   union t_val *helper; /* We only use this to cast the void* we receive to what we think it should be */
   if ( buf == NULL ) {
 	fprintf(stderr, "encode_uint called w/NULL buffer\n");
-	exit (-1);
+	return (-1);
   }
 
   if ( tval == NULL  ) {
 	fprintf(stderr, "encode_uint called w/NULL value struct\n");
-	exit (-1);
+	return (-1);
   }
   helper = (union t_val *) tval;
   if ( sym_ptr->low_limit || sym_ptr->high_limit ) {
 	if ( helper->uintval < sym_ptr->low_limit || helper->uintval > sym_ptr->high_limit ) {
-		fprintf(stderr, "docsis: at line %d, %s value %d out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
-		exit(-15);
+		fprintf(stderr, "docsis: at line %d, %s value %d linea 61 out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
+		return(-15);
 	}
   }
   int_value  = htonl( helper->uintval );
@@ -94,18 +93,18 @@ int encode_ushort ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr
   union t_val *helper; /* We only use this to cast the void* we receive to what we think it should be */
   if ( buf == NULL ) {
         fprintf(stderr, "encode_ushort called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_ushort called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
   helper = (union t_val *) tval;
   if ( sym_ptr->low_limit || sym_ptr->high_limit ) {
 	if ( helper->uintval < sym_ptr->low_limit || helper->uintval > sym_ptr->high_limit ) {
-		fprintf(stderr, "docsis: at line %d, %s value %d out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
-		exit(-15);
+		fprintf(stderr, "docsis: at line %d, %s value %d linea 106 out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
+		return(-15);
 	}
   }
   sint = htons( (unsigned short) helper->uintval );
@@ -121,14 +120,15 @@ int encode_uchar ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr 
   unsigned int int_value;
   char *cp;
   union t_val *helper; /* We only use this to cast the void* we receive to what we think it should be */
+    
   if ( buf == NULL ) {
         fprintf(stderr, "encode_uchar called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_uchar called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
@@ -136,8 +136,9 @@ int encode_uchar ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr 
 
   if ( sym_ptr->low_limit || sym_ptr->high_limit ) {
 	if ( helper->uintval < sym_ptr->low_limit || helper->uintval > sym_ptr->high_limit ) {
-		fprintf(stderr, "docsis: at line %d, %s value %d out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
-		exit(-15);
+		fprintf(stderr, "docsis: at line %d, %s value %d linea 138 out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
+		return(-1);
+    
 	}
   }
   cp = (char *)&int_value;
@@ -157,19 +158,19 @@ int encode_ip( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_ip called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_ip called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
 
   if ( !inet_aton ( helper->strval, &in) ) {
 	fprintf(stderr,  "Invalid IP address %s at line %d", helper->strval, line );
-	exit (-1);
+	return (-1);
   }
 #ifdef DEBUG
   fprintf(stderr, "encode_ip: found %s at line %d\n",inet_ntoa(in), line);
@@ -199,7 +200,7 @@ int encode_ip_list( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr
       memcpy ( buf + 4 * i, &in, sizeof(struct in_addr));
     } else {
       fprintf(stderr, "Invalid IP address %s at line %d\n", helper->strval, line );
-      exit (-1);
+      return (-1);
     }
     i++;
   }
@@ -217,19 +218,19 @@ int encode_ip6( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_ip called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_ip called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
 
   if ( !inet_pton(AF_INET6, helper->strval, &in) ) {
 	fprintf(stderr,  "Invalid IP address %s at line %d\n", helper->strval, line );
-	exit (-1);
+	return (-1);
   }
 #ifdef DEBUG
   fprintf(stderr, "encode_ip: found %s at line %d\n", inet_ntop(AF_INET6, &in, ip, sizeof(ip)), line);
@@ -259,7 +260,7 @@ int encode_ip6_list( unsigned char *buf, void *tval, struct symbol_entry *sym_pt
       memcpy ( buf + 16 * i, &in6, sizeof(struct in6_addr));
     } else {
       fprintf(stderr, "Invalid IP address %s at line %d\n", helper->strval, line );
-      exit (-1);
+      return (-1);
     }
     i++;
   }
@@ -317,7 +318,7 @@ int encode_ip_ip6( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr 
     return ( sizeof(struct in_addr));
   } else {
     fprintf(stderr, "Invalid IP address %s at line %d\n", helper->strval, line );
-    exit (-1);
+    return (-1);
   }
 }
 
@@ -344,7 +345,7 @@ int encode_char_ip_ip6( unsigned char *buf, void *tval, struct symbol_entry *sym
     return ( sizeof(char) + sizeof(struct in_addr));
   } else {
     fprintf(stderr, "Invalid IP address %s at line %d\n", helper->strval, line );
-    exit (-1);
+    return (-1);
   }
 }
 
@@ -383,7 +384,7 @@ int encode_ip_ip6_port( unsigned char *buf, void *tval, struct symbol_entry *sym
     return ( sizeof(struct in_addr) + sizeof(unsigned short));
   } else {
     fprintf(stderr, "Invalid IP address / port combination %s at line %d\n", helper->strval, line );
-    exit (-1);
+    return (-1);
   }
 }
 
@@ -399,19 +400,19 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_ether called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_ether called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
 
   if (!(retval = ether_aton ( helper->strval, buf)) ) {
 	fprintf(stderr, "Invalid MAC address %s at line %d", helper->strval, line );
-	exit (-1);
+	return (-1);
   }
 #ifdef DEBUG
   fprintf(stderr, "encode_ether: found %s at line %d\n", ether_ntoa(buf), line);
@@ -471,12 +472,12 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_ethermask called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_ethermask called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
@@ -485,17 +486,17 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
   mask = strchr ( ether, (int) '/');
   if (mask == NULL) {
 	fprintf(stderr, "encode_ethermask: at line %d, format should be <mac_address>/<mac_mask>\n", line);
- 	exit (-1);
+ 	return (-1);
   }
   mask[0]=0x0; mask++; /* cut the string in two */
 
   if (!(reta = ether_aton ( ether, buf)) ) {
 	fprintf(stderr, "Invalid MAC address %s at line %d\n", ether, line );
-	exit (-1);
+	return (-1);
   }
   if (!(retb = ether_aton ( mask, buf+reta*(sizeof(char))) ) ) {
 	fprintf(stderr, "Invalid MAC address %s at line %d\n", mask, line );
-	exit (-1);
+	return (-1);
   }
 
 #ifdef DEBUG
@@ -513,12 +514,12 @@ int encode_string(unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_string called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_string called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
   helper = (union t_val *) tval;
   string_size = strlen ( helper->strval );
@@ -526,12 +527,12 @@ int encode_string(unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
 	if ( string_size < sym_ptr->low_limit ) {
 		fprintf(stderr, "encode_string: String too short, must be min %d chars\n",
 							sym_ptr->low_limit);
-		exit(-1);
+		return(-1);
 	}
 	if ( sym_ptr->high_limit < string_size ) {
 		fprintf(stderr, "encode_string: String too long (%d chars), must be max %d chars\n",
 							string_size, sym_ptr->high_limit);
-		exit(-1);
+		return(-1);
 	}
   }
 
@@ -554,12 +555,12 @@ int encode_strzero(unsigned char *buf, void *tval, struct symbol_entry *sym_ptr 
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_string called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_string called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
   helper = (union t_val *) tval;
   string_size = strlen ( helper->strval );
@@ -567,12 +568,12 @@ int encode_strzero(unsigned char *buf, void *tval, struct symbol_entry *sym_ptr 
         if ( string_size < sym_ptr->low_limit ) {
                 fprintf(stderr, "encode_string: String too short, must be min %d chars\n",
                                                         sym_ptr->low_limit);
-                exit(-1);
+                return(-1);
         }
         if ( sym_ptr->high_limit < string_size ) {
                 fprintf(stderr, "encode_string: String too long, must be max %d chars\n",
                                                         sym_ptr->high_limit);
-                exit(-1);
+                return(-1);
         }
   }
 
@@ -597,26 +598,30 @@ int encode_hexstr (unsigned char *buf, void *tval, struct symbol_entry *sym_ptr)
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_hexstr called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_hexstr called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
   helper = (union t_val *) tval;
+  if(helper->strval == 0){
+    fprintf(stderr, "encode_hexstr could not find string\n");
+    return (-1);
+  }
   string_size = strlen ( helper->strval );
 
   if ( string_size % 2 != 0 ) {
         fprintf(stderr, "encode_hexstr: invalid hex string\n");
-        exit (-1);
+        return (-1);
   }
 
   p = helper->strval;
 
   if (p[0] != '0' || ( p[1] != 'x' && p[1] != 'X' )) {
 	fprintf(stderr, "encode_hexstr: invalid hex string %s\n", p);
-	exit (-1);
+	return (-1);
   }
 
   p += 2*sizeof(char);
@@ -626,7 +631,7 @@ int encode_hexstr (unsigned char *buf, void *tval, struct symbol_entry *sym_ptr)
   while (*p) {
 	if ( (rval=sscanf(p, "%02x", &fragval)) == 0) {
 		fprintf(stderr, "Invalid Hex Value %s\n", helper->strval);
-		exit (-1);
+		return (-1);
 	}
  	buf[i] = (char) fragval; i++;
 	p += 2*sizeof(char);
@@ -636,12 +641,12 @@ int encode_hexstr (unsigned char *buf, void *tval, struct symbol_entry *sym_ptr)
 	if (  i < sym_ptr->low_limit ) {
 		fprintf(stderr, "encode_hexstr: Hex value too short, must be min %d octets\n",
 							sym_ptr->low_limit);
-		exit(-1);
+		return(-1);
 	}
 	if ( sym_ptr->high_limit < i ) {
 		fprintf(stderr, "encode_hexstr: Hex value too long, must be max %d octets\n",
 							sym_ptr->high_limit);
-		exit(-1);
+		return(-1);
 	}
   }
 #ifdef DEBUG
@@ -662,12 +667,12 @@ int encode_oid(unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_oid called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_oid called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
@@ -693,12 +698,12 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
 
   if ( buf == NULL ) {
         fprintf(stderr, "encode_ushort_list called w/NULL buffer\n");
-        exit (-1);
+        return (-1);
   }
 
   if ( tval == NULL  ) {
         fprintf(stderr, "encode_ushort_list called w/NULL value struct\n");
-        exit (-1);
+        return (-1);
   }
 
   helper = (union t_val *) tval;
@@ -714,11 +719,11 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
 
 	if (cp == *endptr) {
 		fprintf(stderr, "Parse error at line %d: expecting digits\n",line);
-		exit (-11);
+		return (-11);
 	}
 	if (value_found > 65535) {
 		fprintf(stderr, "Parse error at line %d: value cannot exceed 65535\n",line);
-		exit (-11);
+		return (-11);
 	}
 	nr_found++;
 	numbers[nr_found-1]=htons((unsigned short) value_found);
@@ -731,12 +736,12 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
         if (  nr_found < sym_ptr->low_limit ) {
                 fprintf(stderr, "Line %d: Not enough numbers, minimum %d\n", line,
                                                         sym_ptr->low_limit);
-                exit(-1);
+                return(-1);
         }
         if ( sym_ptr->high_limit < nr_found ) {
                 fprintf(stderr, "Line %d: too many numbers, max %d\n", line,
                                                         sym_ptr->high_limit);
-                exit(-1);
+                return(-1);
         }
   }
 

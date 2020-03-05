@@ -171,37 +171,37 @@ generic_assignment_list: generic_assignment_list generic_stmt { $$ = add_tlv_sib
 
 
 subsettings_stmt:  	T_IDENTIFIER '{' assignment_list  '}'	{
-			$$ = assemble_tlv_in_parent ( $1->docsis_code, $3 ); }
+			$$ = assemble_tlv_in_parent ( $1->docsis_code, $3 ); if($$ == 0) YYABORT;}
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER '{' generic_assignment_list '}' {
-			$$ = assemble_tlv_in_parent ( $3, $5 ); }
+			$$ = assemble_tlv_in_parent ( $3, $5 ); if($$ == 0) YYABORT;}
 		;
 
 assignment_stmt:  T_IDENTIFIER T_INTEGER ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_STRING ';'  {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_HEX_STRING ';'  {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_SUBMGT_FILTERS ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_IP ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_IP_LIST ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_IP6 ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_IP6_LIST ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_IP6_PREFIX_LIST ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_IP_IP6_PORT ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_MAC ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_ETHERMASK ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENTIFIER T_LABEL_OID ';' {
-			$$ = create_tlv ($1, (union t_val *)&$2);}
+			$$ = create_tlv ($1, (union t_val *)&$2);if($$ == 0) YYABORT; }
 		| T_IDENT_CVC T_STRING ';'  {
 			$$ = create_external_file_tlv ($1, (union t_val *)&$2);  if($$ == 0) YYABORT; }
 		| T_IDENT_SNMPW T_LABEL_OID T_INTEGER ';' {
@@ -230,7 +230,7 @@ assignment_stmt:  T_IDENTIFIER T_INTEGER ';' {
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_STRZERO_VALUE T_STRING ';' {
 			$$ = create_generic_strzero_tlv($1,$3, (union t_val *)&$5); if($$ == 0) YYABORT;}
 		| generic_stmt {
-			$$ = $1; }
+			$$ = $1; if($$ == 0) YYABORT;}
 		;
 
 generic_stmt:	T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_LENGTH T_INTEGER T_TLV_VALUE T_HEX_STRING ';' {
@@ -266,11 +266,16 @@ struct tlv *
 create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
 {
   struct tlv *tlvbuf=NULL;
-
+  int tlv_len;
   tlvbuf = (struct tlv *) malloc (sizeof(struct tlv) ) ;
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
-  tlvbuf->tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
+  tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
+  tlvbuf->tlv_len = tlv_len; 
+  if (tlv_len <= 0 ) {
+  		return 0;
+  }
+
 /*		if (tlvbuf->tlv_len <= 0 ) {
 			fprintf(stderr, "Got 0-length value while scanning for %s at line %d\n",sym_ptr->sym_ident,line );
 			return 0;
@@ -330,7 +335,7 @@ create_snmpw_tlv ( struct symbol_entry *sym_ptr,
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlvbuf->tlv_len = encode_snmp_oid ( oid_string, tlvbuf->tlv_value, TLV_VSIZE );
 
-                if (tlvbuf->tlv_len <= 0 ) {
+  if (tlvbuf->tlv_len <= 0 ) {
                         fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,line );
                         return 0;
                 }
@@ -351,13 +356,14 @@ create_generic_tlv ( struct symbol_entry *sym_ptr,
                                  union t_val *value )
 {
   struct tlv *tlvbuf=NULL;
-
+  int a_tlv_length;
   tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
-  tlvbuf->tlv_len = encode_hexstr ( tlvbuf->tlv_value, value, sym_ptr );
+  a_tlv_length = encode_hexstr ( tlvbuf->tlv_value, value, sym_ptr );
+  tlvbuf->tlv_len = a_tlv_length;
 
-                if (tlvbuf->tlv_len <= 0 ) {
+                if (a_tlv_length <= 0 ) {
                         fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,
 line );
                         return 0;
@@ -380,13 +386,14 @@ create_generic_str_tlv ( struct symbol_entry *sym_ptr,
                                  union t_val *value )
 {
   struct tlv *tlvbuf=NULL;
-
+  int tlv_len;
   tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
-  tlvbuf->tlv_len = encode_string ( tlvbuf->tlv_value, value, sym_ptr );
+  tlv_len = encode_string ( tlvbuf->tlv_value, value, sym_ptr );
+  tlvbuf->tlv_len = tlv_len;
 
-                if (tlvbuf->tlv_len <= 0 ) {
+                if (tlv_len <= 0 ) {
                         fprintf(stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,
 line );
                         
@@ -482,12 +489,13 @@ create_generic_typed_tlv ( struct symbol_entry *sym_ptr,
 				union t_val *value )
 {
   struct tlv *tlvbuf=NULL;
-
+  int tlv_len;
   tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
   tlvbuf->docs_code = tlv_code;
-  tlvbuf->tlv_len = encode_func ( tlvbuf->tlv_value, value, sym_ptr );
+  tlv_len = encode_func ( tlvbuf->tlv_value, value, sym_ptr );
+  tlvbuf->tlv_len = tlv_len;
 
-  if (tlvbuf->tlv_len <= 0 ) {
+  if (tlv_len <= 0 ) {
     fprintf (stderr, "got len 0 value while scanning for %s\n at line %d\n",sym_ptr->sym_ident,line );
     return 0;
   }

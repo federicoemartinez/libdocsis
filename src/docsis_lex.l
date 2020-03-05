@@ -75,10 +75,18 @@ char *tsave;
 (\.{1})*([A-Za-z0-9_-]+\.)+((\"{1})*[A-Za-z0-9,:_\-\.]+(\"{1})*)+	{ TSAVE(yytext);yylval->strval=tsave; return T_LABEL_OID; }
 ([0-9]+:){3}[0-9]+\.[0-9]+	{ TSAVE(yytext);yylval->strval=tsave; return T_TIMETICKS; }
 [Mm][Aa][Ii][Nn]        { yylval->strval=yytext;return T_MAIN; }
-SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_SNMPW;   }
-SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_SNMPSET; }
-ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_CVC; }
-CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_CVC; }
+SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"78");				if(yylval->symptr == 0){
+					yyterminate();
+				};return T_IDENT_SNMPW;   }
+SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"79");				if(yylval->symptr == 0){
+					yyterminate();
+				}return T_IDENT_SNMPSET; }
+ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"80");				if(yylval->symptr == 0){
+					yyterminate();
+				};return T_IDENT_CVC; }
+CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"81");				if(yylval->symptr == 0){
+					yyterminate();
+				};return T_IDENT_CVC; }
 Integer			{ return T_ASNTYPE_INT; 	}
 Unsigned32		{ return T_ASNTYPE_UINT; 	}
 Short			{ return T_ASNTYPE_SHORT;       }
@@ -97,7 +105,9 @@ BigInt			{ return T_ASNTYPE_BIGINT; 	}
 UnsignedBigInt		{ return T_ASNTYPE_UBIGINT; 	}
 Float			{ return T_ASNTYPE_FLOAT; 	}
 Double			{ return T_ASNTYPE_DOUBLE; 	}
-GenericTLV 		{ yylval->symptr=find_symbol_by_name(yytext);return T_IDENT_GENERIC;   }
+GenericTLV 		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"100");				if(yylval->symptr == 0){
+					yyterminate();
+				}return T_IDENT_GENERIC;   }
 TlvCode 		{ return T_TLV_CODE; 	}
 TlvLength 		{ return T_TLV_LENGTH; 	}
 TlvValue		{ return T_TLV_VALUE; 	}
@@ -106,10 +116,11 @@ TlvStringZero		{ return T_TLV_STRZERO_VALUE; 	}
 TlvType			{ return T_TLV_TYPE;		}
 [A-Za-z]+[A-Za-z0-9]*	{
 				yylval->symptr=find_symbol_by_name(yytext);
-		  	  	if(yydebug)
-				        fprintf(stderr, "yylex:returning T_IDENTIFIER, yylval->symptr->sym_ident=%s\n",
-					yylval->symptr->sym_ident);
-			 	return T_IDENTIFIER;
+				if(yylval->symptr == 0){
+					fprintf(stderr,"108");
+					yyterminate();
+				}
+				return T_IDENTIFIER;
 			}
 
 \"		{ BEGIN STRING; str=strbuf; memset(strbuf,0,2048); strsize=0; }
@@ -149,8 +160,10 @@ TlvType			{ return T_TLV_TYPE;		}
 <COMMENT>\/[*]+	{ fprintf(stderr, "line %d: comment-in-comment not supported", line) ; }
 <COMMENT>[*]+\/	{ BEGIN 0; }
 
-[0-9]+	 { yylval->intval=atoi(yytext);return T_INTEGER; }
--[0-9]+	 { yylval->intval=atoi(yytext);return T_INTEGER; }
+0	 { yylval->strval=0;yylval->intval=atoi(yytext);return T_INTEGER; }
+-0	 { yylval->strval=0;yylval->intval=atoi(yytext);return T_INTEGER; }
+[1-9][0-9]*	 { yylval->strval=0;yylval->intval=atoi(yytext);return T_INTEGER; }
+-[1-9][0-9]*	 { yylval->strval=0;yylval->intval=atoi(yytext);return T_INTEGER; }
 [ \t]+	 ;
 \r\n	 { line++; }
 \n	 { line++; }
@@ -175,7 +188,7 @@ struct symbol_entry
         }
  }
  fprintf(stderr, "Unrecognized symbol %s at line %d\n", sym_str, line);
+ yyterminate();
  
-        yyterminate();
 }
 
