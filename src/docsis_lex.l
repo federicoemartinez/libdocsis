@@ -75,16 +75,16 @@ char *tsave;
 (\.{1})*([A-Za-z0-9_-]+\.)+((\"{1})*[A-Za-z0-9,:_\-\.]+(\"{1})*)+	{ TSAVE(yytext);yylval->strval=tsave; return T_LABEL_OID; }
 ([0-9]+:){3}[0-9]+\.[0-9]+	{ TSAVE(yytext);yylval->strval=tsave; return T_TIMETICKS; }
 [Mm][Aa][Ii][Nn]        { yylval->strval=yytext;return T_MAIN; }
-SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"78");				if(yylval->symptr == 0){
+SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
 					yyterminate();
 				};return T_IDENT_SNMPW;   }
-SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"79");				if(yylval->symptr == 0){
+SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
 					yyterminate();
 				}return T_IDENT_SNMPSET; }
-ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"80");				if(yylval->symptr == 0){
+ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
 					yyterminate();
 				};return T_IDENT_CVC; }
-CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"81");				if(yylval->symptr == 0){
+CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
 					yyterminate();
 				};return T_IDENT_CVC; }
 Integer			{ return T_ASNTYPE_INT; 	}
@@ -105,7 +105,7 @@ BigInt			{ return T_ASNTYPE_BIGINT; 	}
 UnsignedBigInt		{ return T_ASNTYPE_UBIGINT; 	}
 Float			{ return T_ASNTYPE_FLOAT; 	}
 Double			{ return T_ASNTYPE_DOUBLE; 	}
-GenericTLV 		{ yylval->symptr=find_symbol_by_name(yytext);fprintf(stderr,"100");				if(yylval->symptr == 0){
+GenericTLV 		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
 					yyterminate();
 				}return T_IDENT_GENERIC;   }
 TlvCode 		{ return T_TLV_CODE; 	}
@@ -117,7 +117,6 @@ TlvType			{ return T_TLV_TYPE;		}
 [A-Za-z]+[A-Za-z0-9]*	{
 				yylval->symptr=find_symbol_by_name(yytext);
 				if(yylval->symptr == 0){
-					fprintf(stderr,"108");
 					yyterminate();
 				}
 				return T_IDENTIFIER;

@@ -129,7 +129,6 @@ add_cmts_mic (unsigned char *tlvbuf, unsigned int tlvbuflen,
   //decode_main_aggregate (cmts_tlvs, dp - cmts_tlvs);
   //fprintf (stdout, "##### End of CMTS MIC TLVs\n");
   hmac_md5 (cmts_tlvs, dp - cmts_tlvs, key, keylen, digest);
-  md5_print_digest (digest);
   tlvbuf[tlvbuflen] = 7;	/* CMTS MIC */
   tlvbuf[tlvbuflen + 1] = 16;	/* length of MD5 digest */
   memcpy (&tlvbuf[tlvbuflen + 2], digest, 16);
@@ -551,20 +550,20 @@ int encode_one_file ( char *input_file, char *output_file,
     }
 
   if (dialplan == 1) {
-    printf("Adding PC20 dialplan from external file.\n");
+    //printf("Adding PC20 dialplan from external file.\n");
     buflen = add_dialplan (buffer, buflen);
   }
 
   if (hash == 1) {
-    printf("Adding NA ConfigHash to MTA file.\n");
+    //printf("Adding NA ConfigHash to MTA file.\n");
     buflen = add_mta_hash (buffer, buflen, hash);
   }
   if (hash == 2) {
-    printf("Adding EU ConfigHash to MTA file.\n");
+    //printf("Adding EU ConfigHash to MTA file.\n");
     buflen = add_mta_hash (buffer, buflen, hash);
   }
 
-  fprintf (stdout, "Final content of config file:\n");
+  //fprintf (stdout, "Final content of config file:\n");
 
   decode_main_aggregate (buffer, buflen);
   if (!strcmp (output_file, "-"))
