@@ -705,12 +705,32 @@ setup_mib_flags(int resolve_oids, char *custom_mibs) {
 }
 
 
+void free_tlv(struct tlv* a_tlv){
+    fprintf(stderr, "free tlv called");
+    if(a_tlv==NULL){
+        return;
+    }
+    if(a_tlv->next_sibling!=NULL){
+        struct tlv* aux = a_tlv->next_sibling;
+        a_tlv->next_sibling = NULL;
+        free_tlv(aux);
+    }
+    if(a_tlv->first_child!=NULL){
+        struct tlv* aux = a_tlv->first_child;
+        a_tlv->first_child = NULL;
+        free_tlv(aux);
+    }
+    free(a_tlv);
+}
+
 /*
  * Given a string representing a filename path and a new extension_string,
  * returns the path with the extension part replaced by the new extension.
  * The old filename must have an extension and the new extension cannot be
  * longer than the old one.
  */
+
+
 
 char *get_output_name ( char *input_path, char *extension_string )
 {
@@ -817,10 +837,7 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
   //fprintf (stdout, "Final content of config file:\n");
 
   //decode_main_aggregate (buffer, buflen);
-//fprintf (stdout, "Final content of config file:%d\n", buflen);  
-  //free(buffer);
-  //free(global_symtable);
-  //shutdown_mib();
+  free_tlv(global_tlvtree_head);
   return buflen;
 
   /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */

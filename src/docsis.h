@@ -108,4 +108,5 @@ int encode_one_string (unsigned char *content, unsigned content_size, unsigned c
 		       unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash);
 char *get_output_name (char *input_path, char *new_extension);
 void initialize_lib();
+void free_tlv(struct tlv* a_tlv);
 #endif /* __DOCSIS_H */
