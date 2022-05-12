@@ -706,7 +706,6 @@ setup_mib_flags(int resolve_oids, char *custom_mibs) {
 
 
 void free_tlv(struct tlv* a_tlv){
-    fprintf(stderr, "free tlv called");
     if(a_tlv==NULL){
         return;
     }
