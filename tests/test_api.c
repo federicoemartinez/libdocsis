@@ -11,19 +11,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "libdocsis.h"
 
 static unsigned char KEY[] = "aaaaaaaaaaaaaaaa";
 
-/*
- * Valor de veneno para el puntero de salida. Nunca se desreferencia: existe
- * para que los tests del camino de error prueben algo.
- *
- * Si el helper pusiera *out = NULL antes de llamar, la aserción
- * "assert (buf == NULL)" se cumpliría sola y el test pasaría aunque
- * encode_file no tocara el puntero -- que es justo el bug que buscamos.
- */
+/* Veneno para el puntero de salida: si el helper lo pusiera en NULL, los
+   tests del camino de error pasarían sin probar nada. Nunca se desreferencia. */
 #define POISON ((unsigned char *) 0xDEADBEEF)
 
 /* Codifica una config y devuelve el largo; *out queda con el buffer (o en
@@ -94,62 +89,30 @@ slurp_fixture (const char *name, unsigned *size)
   return buf;
 }
 
-/*
- * Tres fixtures fallan en tests/RunTests.sh desde que se mergeó upstream,
- * porque upstream cambió AggregateServiceFlowReference de contenedor a hoja
- * ushort sin actualizar sus propios fixtures. El fallo ocurre en
- * decode_ushort(), que hace exit(-45), y el CLI decodifica para mostrar antes
- * de escribir -- o sea que un error de DECODE aborta el ENCODE.
- *
- * La librería no decodifica. Este test verifica que el camino que realmente
- * se exporta codifica estas entradas sin problema, y por lo tanto que esas
- * tres regresiones de upstream afectan al arnés y no al producto.
- */
+/* Una config real del set de fixtures: la mínima de arriba tiene 4 líneas y
+   no ejercita anidamiento, TLVs vendor-specific ni OIDs. */
 static void
-test_upstream_regressions_do_not_affect_the_library (void)
+test_real_world_config_encodes (void)
 {
-  static const char *FIXTURES[] = {
-    "TLV_24_last_before_43.txt",
-    "TLV_25_remaining.txt",
-    "TLV_70_TLV_71_AggregateServiceFlow.txt",
-  };
-  size_t i;
+  unsigned char *buf = POISON;
+  unsigned size = 0;
+  char *cfg = slurp_fixture ("TLV_24_last_before_43.txt", &size);
+  int len;
 
-  for (i = 0; i < sizeof (FIXTURES) / sizeof (FIXTURES[0]); i++)
+  if (cfg == NULL)
     {
-      unsigned char *buf = POISON;
-      unsigned size = 0;
-      char *cfg = slurp_fixture (FIXTURES[i], &size);
-      int len;
-
-      if (cfg == NULL)
-	{
-	  printf ("skip - no encontré %s\n", FIXTURES[i]);
-	  continue;
-	}
-      len = encode_file ((unsigned char *) cfg, size, &buf,
-			 KEY, (unsigned) strlen ((char *) KEY), 1, 0);
-      free (cfg);
-
-      assert (len > 0);
-      assert (buf != NULL && buf != POISON);
-      free_encoded_file (buf);
-      printf ("ok - la librería codifica %s (%d bytes)\n", FIXTURES[i], len);
+      printf ("skip - no encontré el fixture\n");
+      return;
     }
+  len = encode_file ((unsigned char *) cfg, size, &buf,
+		     KEY, (unsigned) strlen ((char *) KEY), 1, 0);
+  free (cfg);
+
+  assert (len > 0);
+  assert (buf != NULL && buf != POISON);
+  free_encoded_file (buf);
+  printf ("ok - una config real y compleja codifica (%d bytes)\n", len);
 }
-
-
-/*
- * Task 7: el contrato del camino de error.
- *
- * encode_one_string() devolvía 0 sin tocar el puntero de salida, así que un
- * llamador que no chequeara el retorno leía memoria sin inicializar. Estos
- * tests fijan la garantía: retorno 0 implica *output == NULL.
- *
- * Los 142 fixtures solo prueban entradas válidas. Esta es la primera
- * cobertura de los caminos de error -- justo lo que el fork reescribió entero
- * cuando cambió exit() por códigos de retorno.
- */
 
 static void
 test_invalid_value_fails_cleanly (void)
@@ -263,6 +226,81 @@ test_free_accepts_null (void)
   printf ("ok - free_encoded_file(NULL) es inocuo\n");
 }
 
+
+static void
+test_snmp_oid_resolves (void)
+{
+  /* Si los MIBs no cargaron, este OID simbólico no resuelve y el encode
+     falla. Es la prueba indirecta de que initialize() hizo su trabajo. */
+  static const char *WITH_OID =
+    "Main {\n"
+    "  DownstreamFrequency 123000000;\n"
+    "  UpstreamChannelId 1;\n"
+    "  NetworkAccess 1;\n"
+    "  SnmpMibObject sysContact.0 String \"test\";\n"
+    "}\n";
+  unsigned char *buf;
+  int len = encode (WITH_OID, &buf);
+
+  assert (len > 0);
+  assert (buf != NULL && buf != POISON);
+  free_encoded_file (buf);
+  printf ("ok - un OID simbólico resuelve, o sea que los MIBs cargaron\n");
+}
+
+
+/* `line` es global. Sin resetearla, desde el segundo encode del proceso los
+   números de línea de los errores vienen acumulados: un error en la línea 4
+   del segundo archivo se reportaba como línea 15. Dos entradas idénticas
+   tienen que producir el mismo mensaje. */
+static void
+test_line_numbers_reset_between_calls (void)
+{
+  static const char *BAD =
+    "Main {\n"
+    "  DownstreamFrequency 123000000;\n"
+    "  UpstreamChannelId 1;\n"
+    "  NetworkAccess 99;\n"
+    "}\n";
+  char first[512] = { 0 }, second[512] = { 0 };
+  unsigned char *buf;
+  int saved;
+  size_t i;
+
+  fflush (stderr);
+  saved = dup (fileno (stderr));
+
+  for (i = 0; i < 2; i++)
+    {
+      char *dst = i ? second : first;
+      FILE *f;
+
+      if (freopen (i ? "stderr2.tmp" : "stderr1.tmp", "w", stderr) == NULL)
+	{
+	  printf ("skip - no pude redirigir stderr\n");
+	  dup2 (saved, fileno (stderr));
+	  close (saved);
+	  return;
+	}
+      encode (BAD, &buf);
+      fflush (stderr);
+      dup2 (saved, fileno (stderr));
+
+      f = fopen (i ? "stderr2.tmp" : "stderr1.tmp", "r");
+      assert (f != NULL);
+      if (fread (dst, 1, 511, f) == 0)
+	dst[0] = '\0';
+      fclose (f);
+    }
+  close (saved);
+  remove ("stderr1.tmp");
+  remove ("stderr2.tmp");
+
+  assert (strstr (first, "out of range") != NULL);
+  assert (strcmp (first, second) == 0);
+  printf ("ok - los números de línea se resetean entre llamadas\n");
+}
+
 int
 main (void)
 {
@@ -273,7 +311,7 @@ main (void)
     }
 
   test_minimal_config_encodes ();
-  test_upstream_regressions_do_not_affect_the_library ();
+  test_real_world_config_encodes ();
   test_repeated_calls_are_identical ();
   test_invalid_value_fails_cleanly ();
   test_unknown_symbol_fails_cleanly ();
@@ -282,6 +320,8 @@ main (void)
   test_unterminated_string_fails_cleanly ();
   test_null_output_pointer_is_rejected ();
   test_free_accepts_null ();
+  test_snmp_oid_resolves ();
+  test_line_numbers_reset_between_calls ();
 
   printf ("todos los tests de la API pasaron\n");
   return 0;

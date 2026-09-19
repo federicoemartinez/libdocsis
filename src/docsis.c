@@ -36,6 +36,7 @@
 #include <net-snmp/config_api.h>
 #include <net-snmp/output_api.h>
 #include <net-snmp/mib_api.h>
+#include <net-snmp/library/parse.h>
 
 #include "docsis.h"
 #include "docsis_globals.h"
@@ -618,5 +619,25 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 int initialize_lib (void)
 {
   setup_mib_flags (0, 0);
+
+  /* Sonda: get_node() y si no read_objid(), el mismo orden que docsis_snmp.c:52
+     usa al codificar. get_tree_head() no sirve (net-snmp arma un árbol mínimo
+     aunque no cargue nada) y read_objid() solo tampoco (solo ve los MIBs que
+     lista la variable MIBS, no todo MIBDIRS). */
+  {
+    oid probe[MAX_OID_LEN];
+    size_t probe_len = MAX_OID_LEN;
+
+    if (!get_node ("sysDescr.0", probe, &probe_len)
+	&& !read_objid ("sysDescr.0", probe, &probe_len))
+      {
+	fprintf (stderr,
+	         "libdocsis: net-snmp no puede resolver OIDs simbólicos. "
+	         "Exportá MIBDIRS apuntando a los directorios mibs/, "
+	         "mibs/iana y mibs/ietf de esta distribución.\n");
+	return 0;
+      }
+  }
+
   return init_global_symtable ();
 }

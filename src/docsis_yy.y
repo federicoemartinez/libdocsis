@@ -40,6 +40,9 @@ extern unsigned int line; 	/* current line number, defined in a.l */
 //extern symbol_type *global_symtable;
 extern FILE *yyin;
 
+/* ponytail: estado global del parser. encode_file() lo protege con un mutex
+ * (ver src/libdocsis.c). Para reentrancia real esto tiene que vivir en un
+ * struct de contexto pasado por %parse-param. */
 struct tlv *_my_tlvtree_head;
 
 %}
@@ -743,16 +746,24 @@ yyscan_t scanner;
 int parse_config_string ( unsigned char *file_content, unsigned file_size, struct tlv **parse_tree_result )
 {
 
-  FILE *cf = fmemopen(file_content, file_size, "r");
+  FILE *cf;
   int rval;
-  yyscan_t scanner;       
-  //yyin = cf ;
+  yyscan_t scanner;
+
+  cf = fmemopen(file_content, file_size, "r");
+  if (cf == NULL)
+    return -1;
+
+  /* `line` es global y no vuelve sola: sin esto, desde el segundo parseo del
+     proceso los números de línea de los errores vienen acumulados. */
+  line = 1;
+
 #ifdef DEBUG
   yydebug = 1;
 #endif
-    yylex_init(&scanner);
-    yyset_in(cf, scanner);
-  rval = yyparse(scanner);          
+  yylex_init(&scanner);
+  yyset_in(cf, scanner);
+  rval = yyparse(scanner);
   yylex_destroy(scanner);
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
