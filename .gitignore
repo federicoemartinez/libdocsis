@@ -54,3 +54,12 @@ description-pak
 *.gcno
 *.gcda
 *.gcov
+# artefactos de libtool (desde que src/ produce una librería compartida)
+.libs
+*.lo
+*.la
+*.a
+# binarios generados por la suite de examples/
+examples/*.bin
+examples/*.bin.*.txt
+# residuos de tests/RunTests.sh

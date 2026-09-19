@@ -28,5 +28,6 @@
 extern symbol_type global_symtable[125576];
 extern unsigned int line;	/* defined in docsis_lex.l */
 extern unsigned int nohash;
+extern unsigned int dialplan;
 
 #endif /* _DOCSIS_GLOBALS_H */

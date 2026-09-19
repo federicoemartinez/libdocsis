@@ -570,6 +570,31 @@ Mover de `src/docsis.c` a `src/docsis_main.c`: las funciones `usage()` y
 `docsis.c` (todo el pipeline, `add_cm_mic`, `add_cmts_mic`, `setup_mib_flags`,
 `free_tlv`, `encode_one_file`, `encode_one_string`, `decode_file`) se queda.
 
+- [ ] **Step 5b: Linkear el arnés contra el archivo estático**
+
+Descubierto al ejecutar la tarea. El CLI usa símbolos internos
+(`decode_file`, `encode_one_file`, `get_output_name`, `setup_mib_flags`,
+`init_global_symtable`, `nohash`, `dialplan`) que `-export-symbols-regex`
+esconde de la `.so`, así que el link falla con una docena de
+`undefined reference`.
+
+Es la tensión real del diseño: la librería debe exportar tres símbolos, el
+arnés necesita ver todo. Se resuelve en una línea, porque el regex solo
+afecta la tabla dinámica y no el archivo estático que libtool produce igual:
+
+```makefile
+docsis_LDFLAGS = -static
+```
+
+La alternativa era partir el árbol en una convenience library interna más una
+`libdocsis.la` construida encima. Más limpio en teoría, dos targets más que
+mantener, y no compra nada que esta línea no dé.
+
+Además hay que sacarle el `static` a `setup_mib_flags()` en `docsis.c` y
+declararla en `docsis.h`, y agregar `extern unsigned int dialplan;` a
+`docsis_globals.h`. Dejar de ser `static` no contamina la `.so`: el regex la
+esconde igual de la tabla dinámica.
+
 - [ ] **Step 6: Verificar que construye e instala**
 
 ```bash
