@@ -1,0 +1,79 @@
+BASELINE libdocsis — 2026-09-19
+Rama: lib-consolidation, sobre f80477e (HEAD del fork antes de tocar nada)
+Punto de fork respecto de rlaager/docsis: d7c9643
+
+HERRAMIENTAS
+  gcc 13.x            net-snmp 5.9.4        flex / bison presentes
+  autoconf, automake, libtoolize presentes. El binario `libtool` NO está
+  instalado (paquete libtool-bin) y no hace falta: LT_INIT genera su propio
+  script libtool en el directorio de build.
+
+BUILD
+  ./autogen.sh && make  -> OK, produce src/docsis
+  11 warnings. Los relevantes:
+    docsis.c:845   no previous prototype for 'initialize_lib'
+                   (la declaración es `void initialize_lib();`, K&R sin
+                   prototipo). Lo arregla la Task 4.
+    docsis.c:773   unused variable 'of'  (huérfana en encode_one_string,
+                   quedó de copiar encode_one_file). La arregla la Task 7.
+    docsis_encode.c:718
+                   "the comparison will always evaluate as false for the
+                   address of 'endptr' will never be NULL" [-Waddress]
+                   BUG REAL: una validación de strtol/strtoul compara la
+                   dirección de la variable en vez de su valor, así que la
+                   rama de error es código muerto. Agendado a la Task 11.
+
+SUITE tests/RunTests.sh (142 casos, triple pasada)
+  Comando:
+    cd tests && MIBDIRS="../mibs:../mibs/iana:../mibs/ietf" \
+      ./RunTests.sh --allow-failed=TRUE
+
+  Resultado inicial: 128/142 pasan, 14 fallan.
+
+  Los 14 se parten en dos grupos, determinado comparando contra un build del
+  punto de fork (d7c9643) sobre los mismos fixtures:
+
+  GRUPO A — 7 regresiones introducidas por el fork
+    El binario pre-fork produce el md5 esperado; HEAD no produce archivo.
+      TLV_22_43_5_2_1
+      TLV_23_43_5_L2VPNEncoding
+      TLV_24_43_5_L2VPNEncoding
+      TLV_25_43_5_L2VPNEncoding
+      TLV_26_43_5_L2VPNEncoding
+      TLV_43_5_L2VPNEncoding
+      TLV_60_43_5_2_NSIEncapsulationSubtype
+
+    CAUSA RAÍZ: create_tlv() en docsis_yy.y trataba tlv_len == 0 como error.
+    encode_lenzero() devuelve 0 a propósito: un TLV de longitud cero es una
+    construcción válida (L2VPN-I13 Annex B.3.2), y encode_lenzero aparece en
+    exactamente 7 entradas del symtable, una por test.
+    Upstream tenía ese check COMENTADO a propósito; el fork lo habilitó al
+    migrar de exit() a códigos de retorno, sin notar que el dominio del valor
+    de retorno se había ensanchado: negativo=error, cero=TLV vacío legítimo.
+    ARREGLADO en la Task 1b: `<= 0` -> `< 0`.
+
+  GRUPO B — 7 fallos preexistentes, no son del fork
+    Pre-fork y HEAD producen el MISMO md5, distinto del fixture esperado.
+    O sea: el código de upstream no coincide con sus propios fixtures.
+      TLV_22_43_5_24_SOAMSubtype
+      TLV_23_43_5_24_SOAMSubtype
+      TLV_24_43_5_24_SOAMSubtype
+      TLV_25_43_5_24_SOAMSubtype
+      TLV_26_43_5_24_SOAMSubtype
+      TLV_43_5_24_SOAMSubtype
+      TLV_60_43_5_24_SOAMSubtype
+
+    PENDIENTE: revisar después del merge de la Task 2. Es plausible que lo
+    arregle alguno de los 18 commits de upstream (915fd66 "Bring up to date
+    with MULPIv4.0-I07" es el candidato). Si sigue fallando después del
+    merge, hay que decidir si se arregla o se documenta.
+
+SUITE examples/ (make check)
+  ROJA, como se preveía. examples/Makefile.am:42 hace
+  `sed -n '/^Final content/,$p'` sobre la salida de `docsis -e`, y el fork
+  comentó ese fprintf en docsis.c (commit 3b56b3e). La Task 5 la recupera al
+  devolver los printf al lado del CLI.
+
+CRITERIO PARA LAS TAREAS SIGUIENTES
+  Después de la Task 1b el objetivo es 135/142. Cualquier corrida que baje de
+  135 es una regresión introducida por el trabajo en curso.
