@@ -12,7 +12,7 @@ TESTS_ENVIRONMENT = \
 	MIBDIRS="$(top_srcdir)/mibs:$(top_srcdir)/mibs/iana:$(top_srcdir)/mibs/ietf" \
 	srcdir="$(srcdir)"
 
-EXTRA_DIST = RunTests.sh run-fixtures.sh known-failures.txt key
+EXTRA_DIST = RunTests.sh run-fixtures.sh known-failures.txt key lsan.supp
 # ponytail: los 426 fixtures (.txt/.cm/.conf) no están en EXTRA_DIST, así que
 # `make dist` no los incluye. Listarlos a mano es inmanejable y este repo no
 # hace releases con tarball. Si hiciera falta, generar la lista con un include.

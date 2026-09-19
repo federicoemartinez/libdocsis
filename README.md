@@ -138,6 +138,25 @@ Hay 10 fixtures y 1 ejemplo que fallan por bugs de upstream, documentados en
 `docs/superpowers/specs/2026-09-19-baseline.txt`. Ninguno afecta al camino de
 la librería.
 
+## CI
+
+`.github/workflows/ci.yml` corre cuatro jobs en cada push y PR:
+
+| Job | Qué hace |
+|---|---|
+| `test` | `make check`: las tres suites |
+| `analyzer` | `gcc -fanalyzer -Werror` sobre los fuentes escritos a mano |
+| `asan` | `test_api` bajo AddressSanitizer + LeakSanitizer |
+| `valgrind` | `test_api` bajo valgrind, falla si hay algo `definitely lost` |
+
+Los sanitizers corren solo sobre `test_api` y no sobre los 142 fixtures: los
+caminos de error son donde aparecen las fugas, y 426 procesos bajo valgrind
+multiplican el tiempo sin agregar señal.
+
+`tests/lsan.supp` lista las fugas conocidas, cada una con su explicación y su
+cota. Si se arregla una, sacar la línea — LSAN avisa cuando una supresión deja
+de coincidir.
+
 ## Diferencias con upstream
 
 - El binario `docsis` **no se instala**. Existe solo como arnés de test.

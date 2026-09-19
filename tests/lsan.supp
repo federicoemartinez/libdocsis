@@ -1,0 +1,18 @@
+# Supresiones de LeakSanitizer.
+#
+# Cada entrada es deuda conocida, no ruido. Si se arregla la causa, sacar la
+# línea: LSAN avisa si una supresión deja de coincidir.
+
+# Copias de tokens que hace TSAVE (docsis_lex.l) y que se pierden cuando el
+# parseo aborta antes de llegar al encoder, que es su dueño.
+#
+# Los encoders de docsis_encode.c liberan estas cadenas en el camino normal
+# (~20 free(helper->strval) ahí), así que no se puede poner una arena en el
+# lexer sin liberar dos veces. Arreglarlo de verdad es unificar la propiedad
+# en esos 20 sitios, que además tiene un campo minado documentado: el TODO de
+# docsis_encode.c:656 sobre los T_STRING, que apuntan al strbuf estático y no
+# a una copia reservada.
+#
+# Cota: unos pocos bytes por parseo fallido, solo si el error ocurre después
+# de un token de tipo IP, MAC, hex u OID. No crece con parseos exitosos.
+leak:docsis_lex
