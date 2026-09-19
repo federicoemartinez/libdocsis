@@ -56,6 +56,12 @@ unsigned int line=1; /* On parse errors, we print the line number */
 char *str; char strbuf[2048]; unsigned int strsize;/* max string len = 2048; TODO check overflow */
 char *tsave;
 
+/* Los encoders de docsis_encode.c son dueños de estas copias y las liberan
+   (unos 20 free(helper->strval) ahí). No poner una arena acá: liberaría por
+   segunda vez. Quedan fugas en los tipos de token cuyo encoder no libera y en
+   los caminos de error que retornan antes del free -- ver el TODO de
+   docsis_encode.c:656, que documenta que la propiedad ya estaba rota para los
+   T_STRING, que apuntan al strbuf estático y no a una copia. */
 #define TSAVE(s) tsave=(char*)malloc(yyleng+1);memset(tsave,0,yyleng+1);memcpy(tsave,s,yyleng)
 %}
 %x STRING

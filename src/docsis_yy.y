@@ -124,6 +124,7 @@ struct tlv *_my_tlvtree_head;
 %type <tlvptr>  subsettings_stmt
 %define api.pure full
 %param { yyscan_t scanner }
+
 %%
 
 /*
@@ -258,6 +259,70 @@ void yyerror(yyscan_t unused, const char* s){
 	
 
 
+
+/*
+ * Arena de nodos del árbol de TLVs.
+ *
+ * Cuando el parseo aborta, el árbol a medio construir queda inalcanzable:
+ * _my_tlvtree_head solo se asigna al reducir main_stmt con éxito. Sin esto
+ * cada encode_file() con una config inválida perdía el árbol entero, unos
+ * 9 KB por nodo (TLV_VSIZE es 9000).
+ *
+ * No se usa %destructor de bison: los destructores también corren al ACEPTAR,
+ * así que liberaban el árbol que el llamador todavía tiene que usar -- doble
+ * free. Registrar cada nodo y liberarlos solo en el camino de fallo es
+ * preciso y no depende del ciclo de vida interno del parser.
+ */
+struct tlv_node { struct tlv *tlv; struct tlv_node *next; };
+static struct tlv_node *tlv_arena = NULL;
+
+/* Reserva un nodo y lo registra en la arena. */
+static struct tlv *
+tlv_alloc (void)
+{
+  struct tlv *t = (struct tlv *) malloc (sizeof (struct tlv));
+  struct tlv_node *node;
+
+  if (t == NULL)
+    return NULL;
+  node = (struct tlv_node *) malloc (sizeof *node);
+  if (node == NULL)
+    {
+      free (t);
+      return NULL;
+    }
+  node->tlv = t;
+  node->next = tlv_arena;
+  tlv_arena = node;
+  return t;
+}
+
+/* Éxito: el árbol pasa a ser del llamador, solo se tira la lista. */
+static void
+tlv_arena_discard (void)
+{
+  while (tlv_arena != NULL)
+    {
+      struct tlv_node *node = tlv_arena;
+      tlv_arena = node->next;
+      free (node);
+    }
+}
+
+/* Fallo: se libera cada nodo exactamente una vez. No se usa free_tlv() acá
+   porque recorre hijos y hermanos, y la arena ya tiene todos los nodos. */
+static void
+tlv_arena_free_all (void)
+{
+  while (tlv_arena != NULL)
+    {
+      struct tlv_node *node = tlv_arena;
+      tlv_arena = node->next;
+      free (node->tlv);
+      free (node);
+    }
+}
+
 #define TLVINIT(p) if(p) p->first_child=NULL; p->next_sibling=NULL; p->parent=NULL
 
 /*
@@ -273,7 +338,7 @@ create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
 {
   struct tlv *tlvbuf=NULL;
   int tlv_len;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv) ) ;
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
@@ -283,7 +348,8 @@ create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
      ServiceMultiplexingValue* (L2VPN-I13 Annex B.3.2). Tratar el cero como
      error rechazaba configs válidas. */
   if (tlv_len < 0 ) {
-		free(tlvbuf);
+		/* No liberar acá: tlv_alloc() registró el nodo en la arena, que
+		   lo libera al fallar el parseo. Liberarlo dos veces aborta. */
 		return 0;
   }
   return tlvbuf;
@@ -303,7 +369,7 @@ create_snmpset_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
 
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlvbuf->tlv_len = encode_vbind (oid_string, oid_asntype, value,
@@ -336,7 +402,7 @@ create_snmpw_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
 
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlvbuf->tlv_len = encode_snmp_oid ( oid_string, tlvbuf->tlv_value, TLV_VSIZE );
@@ -363,7 +429,7 @@ create_generic_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
   int a_tlv_length;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
   a_tlv_length = encode_hexstr ( tlvbuf->tlv_value, value, sym_ptr );
@@ -393,7 +459,7 @@ create_generic_str_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
   int tlv_len;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
   tlv_len = encode_string ( tlvbuf->tlv_value, value, sym_ptr );
@@ -424,7 +490,7 @@ create_generic_strzero_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
 
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
   tlvbuf->tlv_len = encode_string ( tlvbuf->tlv_value, value, sym_ptr );
@@ -470,7 +536,7 @@ create_external_file_tlv ( struct symbol_entry *sym_ptr,
 	  return 0;
   	}
 
-	new_tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+	new_tlvbuf = tlv_alloc ();
   	TLVINIT(new_tlvbuf);
 	if (first_tlvbuf == NULL) first_tlvbuf = new_tlvbuf;
 
@@ -553,7 +619,7 @@ create_generic_typed_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
   int tlv_len;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   tlvbuf->docs_code = tlv_code;
   tlv_len = encode_func ( tlvbuf->tlv_value, value, sym_ptr );
   tlvbuf->tlv_len = tlv_len;
@@ -627,7 +693,7 @@ assemble_tlv_in_parent (int tlvcode, struct tlv *child_tlv)
 {
   struct tlv *parent_tlv;
 
-  parent_tlv = (struct tlv *) malloc ( sizeof ( struct tlv) );
+  parent_tlv = tlv_alloc ();
   memset(parent_tlv, 0, sizeof(struct tlv));
 
   parent_tlv->docs_code = tlvcode;
@@ -738,6 +804,10 @@ yyscan_t scanner;
   yyset_in(cf, scanner);
   rval = yyparse(scanner);          
   yylex_destroy(scanner);
+  if (rval)
+    tlv_arena_free_all ();
+  else
+    tlv_arena_discard ();
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
   return rval;
@@ -765,6 +835,10 @@ int parse_config_string ( unsigned char *file_content, unsigned file_size, struc
   yyset_in(cf, scanner);
   rval = yyparse(scanner);
   yylex_destroy(scanner);
+  if (rval)
+    tlv_arena_free_all ();
+  else
+    tlv_arena_discard ();
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
   return rval;
