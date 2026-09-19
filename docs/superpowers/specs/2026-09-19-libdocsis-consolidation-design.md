@@ -41,7 +41,7 @@ Dejar el repositorio en un estado donde:
 | Tema | Decisión |
 |---|---|
 | Producto | Solo la librería. El CLI deja de instalarse. |
-| API | Solo encode. Se corrige la convención de retorno y se agrega liberación de memoria. |
+| API | Solo encode. Se conservan los nombres actuales; se corrige la convención de retorno, se agrega liberación de memoria y se restringen los símbolos exportados. |
 | Concurrencia | Candado a nivel de la llamada + TODO documentado para reentrancia real. |
 | Build | Autotools + libtool (`LT_INIT` ya está en `configure.ac:9`, sin usar). |
 
@@ -96,29 +96,36 @@ público: `docsis.h` es `noinst_HEADERS` y arrastra todo el mundo interno.
 /* Carga los MIBs y la tabla de símbolos. Llamar una vez antes de todo.
    Devuelve 1 en éxito, 0 si los MIBs no cargan.
    (0 significa fallo en toda la API, sin excepciones.) */
-int  docsis_init(void);
+int  initialize(void);
 
 /* Codifica `content` (largo `content_size`) en un buffer nuevo.
    En éxito: devuelve el largo en bytes (> 0) y *output apunta al buffer.
    En error: devuelve 0 y *output queda en NULL.
-   El buffer se libera con docsis_free().
+   El buffer se libera con free_encoded_file().
    NO es thread-safe por debajo; la llamada está serializada internamente. */
-int  docsis_encode(const unsigned char *content, unsigned content_size,
-                   unsigned char **output,
-                   const unsigned char *key, unsigned keylen,
-                   int encode_docsis, unsigned hash);
+int  encode_file(unsigned char *content, unsigned content_size,
+                 unsigned char **output,
+                 unsigned char *key, unsigned keylen,
+                 int encode_docsis, unsigned hash);
 
-/* Libera un buffer devuelto por docsis_encode(). */
-void docsis_free(unsigned char *buffer);
+/* Libera un buffer devuelto por encode_file(). */
+void free_encoded_file(unsigned char *buffer);
 ```
 
-**Cambio incompatible a revisar:** los nombres actuales son `initialize()` y
-`encode_file()` — demasiado genéricos para el espacio de nombres global de una
-`.so`, donde colisionan con cualquier otra librería. La propuesta los renombra.
-Esto rompe el código Python existente, que necesita actualizar tres líneas de
-`ctypes`. *No* se agregan alias de compatibilidad: con un único consumidor
-conocido, mantener dos nombres para siempre es complejidad especulativa.
-Si preferís conservar los nombres actuales, decilo en la revisión.
+**Los nombres y la firma de `encode_file()` no cambian**, para no romper el
+código Python que ya la llama por `ctypes`. `initialize()` pasa de `void` a
+`int` para poder reportar que los MIBs no cargaron — que es el modo de falla
+más común en runtime. Eso no afecta a los llamadores existentes: `ctypes`
+ignora el valor de retorno si nadie lo lee.
+
+**Visibilidad de símbolos.** El problema real de espacio de nombres no son los
+nombres públicos sino que hoy la `.so` exporta *todo*: `md5_init`,
+`sha1_transform`, `line`, `global_symtable`, cada función interna de
+`docsis_encode.c`. Un `md5_init` colisionando con OpenSSL en el mismo proceso
+es mucho más probable que alguien más exportando `encode_file`. Se resuelve en
+la Fase 2 con `-export-symbols-regex` de libtool, restringiendo la tabla de
+símbolos exportados a las tres funciones públicas. Esto elimina la clase entera
+de problema sin renombrar nada.
 
 ### Contrato de errores
 
@@ -191,6 +198,8 @@ el trabajo es casi todo en `src/Makefile.am`:
    (`perl/5.22`, `x86_64-linux-gnu`).
 2. `check_PROGRAMS = docsis`, linkeando contra `libdocsis.la`.
 3. `include_HEADERS = libdocsis.h`.
+3b. `libdocsis_la_LDFLAGS = -export-symbols-regex '^(initialize|encode_file|free_encoded_file)$$'`
+   para que la `.so` deje de exportar todo su mundo interno.
 4. Deduplicar `encode_one_file()` sobre `encode_one_string()`.
 5. Restaurar los `printf` de progreso en `encode_one_file()`.
 6. Agregar `tests/Makefile.am` con `TESTS = RunTests.sh`, sumarlo a `SUBDIRS`
@@ -206,9 +215,9 @@ Van al final porque varias son de una línea y no vale la pena arrastrarlas por
 un merge.
 
 1. **Convención de retorno**: `*output = NULL` en todo camino de error.
-2. **`docsis_free()`**: hoy Python tiene que llamar al `free` de libc por
+2. **`free_encoded_file()`**: hoy Python tiene que llamar al `free` de libc por
    `ctypes`, lo que funciona en glibc por accidente pero no es un contrato.
-3. **Candado**: un mutex de pthread alrededor de `docsis_encode()`, porque
+3. **Candado**: un mutex de pthread alrededor de `encode_file()`, porque
    `ctypes` libera el GIL durante la llamada y `_my_tlvtree_head`, `line` y
    `strbuf[2048]` siguen siendo globales. Serializa: correcto siempre, lento
    solo si alguien realmente paraleliza. Marcar con un comentario
@@ -259,8 +268,6 @@ Sin framework, sin fixtures, sin mocks: un `main()` con `assert`.
   parcial. Se resuelve con datos cuando lleguemos.
 - **El merge puede traer `exit()` en caminos calientes.** Mitigado por la
   auditoría explícita de la Fase 1.
-- **El renombre de la API rompe el Python existente.** Explícito arriba, sujeto
-  a revisión.
 - **Los MIBs tienen que estar presentes en tiempo de ejecución.** `docsis_init()`
   los carga desde `mibs/`. Si un consumidor instala la `.so` sin los MIBs, falla
   en runtime con un mensaje de net-snmp. Documentar en el README.
