@@ -140,6 +140,60 @@ sabe exactamente cuáles no y por qué.
 
 ---
 
+### Task 1b: Regresión del fork — los TLV de longitud cero
+
+**Descubierta al ejecutar la Task 1.** No estaba en el plan original porque
+hacía falta el baseline para verla. Se intercala acá, antes del merge, porque
+es un bug en código propio y arreglarlo sobre el árbol actual es más barato
+que después de traer 18 commits encima.
+
+El fork rechaza 7 configs válidas. `create_tlv()` trata `tlv_len == 0` como
+error, pero `encode_lenzero()` devuelve 0 **a propósito**: un TLV de longitud
+cero es una construcción válida de DOCSIS (L2VPN-I13 Annex B.3.2). Upstream
+tenía ese check comentado deliberadamente; el fork lo habilitó al migrar de
+`exit()` a códigos de retorno, sin notar que el dominio del valor de retorno
+se había ensanchado de dos estados a tres: negativo = error, cero = TLV vacío
+legítimo, positivo = TLV con datos.
+
+`encode_lenzero` aparece en exactamente 7 entradas de `docsis_symtable.h`, una
+por cada test roto.
+
+**Files:**
+- Modify: `src/docsis_yy.y` (`create_tlv`)
+
+- [x] **Step 1: El test que falla ya existe**
+
+Los 7 fixtures de `tests/` son el test. Confirmado contra un build del punto de
+fork: el binario pre-fork produce el md5 esperado, HEAD no produce archivo.
+
+- [x] **Step 2: Arreglar en la raíz**
+
+```c
+  tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
+  tlvbuf->tlv_len = tlv_len;
+  /* Solo negativo es error. Cero es un TLV de longitud cero legítimo. */
+  if (tlv_len < 0 ) {
+		free(tlvbuf);
+		return 0;
+  }
+  return tlvbuf;
+```
+
+De paso libera `tlvbuf`, que en el camino de error se perdía.
+
+**No tocar los otros siete `<= 0` de `docsis_yy.y`.** Upstream los tenía
+habilitados con `exit()` y ahí el cero sí es un error: ninguno de esos caminos
+(SNMP OIDs, strings, tipos genéricos explícitos) usa un encoder de longitud
+cero. Cambiarlos sería ensanchar el diff contra upstream sin motivo.
+
+- [x] **Step 3: Verificar**
+
+Los 7 dan byte a byte el md5 esperado, y la suite completa pasa de 128/142 a
+135/142. Los 7 restantes son el grupo B del baseline: preexistentes de
+upstream, a revisar después del merge.
+
+---
+
 ### Task 2: Merge de upstream (18 commits)
 
 Va **antes** de reestructurar. Cada commit de reorganización aleja el árbol de
@@ -1725,6 +1779,6 @@ Los cuatro objetivos, uno por uno:
 | Objetivo | Cómo se verifica |
 |---|---|
 | Tests | `make check` corre `test_api` (12 casos) + `RunTests.sh` (142) + `examples` (24) |
-| Bugs arreglados | Tasks 7-11, cada una con su test que falló primero |
+| Bugs arreglados | Task 1b (regresión de TLV longitud cero) + Tasks 7-11, cada una con su test que falló primero |
 | Upstream al día | `git log --oneline HEAD..upstream/master` vacío |
 | Build ordenado | `make install` deja la `.so` y el header; el README no tiene ningún `gcc` |

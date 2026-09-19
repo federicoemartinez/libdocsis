@@ -271,15 +271,15 @@ create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
-  tlvbuf->tlv_len = tlv_len; 
-  if (tlv_len <= 0 ) {
-  		return 0;
+  tlvbuf->tlv_len = tlv_len;
+  /* Solo negativo es error. Cero es un TLV de longitud cero legítimo:
+     encode_lenzero() devuelve 0 a propósito para los 7 TLV del tipo
+     ServiceMultiplexingValue* (L2VPN-I13 Annex B.3.2). Tratar el cero como
+     error rechazaba configs válidas. */
+  if (tlv_len < 0 ) {
+		free(tlvbuf);
+		return 0;
   }
-
-/*		if (tlvbuf->tlv_len <= 0 ) {
-			fprintf(stderr, "Got 0-length value while scanning for %s at line %d\n",sym_ptr->sym_ident,line );
-			return 0;
-   		} */
   return tlvbuf;
 }
 
