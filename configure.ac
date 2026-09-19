@@ -211,5 +211,5 @@ if test "x$GCC" = "xyes"; then
 	CFLAGS="-Wall $DEBUG_CFLAGS -g $CFLAGS"
 fi
 
-AC_CONFIG_FILES([build_setup.nsi Makefile src/Makefile doc/Makefile examples/Makefile mibs/Makefile])
+AC_CONFIG_FILES([build_setup.nsi Makefile src/Makefile doc/Makefile examples/Makefile mibs/Makefile tests/Makefile])
 AC_OUTPUT

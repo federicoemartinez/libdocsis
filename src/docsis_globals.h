@@ -25,7 +25,7 @@
 #define _DOCSIS_GLOBALS_H
 
 //extern struct tlv *global_tlvtree_head;
-extern symbol_type global_symtable[125576];
+extern symbol_type global_symtable[NUM_IDENTIFIERS];
 extern unsigned int line;	/* defined in docsis_lex.l */
 extern unsigned int nohash;
 extern unsigned int dialplan;

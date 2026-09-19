@@ -5,7 +5,7 @@ AUTOMAKE_OPTIONS = foreign 1.4
 README: doc/index.html
 	(echo This file is generated from doc/index.html, which is easier to read if you have ; echo a web browser available. ; echo ; w3m doc/index.html) > README
 
-SUBDIRS = src doc examples mibs
+SUBDIRS = src doc examples mibs tests
 EXTRA_DIST = build_setup.nsi.in README
 MAINTAINERCLEANFILES = README
 

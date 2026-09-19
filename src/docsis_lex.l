@@ -49,7 +49,7 @@
 #include "docsis_yy.h"
 
 extern int yydebug;
-extern symbol_type global_symtable[125576];
+extern symbol_type global_symtable[NUM_IDENTIFIERS];
 
 unsigned int line=1; /* On parse errors, we print the line number */
 

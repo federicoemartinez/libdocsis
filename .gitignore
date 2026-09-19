@@ -63,3 +63,4 @@ description-pak
 examples/*.bin
 examples/*.bin.*.txt
 # residuos de tests/RunTests.sh
+RunTests.log

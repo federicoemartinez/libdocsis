@@ -1,0 +1,7 @@
+MIB search path: ../mibs:../mibs/iana:../mibs/ietf
+ok - una config mínima codifica (52 bytes)
+ok - la librería codifica TLV_24_last_before_43.txt (140 bytes)
+ok - la librería codifica TLV_25_remaining.txt (120 bytes)
+ok - la librería codifica TLV_70_TLV_71_AggregateServiceFlow.txt (92 bytes)
+todos los tests de la API pasaron
+PASS test_api (exit status: 0)

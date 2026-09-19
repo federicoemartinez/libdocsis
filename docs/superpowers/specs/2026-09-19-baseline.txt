@@ -123,3 +123,29 @@ PREEXISTENTES (7, sin cambios)
 
 NUEVO OBJETIVO: 132/142. Cualquier corrida por debajo es una regresión del
 trabajo en curso.
+
+
+================================================================
+BUGS DE UPSTREAM DOCUMENTADOS, NO ARREGLADOS
+================================================================
+
+1. AggregateServiceFlowReference: fixtures desactualizados (ver arriba).
+   Afecta: tests/RunTests.sh (3 casos). NO afecta al producto -- verificado
+   en tests/test_api.c, que codifica los tres fixtures sin problema por el
+   camino de la librería.
+
+2. docsis20_stresstest: lectura de memoria no inicializada en el decodificador.
+   Un TLV declara 77 bytes de longitud y el contenido real es más corto, así
+   que decode_main_aggregate lee más allá. Por eso el volcado en memoria y el
+   decode del archivo escrito difieren: cada proceso tiene basura distinta en
+   el heap, y en uno aparece texto del .cfg fuente filtrado dentro del TLV.
+   Un build de upstream/master puro falla este mismo test y ningún otro.
+   Marcado XFAIL_TESTS en examples/Makefile.am.
+   Afecta: solo el decodificador, que no se exporta.
+
+3. Los 7 *_24_SOAMSubtype siguen fallando y no son del fork (pre-fork y HEAD
+   producen el mismo md5, distinto del fixture).
+
+4. docsis_encode.c: comparación con la dirección de una variable en vez de su
+   valor (-Waddress). La rama de error de una validación es código muerto.
+   AGENDADO a la Task 11.

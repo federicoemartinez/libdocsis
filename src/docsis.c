@@ -45,7 +45,7 @@
 #include "sha1.h"
 
 
-symbol_type global_symtable[125576];
+symbol_type global_symtable[NUM_IDENTIFIERS];
 unsigned int nohash = 0;
 unsigned int dialplan = 0;
 
@@ -534,26 +534,27 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
   int parse_result=0;
   unsigned int buflen;
   unsigned char* buffer;
-  struct tlv *global_tlvtree_head;
-  FILE *of;
-  //int global_table_inialized = init_global_symtable ();
-  //if( ! global_table_inialized){
-  //  fprintf(stderr, "Unable to initialize global table");
-  //  return 0;
-  //}
-  //if(!mibs_loaded){
-  //  setup_mib_flags(0,0);
-  //  mibs_loaded = 1;
-  //}
-  /* It's not an error to specify the input and output as "-". */
+  struct tlv *global_tlvtree_head = NULL;
 
+  if (bufferp == NULL)
+    return 0;
+  /* El contrato: si devolvemos 0, el llamador ve NULL. Antes se devolvía 0
+     sin tocar el puntero, así que quien no chequeara el retorno leía memoria
+     sin inicializar. */
+  *bufferp = NULL;
+
+  if (file_content == NULL || file_content_size == 0)
+    {
+      fprintf(stderr, "Error: empty config\n");
+      return 0;
+    }
 
   parse_result = parse_config_string (file_content,file_content_size, &global_tlvtree_head );
 
   if (parse_result || global_tlvtree_head == NULL)
     {
       fprintf(stderr, "Error parsing config file \n");
-      //free(global_symtable);
+      free_tlv (global_tlvtree_head);
       return 0;
     }
 /* Check whether we're encoding PacketCable */
@@ -566,8 +567,12 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 /* walk the tree to find out how much memory we need */
   /* leave some room for CM MIC, CMTS MIC, pad, and a HUGE PC20 dialplan */
   buflen = tlvtreelen (global_tlvtree_head);
-  *bufferp = (unsigned char *) malloc ( buflen + 255 + 8192 );
-  buffer = *bufferp;
+  buffer = (unsigned char *) malloc ( buflen + 255 + 8192 );
+  if (buffer == NULL)
+    {
+      free_tlv (global_tlvtree_head);
+      return 0;
+    }
   buflen = flatten_tlvsubtree(buffer, 0, global_tlvtree_head);
 
 
@@ -602,7 +607,10 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 
   //decode_main_aggregate (buffer, buflen);
   free_tlv(global_tlvtree_head);
-  return buflen;
+  /* Recién acá se publica el buffer: hasta este punto cualquier salida es un
+     error y *bufferp tiene que quedar en NULL. */
+  *bufferp = buffer;
+  return (int) buflen;
 
   /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */
 }
