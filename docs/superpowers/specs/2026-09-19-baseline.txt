@@ -77,3 +77,49 @@ SUITE examples/ (make check)
 CRITERIO PARA LAS TAREAS SIGUIENTES
   Después de la Task 1b el objetivo es 135/142. Cualquier corrida que baje de
   135 es una regresión introducida por el trabajo en curso.
+
+================================================================
+ACTUALIZACIÓN POST-MERGE (Task 2) — 132/142
+================================================================
+
+El merge de los 18 commits de upstream está verificado como correcto: sobre
+los 3 casos que empeoraron, un build de upstream/master PURO produce salida
+byte a byte idéntica a este árbol. O sea, no son de la resolución del merge.
+
+REGRESIONES DE UPSTREAM (3, nuevas)
+  TLV_24_last_before_43
+  TLV_25_remaining
+  TLV_70_TLV_71_AggregateServiceFlow
+
+  CAUSA: upstream cambió la semántica de AggregateServiceFlowReference.
+    punto de fork:  24.36, 25.36, 70.36, 71.36 -> encode_nothing/decode_aggregate
+    upstream HEAD:  24.36, 25.36               -> encode_ushort/decode_ushort
+                    70.36, 71.36               -> ELIMINADAS
+  Los fixtures de tests/ siguen escribiéndolo con sintaxis de contenedor
+  ("UpstreamAggregateServiceFlowReference { GenericTLV ...; }"), así que
+  upstream corrigió el código sin actualizar sus propios fixtures. Su CI
+  tiene que estar en rojo.
+
+  MECANISMO del fallo en los dos primeros: decode_ushort() hace exit(-45)
+  cuando la longitud no coincide, y encode_one_file() llama
+  decode_main_aggregate() antes de escribir. O sea que un error de DECODE
+  aborta el ENCODE. El tercero produce el .cm correcto (md5 9c4f115d) y solo
+  falla en la comparación del .conf decodificado.
+
+  PREDICCIÓN A VERIFICAR EN LA TASK 5: al unificar encode_one_file sobre
+  encode_one_string (que no decodifica), el camino de la LIBRERÍA debería
+  codificar estos casos sin problema. El CLI va a seguir muriendo al mostrar.
+  Si se confirma, la conclusión es que estas 3 regresiones no afectan al
+  producto, solo al arnés de test.
+
+  DECISIÓN PENDIENTE DEL USUARIO: no se pueden regenerar los .cm esperados
+  sin la especificación MULPI en la mano para saber qué bytes son correctos.
+  Opciones: (a) dejarlos documentados como rotos-en-upstream, (b) reportarlos
+  upstream, (c) actualizar los fixtures si se consigue la referencia.
+
+PREEXISTENTES (7, sin cambios)
+  Los 7 *_24_SOAMSubtype siguen igual. El merge NO los arregló, así que la
+  hipótesis de que los resolvería MULPIv4.0-I07 quedó descartada.
+
+NUEVO OBJETIVO: 132/142. Cualquier corrida por debajo es una regresión del
+trabajo en curso.
