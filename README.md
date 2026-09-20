@@ -136,7 +136,7 @@ Runs three suites:
 - `examples/` — encode-vs-decode comparison over 21 examples.
 
 Ten fixtures and one example fail because of upstream bugs, documented in
-`docs/superpowers/specs/2026-09-19-baseline.txt`. None of them affect the
+`docs/known-failures-baseline.txt`. None of them affect the
 library path.
 
 ## CI

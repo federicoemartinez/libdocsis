@@ -3,7 +3,7 @@
 # cases changed with respect to known-failures.txt.
 #
 # Plain RunTests.sh exits non-zero on any failure, and there are 10 known ones
-# that are not ours (see docs/superpowers/specs/2026-09-19-baseline.txt). That
+# that are not ours (see docs/known-failures-baseline.txt). That
 # would leave make check permanently red, and an always-red suite gets
 # ignored. This way it fails only when a new case shows up -- or when a known
 # one starts passing, which we also want to hear about.
