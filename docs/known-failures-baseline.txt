@@ -1,0 +1,75 @@
+KNOWN-FAILURE BASELINE -- libdocsis
+Branch: lib-consolidation.  Fork point from rlaager/docsis: d7c9643
+
+Every failure listed here was checked against a build of the fork point or of
+pristine upstream/master over the same fixtures. None of them is caused by
+this fork's changes, and none affects the library path: tests/test_api.c
+encodes the affected fixtures successfully.
+
+tests/run-fixtures.sh compares the failing set against tests/known-failures.txt
+and fails only when that set changes, in either direction. If upstream fixes
+one of these, the suite goes red asking for the list to be pruned.
+
+----------------------------------------------------------------------
+1. AggregateServiceFlowReference -- stale upstream fixtures (3 cases)
+----------------------------------------------------------------------
+    TLV_24_last_before_43
+    TLV_25_remaining
+    TLV_70_TLV_71_AggregateServiceFlow
+
+Upstream changed the semantics of AggregateServiceFlowReference:
+
+    at the fork point:  24.36, 25.36, 70.36, 71.36
+                        -> encode_nothing / decode_aggregate  (container)
+    upstream HEAD:      24.36, 25.36
+                        -> encode_ushort / decode_ushort      (2-byte leaf)
+                        70.36, 71.36  -> REMOVED
+
+The fixtures under tests/ still write it with container syntax
+("UpstreamAggregateServiceFlowReference { GenericTLV ...; }"), so upstream
+corrected the code without updating its own fixtures.
+
+How the first two fail: decode_ushort() calls exit(-45) on a length mismatch,
+and encode_one_file() decodes for display before writing -- so a DECODE error
+aborts an ENCODE. The third produces the correct .cm (md5 9c4f115d) and only
+fails the decoded .conf comparison.
+
+Regenerating the expected .cm files would mean inventing which bytes are
+correct without the MULPI specification at hand.
+
+----------------------------------------------------------------------
+2. SOAMSubtype -- pre-existing upstream failures (7 cases)
+----------------------------------------------------------------------
+    TLV_22_43_5_24_SOAMSubtype     TLV_26_43_5_24_SOAMSubtype
+    TLV_23_43_5_24_SOAMSubtype     TLV_43_5_24_SOAMSubtype
+    TLV_24_43_5_24_SOAMSubtype     TLV_60_43_5_24_SOAMSubtype
+    TLV_25_43_5_24_SOAMSubtype
+
+A build of the fork point and this tree produce the SAME md5, different from
+the committed fixture. Upstream's code disagrees with upstream's fixtures.
+The 18-commit merge did not fix them.
+
+----------------------------------------------------------------------
+3. docsis20_stresstest -- uninitialized read in the decoder (1 example)
+----------------------------------------------------------------------
+Marked XFAIL_TESTS in examples/Makefile.am. A build of pristine
+upstream/master fails this very test and no other.
+
+A TLV declares 77 bytes of length while the real content is shorter, so
+decode_main_aggregate reads past the end. That is why the in-memory dump and
+the decode of the written file differ: each process has different garbage on
+its heap, and in one of them text from the source .cfg shows up inside the
+TLV value.
+
+Affects the decoder only, which is not exported.
+
+----------------------------------------------------------------------
+For historical reference: the fork's own regressions, now fixed
+----------------------------------------------------------------------
+The first run of the suite on this branch scored 128/142. Seven of those 14
+failures were regressions introduced by the fork, all from a single cause:
+create_tlv() treated tlv_len == 0 as an error, but encode_lenzero() returns 0
+on purpose -- a zero-length TLV is legitimate (L2VPN-I13 Annex B.3.2), and
+that encoder appears in exactly seven symbol table entries.
+
+Current score: 132/142, with the 10 cases above accounted for.

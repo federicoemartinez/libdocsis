@@ -69,6 +69,8 @@ struct tlv *create_cpemac_tlv (struct symbol_entry *sym_ptr,
 			       union t_val *value);
 struct tlv *create_external_file_tlv (struct symbol_entry *sym_ptr,
 			       union t_val *value);
+struct tlv *create_dialplan_tlv (struct symbol_entry *sym_ptr,
+			       union t_val *value);
 
 
 /* add a TLV to a list; create the list if NULL, otherwise re-alloc new list,
@@ -107,6 +109,7 @@ int encode_one_file (char *input_file, char *output_file,
 int encode_one_string (unsigned char *content, unsigned content_size, unsigned char **bufferp,
 		       unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash);
 char *get_output_name (char *input_path, char *new_extension);
-void initialize_lib();
+int initialize_lib (void);
+void setup_mib_flags (int resolve_oids, char *custom_mibs);
 void free_tlv(struct tlv* a_tlv);
 #endif /* __DOCSIS_H */

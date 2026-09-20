@@ -40,6 +40,9 @@ extern unsigned int line; 	/* current line number, defined in a.l */
 //extern symbol_type *global_symtable;
 extern FILE *yyin;
 
+/* ponytail: global parser state. encode_file() guards it with a mutex (see
+ * src/libdocsis.c). For real reentrancy this has to live in a context
+ * struct passed through %parse-param. */
 struct tlv *_my_tlvtree_head;
 
 %}
@@ -74,6 +77,7 @@ struct tlv *_my_tlvtree_head;
 %token <symptr>  T_IDENT_SNMPSET
 %token <symptr>  T_IDENT_GENERIC
 %token <symptr>  T_IDENT_CVC
+%token <symptr>  T_DIGITMAP
 %token <strval>  T_ETHERMASK
 %token <strval>  T_LABEL_OID
 %token <strval>  T_SUBMGT_FILTERS
@@ -120,6 +124,7 @@ struct tlv *_my_tlvtree_head;
 %type <tlvptr>  subsettings_stmt
 %define api.pure full
 %param { yyscan_t scanner }
+
 %%
 
 /*
@@ -229,6 +234,8 @@ assignment_stmt:  T_IDENTIFIER T_INTEGER ';' {
 			$$ = create_generic_str_tlv($1,$3, (union t_val *)&$5); if($$ == 0) YYABORT;}
 		| T_IDENT_GENERIC T_TLV_CODE T_INTEGER T_TLV_STRZERO_VALUE T_STRING ';' {
 			$$ = create_generic_strzero_tlv($1,$3, (union t_val *)&$5); if($$ == 0) YYABORT;}
+		| T_DIGITMAP T_STRING ';' {
+			$$ = create_dialplan_tlv($1, (union t_val *)&$2); if($$ == 0) YYABORT;}
 		| generic_stmt {
 			$$ = $1; if($$ == 0) YYABORT;}
 		;
@@ -252,6 +259,71 @@ void yyerror(yyscan_t unused, const char* s){
 	
 
 
+
+/*
+ * Arena for the nodes of the TLV tree.
+ *
+ * When the parse aborts, the half-built tree becomes unreachable:
+ * _my_tlvtree_head is only assigned when main_stmt reduces successfully.
+ * Without this, every encode_file() on an invalid config leaked the whole
+ * tree, around 9 KB per node (TLV_VSIZE is 9000).
+ *
+ * Bison's %destructor is deliberately not used: destructors also run on
+ * ACCEPT, so they freed the tree the caller still has to use -- a double
+ * free. Registering every node and releasing them only on the failure path
+ * is precise and does not depend on the parser's internal lifecycle.
+ */
+struct tlv_node { struct tlv *tlv; struct tlv_node *next; };
+static struct tlv_node *tlv_arena = NULL;
+
+/* Allocates a node and registers it in the arena. */
+static struct tlv *
+tlv_alloc (void)
+{
+  struct tlv *t = (struct tlv *) malloc (sizeof (struct tlv));
+  struct tlv_node *node;
+
+  if (t == NULL)
+    return NULL;
+  node = (struct tlv_node *) malloc (sizeof *node);
+  if (node == NULL)
+    {
+      free (t);
+      return NULL;
+    }
+  node->tlv = t;
+  node->next = tlv_arena;
+  tlv_arena = node;
+  return t;
+}
+
+/* Success: the tree becomes the caller's, only the list is discarded. */
+static void
+tlv_arena_discard (void)
+{
+  while (tlv_arena != NULL)
+    {
+      struct tlv_node *node = tlv_arena;
+      tlv_arena = node->next;
+      free (node);
+    }
+}
+
+/* Failure: every node is released exactly once. free_tlv() is not used
+   here because it walks children and siblings, and the arena already holds
+   every node. */
+static void
+tlv_arena_free_all (void)
+{
+  while (tlv_arena != NULL)
+    {
+      struct tlv_node *node = tlv_arena;
+      tlv_arena = node->next;
+      free (node->tlv);
+      free (node);
+    }
+}
+
 #define TLVINIT(p) if(p) p->first_child=NULL; p->next_sibling=NULL; p->parent=NULL
 
 /*
@@ -267,19 +339,21 @@ create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
 {
   struct tlv *tlvbuf=NULL;
   int tlv_len;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv) ) ;
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
-  tlvbuf->tlv_len = tlv_len; 
-  if (tlv_len <= 0 ) {
-  		return 0;
+  tlvbuf->tlv_len = tlv_len;
+  /* Only a negative value is an error. Zero is a legitimate zero-length
+     TLV: encode_lenzero() returns 0 on purpose for the seven
+     ServiceMultiplexingValue* TLVs (L2VPN-I13 Annex B.3.2). Treating zero
+     as an error rejected valid configs. */
+  if (tlv_len < 0 ) {
+		/* Do not free here: tlv_alloc() registered the node in the
+		   arena, which releases it when the parse fails. Freeing it
+		   twice aborts. */
+		return 0;
   }
-
-/*		if (tlvbuf->tlv_len <= 0 ) {
-			fprintf(stderr, "Got 0-length value while scanning for %s at line %d\n",sym_ptr->sym_ident,line );
-			return 0;
-   		} */
   return tlvbuf;
 }
 
@@ -297,7 +371,7 @@ create_snmpset_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
 
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlvbuf->tlv_len = encode_vbind (oid_string, oid_asntype, value,
@@ -330,7 +404,7 @@ create_snmpw_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
 
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlvbuf->tlv_len = encode_snmp_oid ( oid_string, tlvbuf->tlv_value, TLV_VSIZE );
@@ -357,7 +431,7 @@ create_generic_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
   int a_tlv_length;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
   a_tlv_length = encode_hexstr ( tlvbuf->tlv_value, value, sym_ptr );
@@ -387,7 +461,7 @@ create_generic_str_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
   int tlv_len;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
   tlv_len = encode_string ( tlvbuf->tlv_value, value, sym_ptr );
@@ -418,7 +492,7 @@ create_generic_strzero_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
 
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   TLVINIT(tlvbuf);
   tlvbuf->docs_code = tlv_code;
   tlvbuf->tlv_len = encode_string ( tlvbuf->tlv_value, value, sym_ptr );
@@ -464,7 +538,7 @@ create_external_file_tlv ( struct symbol_entry *sym_ptr,
 	  return 0;
   	}
 
-	new_tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+	new_tlvbuf = tlv_alloc ();
   	TLVINIT(new_tlvbuf);
 	if (first_tlvbuf == NULL) first_tlvbuf = new_tlvbuf;
 
@@ -479,6 +553,63 @@ create_external_file_tlv ( struct symbol_entry *sym_ptr,
   return first_tlvbuf;
 }
 
+struct tlv * create_dialplan_tlv(struct symbol_entry *sym_ptr, union t_val *value) {
+  struct tlv *tlvbuf=NULL;
+  long ftell_size;
+  unsigned int fileSize;
+  FILE *dialplan_file;
+  char *dialplan_buffer;
+  char oidStr[] = "1.3.6.1.4.1.4491.2.2.8.2.1.1.3.1.1.2.1";
+  char *oidStr2;
+
+  if ((dialplan_file = fopen (value->strval, "rb")) == NULL) {
+    fprintf(stderr, "Error: can't open file %s at line %d\n", value->strval, line);
+    return 0;
+  }
+  fseek(dialplan_file, 0, SEEK_END);
+  ftell_size = ftell(dialplan_file);
+  if (ftell_size < 0) {
+    fprintf(stderr, "Error: can't determine size of %s at line %d\n", value->strval, line);
+    fclose(dialplan_file);
+    return 0;
+  }
+  fileSize = (unsigned int) ftell_size;
+  if (fileSize == 0 || fileSize > MAX_DIALPLAN_SIZE) {
+    fprintf(stderr, "Dialplan file %s has invalid size %u at line %d. Must be 1..%d\n",
+            value->strval, fileSize, line, MAX_DIALPLAN_SIZE);
+    fclose(dialplan_file);
+    return 0;
+  }
+  fseek(dialplan_file, 0, SEEK_SET);
+  /* +1: a terminator is written at dialplan_buffer[fileSize] below. */
+  dialplan_buffer = (char *)malloc(fileSize + 1);
+  if (!dialplan_buffer) {
+    fprintf(stderr, "Error allocating memory for dialplan buffer at line %d\n", line);
+    fclose(dialplan_file);
+    return 0;
+  }
+  if (!fread(dialplan_buffer, fileSize, 1, dialplan_file)) {
+    fprintf(stderr, "Error reading dialplan file %s at line %d\n", value->strval, line);
+    fclose(dialplan_file);
+    free(dialplan_buffer);
+    return 0;
+  }
+
+  fclose(dialplan_file);
+
+  value->strval = dialplan_buffer;
+  value->strval[fileSize] = '\0';
+  oidStr2 = (char *)malloc(strlen(oidStr) + 1); /* create_snmpset_tlv frees it */
+  if (!oidStr2) {
+    free(dialplan_buffer);
+    return 0;
+  }
+  strcpy(oidStr2, oidStr);
+  tlvbuf = create_snmpset_tlv(sym_ptr, oidStr2, 's', value);
+  free(dialplan_buffer);
+  return tlvbuf;
+}
+
 /* Given a code, type, and value, creates a TLV encoding.
 ** Expected to be used for VendorSpecific settings
 */
@@ -490,7 +621,7 @@ create_generic_typed_tlv ( struct symbol_entry *sym_ptr,
 {
   struct tlv *tlvbuf=NULL;
   int tlv_len;
-  tlvbuf = (struct tlv *) malloc (sizeof(struct tlv));
+  tlvbuf = tlv_alloc ();
   tlvbuf->docs_code = tlv_code;
   tlv_len = encode_func ( tlvbuf->tlv_value, value, sym_ptr );
   tlvbuf->tlv_len = tlv_len;
@@ -564,7 +695,7 @@ assemble_tlv_in_parent (int tlvcode, struct tlv *child_tlv)
 {
   struct tlv *parent_tlv;
 
-  parent_tlv = (struct tlv *) malloc ( sizeof ( struct tlv) );
+  parent_tlv = tlv_alloc ();
   memset(parent_tlv, 0, sizeof(struct tlv));
 
   parent_tlv->docs_code = tlvcode;
@@ -675,6 +806,10 @@ yyscan_t scanner;
   yyset_in(cf, scanner);
   rval = yyparse(scanner);          
   yylex_destroy(scanner);
+  if (rval)
+    tlv_arena_free_all ();
+  else
+    tlv_arena_discard ();
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
   return rval;
@@ -683,17 +818,29 @@ yyscan_t scanner;
 int parse_config_string ( unsigned char *file_content, unsigned file_size, struct tlv **parse_tree_result )
 {
 
-  FILE *cf = fmemopen(file_content, file_size, "r");
+  FILE *cf;
   int rval;
-  yyscan_t scanner;       
-  //yyin = cf ;
+  yyscan_t scanner;
+
+  cf = fmemopen(file_content, file_size, "r");
+  if (cf == NULL)
+    return -1;
+
+  /* `line` is global and does not reset itself: without this, from the
+     process's second parse onwards the error line numbers accumulate. */
+  line = 1;
+
 #ifdef DEBUG
   yydebug = 1;
 #endif
-    yylex_init(&scanner);
-    yyset_in(cf, scanner);
-  rval = yyparse(scanner);          
+  yylex_init(&scanner);
+  yyset_in(cf, scanner);
+  rval = yyparse(scanner);
   yylex_destroy(scanner);
+  if (rval)
+    tlv_arena_free_all ();
+  else
+    tlv_arena_discard ();
   if (!rval) *parse_tree_result = _my_tlvtree_head;
   fclose(cf);
   return rval;

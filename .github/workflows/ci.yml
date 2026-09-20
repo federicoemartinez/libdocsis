@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [master, lib-consolidation]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  # libglib2.0-dev: autogen.sh requires glib-gettextize and aborts without it.
+  # libfl-dev: the flex runtime library, needed at link time.
+  DEPS: >-
+    autoconf automake libtool bison flex gcc make
+    libsnmp-dev libglib2.0-dev libfl-dev
+
+jobs:
+  test:
+    name: build + make check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends $DEPS
+      - run: ./autogen.sh && ./configure
+      - run: make
+      - run: make check
+      - name: Logs of the failing tests
+        if: failure()
+        run: |
+          for f in examples/test-suite.log tests/test-suite.log tests/RunTests.log; do
+            [ -f "$f" ] && { echo "===== $f ====="; cat "$f"; }
+          done
+          exit 0
+
+  analyzer:
+    name: gcc -fanalyzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends $DEPS
+      # configure genera config.h, que los fuentes necesitan
+      - run: ./autogen.sh && ./configure
+      - name: Analyze the hand-written sources
+        working-directory: src
+        run: |
+          # -c -o /dev/null and NOT -fsyntax-only: with -fsyntax-only the
+          # analyzer does not run at all, and the silence reads as cleanliness.
+          # docsis_yy.c and docsis_lex.c are excluded: bison and flex generate them.
+          for f in docsis.c docsis_encode.c docsis_decode.c docsis_snmp.c \
+                   libdocsis.c docsis_main.c ethermac.c hmac_md5.c; do
+            echo "--- $f"
+            gcc -fanalyzer -Werror -c -o /dev/null -DHAVE_CONFIG_H -I. -I.. \
+                $(net-snmp-config --cflags) "$f"
+          done
+
+  asan:
+    name: AddressSanitizer + LeakSanitizer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends $DEPS
+      - run: ./autogen.sh
+      - run: ./configure CFLAGS="-fsanitize=address -fno-omit-frame-pointer -g -O1" LDFLAGS="-fsanitize=address"
+      - run: make
+      # test_api only: it covers the error paths, which is where the leak was.
+      # The 142 fixtures under ASAN add no signal and multiply the runtime.
+      - name: test_api under ASAN
+        working-directory: tests
+        env:
+          MIBDIRS: ../mibs:../mibs/iana:../mibs/ietf
+          srcdir: .
+          ASAN_OPTIONS: detect_leaks=1:abort_on_error=1
+          LSAN_OPTIONS: suppressions=lsan.supp
+        run: make test_api && ./test_api
+
+  valgrind:
+    name: valgrind
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends $DEPS valgrind
+      - run: ./autogen.sh && ./configure CFLAGS="-g -O0"
+      - run: make
+      - name: test_api under valgrind
+        working-directory: tests
+        env:
+          MIBDIRS: ../mibs:../mibs/iana:../mibs/ietf
+          srcdir: .
+        run: |
+          make test_api
+          # --error-exitcode: without it valgrind reports and exits 0, so the
+          # job would pass with errors inside.
+          # definite only: net-snmp leaves its MIB tree "still reachable" on
+          # purpose, so demanding zero of that would be a standing false positive.
+          valgrind --leak-check=full \
+                   --errors-for-leak-kinds=definite \
+                   --error-exitcode=9 \
+                   ./test_api

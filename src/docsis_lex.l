@@ -49,13 +49,20 @@
 #include "docsis_yy.h"
 
 extern int yydebug;
-extern symbol_type global_symtable[125576];
+extern symbol_type global_symtable[NUM_IDENTIFIERS];
 
 unsigned int line=1; /* On parse errors, we print the line number */
 
 char *str; char strbuf[2048]; unsigned int strsize;/* max string len = 2048; TODO check overflow */
 char *tsave;
 
+/* The encoders in docsis_encode.c own these copies and free them (around
+   20 free(helper->strval) calls there). Do not add an arena here: it would
+   free them a second time. Leaks remain for token types whose encoder does
+   not free, and on error paths that return before the free -- see the TODO
+   at docsis_encode.c:656, which documents that ownership was already broken
+   for T_STRING, whose values point at the static strbuf rather than at a
+   copy. */
 #define TSAVE(s) tsave=(char*)malloc(yyleng+1);memset(tsave,0,yyleng+1);memcpy(tsave,s,yyleng)
 %}
 %x STRING
@@ -75,18 +82,27 @@ char *tsave;
 (\.{1})*([A-Za-z0-9_-]+\.)+((\"{1})*[A-Za-z0-9,:_\-\.]+(\"{1})*)+	{ TSAVE(yytext);yylval->strval=tsave; return T_LABEL_OID; }
 ([0-9]+:){3}[0-9]+\.[0-9]+	{ TSAVE(yytext);yylval->strval=tsave; return T_TIMETICKS; }
 [Mm][Aa][Ii][Nn]        { yylval->strval=yytext;return T_MAIN; }
-SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
-					yyterminate();
-				};return T_IDENT_SNMPW;   }
-SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
-					yyterminate();
-				}return T_IDENT_SNMPSET; }
-ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
-					yyterminate();
-				};return T_IDENT_CVC; }
-CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);				if(yylval->symptr == 0){
-					yyterminate();
-				};return T_IDENT_CVC; }
+SnmpWriteControl	{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_IDENT_SNMPW;   }
+SnmpMibObject		{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_IDENT_SNMPSET; }
+DigitMap		{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_DIGITMAP; }
+ManufacturerCVC		{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_IDENT_CVC; }
+CoSignerCVC		{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_IDENT_CVC; }
+ManufacturerCVCChainFile	{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_IDENT_CVC; }
+CoSignerCVCChainFile	{ yylval->symptr=find_symbol_by_name(yytext);
+				if(yylval->symptr == 0){ yyterminate(); }
+				return T_IDENT_CVC; }
 Integer			{ return T_ASNTYPE_INT; 	}
 Unsigned32		{ return T_ASNTYPE_UINT; 	}
 Short			{ return T_ASNTYPE_SHORT;       }
@@ -124,33 +140,33 @@ TlvType			{ return T_TLV_TYPE;		}
 
 \"		{ BEGIN STRING; str=strbuf; memset(strbuf,0,2048); strsize=0; }
 <STRING>\\\"	{
-			if (strsize<2048)
+			if (strsize<2047)  /* 2047, not 2048: <STRING>\" writes *str=0 when closing */
 			{
 				*str++ = '"';
 				strsize++;
 			} else {
-			  fprintf(stderr, "line %d: string too long (max 2048 characters)\n",line); exit(-1);
+			  fprintf(stderr, "line %d: string too long (max 2048 characters)\n",line); yyterminate();
 			}
 		}
 <STRING>\\ 	{
-			if (strsize<2048)
+			if (strsize<2047)  /* 2047, not 2048: <STRING>\" writes *str=0 when closing */
 			{
 				*str++ = ' ';
 				strsize++;
 			} else {
-			  fprintf(stderr, "line %d: string too long (max 2048 characters)\n",line); exit(-1);
+			  fprintf(stderr, "line %d: string too long (max 2048 characters)\n",line); yyterminate();
 			}
 		}
-<STRING>\n	{ fprintf(stderr, "line %d: \\n not allowed in string, unmatched \" ?\n",line); exit(-1); }
-<STRING>\t	{ fprintf(stderr, "line %d: \\t not allowed in string, unmatched \" ?\n",line); exit(-1); }
+<STRING>\n	{ fprintf(stderr, "line %d: \\n not allowed in string, unmatched \" ?\n",line); yyterminate(); }
+<STRING>\t	{ fprintf(stderr, "line %d: \\t not allowed in string, unmatched \" ?\n",line); yyterminate(); }
 <STRING>\"	{ *str=0; BEGIN 0; yylval->strval=strbuf; return T_STRING; }
 <STRING>.	{
-			if (strsize<2048)
+			if (strsize<2047)  /* 2047, not 2048: <STRING>\" writes *str=0 when closing */
 			{
 				*str++ = *yytext;
 				strsize++;
 			} else {
-			  fprintf(stderr, "line %d: string too long (max 2048 characters)\n",line); exit(-1);
+			  fprintf(stderr, "line %d: string too long (max 2048 characters)\n",line); yyterminate();
 			}
 		}
 \/[*]+		{ BEGIN COMMENT; }
@@ -169,7 +185,7 @@ TlvType			{ return T_TLV_TYPE;		}
 \{ 	 { yylval->strval=yytext;return '{'; }
 \}	 { yylval->strval=yytext;return '}'; }
 ;	 { yylval->strval=yytext;return ';'; }
-.	 { fprintf(stderr, "Unrecognized char \"%c\" at line %d\n",*yytext,line); exit(-1); }
+.	 { fprintf(stderr, "Unrecognized char \"%c\" at line %d\n",*yytext,line); yyterminate(); }
 (::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))		{ TSAVE(yytext);yylval->strval=tsave; return T_IP6;	  }
 (::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+		{ TSAVE(yytext);yylval->strval=tsave; return T_IP_IP6_PORT;	  }
 ((::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+,){1,14}(::|(([a-fA-F0-9]{1,4}):){7}(([a-fA-F0-9]{1,4}))|(:(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){1,6}:)|((([a-fA-F0-9]{1,4}):)(:([a-fA-F0-9]{1,4})){1,6})|((([a-fA-F0-9]{1,4}):){2}(:([a-fA-F0-9]{1,4})){1,5})|((([a-fA-F0-9]{1,4}):){3}(:([a-fA-F0-9]{1,4})){1,4})|((([a-fA-F0-9]{1,4}):){4}(:([a-fA-F0-9]{1,4})){1,3})|((([a-fA-F0-9]{1,4}):){5}(:([a-fA-F0-9]{1,4})){1,2}))\/[0-9]+		{ TSAVE(yytext);yylval->strval=tsave; return T_IP6_PREFIX_LIST;	  }

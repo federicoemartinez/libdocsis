@@ -1,0 +1,5584 @@
+Progress: 1 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 1a3ba2e7666290b9725605718c01f967; */
+	/* CmtsMic cb5b0055aad79103519691cca2cbbe0f; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 1a3ba2e7666290b9725605718c01f967; */
+	/* CmtsMic cb5b0055aad79103519691cca2cbbe0f; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 2 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 20000000;
+		MaxRateUp 10000000;
+		PriorityUp 3;
+		GuaranteedUp 56072;
+		MaxBurstUp 1722;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	MaxCPE 3;
+	/* CmMic f18f77aa3574a3d73bdd1592711c0160; */
+	/* CmtsMic 054c9bbbaa0d3f745af2513747554830; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 20000000;
+		MaxRateUp 10000000;
+		PriorityUp 3;
+		GuaranteedUp 56072;
+		MaxBurstUp 1722;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	MaxCPE 3;
+	/* CmMic f18f77aa3574a3d73bdd1592711c0160; */
+	/* CmtsMic 054c9bbbaa0d3f745af2513747554830; */
+	/*EndOfDataMkr*/
+}
+Progress: 3 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	MaxCPE 3;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 20000000;
+		MaxRateUp 10000000;
+		PrivacyEnable 0;
+	}
+	/* CmMic 817865a1f6e47e81a7364ff607a24648; */
+	/* CmtsMic f90e368f5d979a2d5093bbaba37f1497; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	MaxCPE 3;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 20000000;
+		MaxRateUp 10000000;
+		PrivacyEnable 0;
+	}
+	/* CmMic 817865a1f6e47e81a7364ff607a24648; */
+	/* CmtsMic f90e368f5d979a2d5093bbaba37f1497; */
+	/*EndOfDataMkr*/
+}
+Progress: 4 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 130000000;
+	UpstreamChannelId 123;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 5;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	SwUpgradeFilename "filename1.bin";
+	BaselinePrivacy
+	{
+		AuthTimeout 25;
+		ReAuthTimeout 15;
+		AuthGraceTime 120;
+		OperTimeout 9;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+	}
+	MaxCPE 13;
+	SwUpgradeServer 10.1.1.1;
+	/* CmMic e241803a16fa62269f90d6e1619a59d3; */
+	/* CmtsMic 41141948116bcc38f6a20ec485fcd0f2; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 130000000;
+	UpstreamChannelId 123;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 5;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	SwUpgradeFilename "filename1.bin";
+	BaselinePrivacy
+	{
+		AuthTimeout 25;
+		ReAuthTimeout 15;
+		AuthGraceTime 120;
+		OperTimeout 9;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+	}
+	MaxCPE 13;
+	SwUpgradeServer 10.1.1.1;
+	/* CmMic e241803a16fa62269f90d6e1619a59d3; */
+	/* CmtsMic 41141948116bcc38f6a20ec485fcd0f2; */
+	/*EndOfDataMkr*/
+}
+Progress: 5 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	ModemIPAddress 1.2.3.4;
+	/* CmMic b7200e32c0274e4a8a5b7d261834080c; */
+	/* CmtsMic 7b6fb753e3c98af1fd4bb14d385f524e; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	ModemIPAddress 1.2.3.4;
+	/* CmMic b7200e32c0274e4a8a5b7d261834080c; */
+	/* CmtsMic 7b6fb753e3c98af1fd4bb14d385f524e; */
+	/*EndOfDataMkr*/
+}
+Progress: 6 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject sysName.0 String "gamadelta";
+	SnmpMibObject sysContact.0 String "docsis@evvolve.com";
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 80b918d0833df6bebc9d70fff7f74216; */
+	/* CmtsMic 99e787772b3a760363ed59b6e3aef759; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject sysName.0 String "gamadelta";
+	SnmpMibObject sysContact.0 String "docsis@evvolve.com";
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 80b918d0833df6bebc9d70fff7f74216; */
+	/* CmtsMic 99e787772b3a760363ed59b6e3aef759; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 7 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 1700;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 3639f7deba25a198111105f033418dc8; */
+	/* CmtsMic 79f7a7d9cd1e171bc57a838cd16ee631; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 1700;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 3639f7deba25a198111105f033418dc8; */
+	/* CmtsMic 79f7a7d9cd1e171bc57a838cd16ee631; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 8 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpSourcePortLow.1 Integer 80;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.1 Integer 85;
+	SnmpMibObject docsDevFilterIpDestPortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDestPortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic a472dc5a27c667551feeda0a1ff3be5e; */
+	/* CmtsMic 51de435e2eac2169dd86a300e82c4633; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpSourcePortLow.1 Integer 80;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.1 Integer 85;
+	SnmpMibObject docsDevFilterIpDestPortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDestPortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic a472dc5a27c667551feeda0a1ff3be5e; */
+	/* CmtsMic 51de435e2eac2169dd86a300e82c4633; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 9 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 4e09444d3314cb22b259836c7703ca77; */
+	/* CmtsMic 931a10c9d76c3a8d686b63bdb27c2f98; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 4e09444d3314cb22b259836c7703ca77; */
+	/* CmtsMic 931a10c9d76c3a8d686b63bdb27c2f98; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 10 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpSourcePortLow.1 Integer 80;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.1 Integer 85;
+	SnmpMibObject docsDevFilterIpDestPortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDestPortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic a472dc5a27c667551feeda0a1ff3be5e; */
+	/* CmtsMic 51de435e2eac2169dd86a300e82c4633; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpSourcePortLow.1 Integer 80;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.1 Integer 85;
+	SnmpMibObject docsDevFilterIpDestPortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDestPortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic a472dc5a27c667551feeda0a1ff3be5e; */
+	/* CmtsMic 51de435e2eac2169dd86a300e82c4633; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 11 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		IEEE8021ahPacketClassification
+		{
+			ITPID 0x88e7;
+			ISID 0x010203;
+			ITCI 0x0102030405;
+			IPCP 0x01;
+			IDEI 0x01;
+			IUCA 0x01;
+			BTPID 0x88a8;
+			BTCI 0x0102;
+			BPCP 0x01;
+			BDEI 0x01;
+			BVID 0x0102;
+			BDA 01:02:03:04:05:06;
+			BSA 01:02:03:04:05:06;
+		}
+	}
+	UsPacketClass
+	{
+		IEEE8021ahPacketClassification
+		{
+			ITPID 0x88e7;
+			ISID 0x010203;
+			ITCI 0x0102030405;
+			IPCP 0x01;
+			IDEI 0x01;
+			IUCA 0x01;
+			BTPID 0x88a8;
+			BTCI 0x0102;
+			BPCP 0x01;
+			BDEI 0x01;
+			BVID 0x0102;
+			BDA 01:02:03:04:05:06;
+			BSA 01:02:03:04:05:06;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 604bca8a607b4590745fdd4da6b2fef3; */
+	/* CmtsMic a767f7fb9dfeb4522b6e1b7df2348677; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		IEEE8021ahPacketClassification
+		{
+			ITPID 0x88e7;
+			ISID 0x010203;
+			ITCI 0x0102030405;
+			IPCP 0x01;
+			IDEI 0x01;
+			IUCA 0x01;
+			BTPID 0x88a8;
+			BTCI 0x0102;
+			BPCP 0x01;
+			BDEI 0x01;
+			BVID 0x0102;
+			BDA 01:02:03:04:05:06;
+			BSA 01:02:03:04:05:06;
+		}
+	}
+	UsPacketClass
+	{
+		IEEE8021ahPacketClassification
+		{
+			ITPID 0x88e7;
+			ISID 0x010203;
+			ITCI 0x0102030405;
+			IPCP 0x01;
+			IDEI 0x01;
+			IUCA 0x01;
+			BTPID 0x88a8;
+			BTCI 0x0102;
+			BPCP 0x01;
+			BDEI 0x01;
+			BVID 0x0102;
+			BDA 01:02:03:04:05:06;
+			BSA 01:02:03:04:05:06;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 604bca8a607b4590745fdd4da6b2fef3; */
+	/* CmtsMic a767f7fb9dfeb4522b6e1b7df2348677; */
+	/*EndOfDataMkr*/
+}
+Progress: 12 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	DownstreamFrequency 610000000;
+	SwUpgradeServer 10.50.50.50;
+	SwUpgradeFilename "someFile.bin";
+	MaxCPE 16;
+	MaxClassifiers 20;
+	GlobalPrivacyEnable 0;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x0000008a;
+		IpTosOverwrite 0xfc00;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 2;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000088;
+		IpTosOverwrite 0xfc00;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 20000;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 102;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 12000;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 5000;
+	}
+	UsPacketClass
+	{
+		ServiceFlowRef 2;
+		ClassifierRef 2;
+		RulePriority 64;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			SrcPortStart 2427;
+			SrcPortEnd 2427;
+		}
+	}
+	DsPacketClass
+	{
+		ServiceFlowRef 102;
+		ClassifierRef 102;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			DstPortStart 2427;
+			DstPortEnd 2427;
+		}
+	}
+	/* CmMic d21b5758c641df02467ddc889cd37872; */
+	/* CmtsMic 8498e9330e45b1fc9f34bb64555c3a94; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	DownstreamFrequency 610000000;
+	SwUpgradeServer 10.50.50.50;
+	SwUpgradeFilename "someFile.bin";
+	MaxCPE 16;
+	MaxClassifiers 20;
+	GlobalPrivacyEnable 0;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x0000008a;
+		IpTosOverwrite 0xfc00;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 2;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000088;
+		IpTosOverwrite 0xfc00;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 20000;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 102;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 12000;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 5000;
+	}
+	UsPacketClass
+	{
+		ServiceFlowRef 2;
+		ClassifierRef 2;
+		RulePriority 64;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			SrcPortStart 2427;
+			SrcPortEnd 2427;
+		}
+	}
+	DsPacketClass
+	{
+		ServiceFlowRef 102;
+		ClassifierRef 102;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			DstPortStart 2427;
+			DstPortEnd 2427;
+		}
+	}
+	/* CmMic d21b5758c641df02467ddc889cd37872; */
+	/* CmtsMic 8498e9330e45b1fc9f34bb64555c3a94; */
+	/*EndOfDataMkr*/
+}
+Progress: 13 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 175000000;
+	NetworkAccess 1;
+	SwUpgradeServer 10.50.50.50;
+	SwUpgradeFilename "someFile.bin";
+	MaxCPE 16;
+	MaxClassifiers 20;
+	GlobalPrivacyEnable 1;
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 60;
+		SAMapWaitTimeout 1;
+		SAMapMaxRetries 4;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x0000008a;
+		IpTosOverwrite 0xfc00;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 2;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000088;
+		IpTosOverwrite 0xfc00;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 20000;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 102;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 12000;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 5000;
+	}
+	UsPacketClass
+	{
+		ServiceFlowRef 2;
+		ClassifierRef 2;
+		RulePriority 64;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			SrcPortStart 2427;
+			SrcPortEnd 2427;
+		}
+	}
+	DsPacketClass
+	{
+		ServiceFlowRef 102;
+		ClassifierRef 102;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			DstPortStart 2427;
+			DstPortEnd 2427;
+		}
+	}
+	/* CmMic 1f6c1f6230bfa33ee0a320ee7c937420; */
+	/* CmtsMic 5e2ffe0b22f50752e4804b9482f92a94; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 175000000;
+	NetworkAccess 1;
+	SwUpgradeServer 10.50.50.50;
+	SwUpgradeFilename "someFile.bin";
+	MaxCPE 16;
+	MaxClassifiers 20;
+	GlobalPrivacyEnable 1;
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 60;
+		SAMapWaitTimeout 1;
+		SAMapMaxRetries 4;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x0000008a;
+		IpTosOverwrite 0xfc00;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 2;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000088;
+		IpTosOverwrite 0xfc00;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 20000;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 102;
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 12000;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxDsLatency 5000;
+	}
+	UsPacketClass
+	{
+		ServiceFlowRef 2;
+		ClassifierRef 2;
+		RulePriority 64;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			SrcPortStart 2427;
+			SrcPortEnd 2427;
+		}
+	}
+	DsPacketClass
+	{
+		ServiceFlowRef 102;
+		ClassifierRef 102;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			DstPortStart 2427;
+			DstPortEnd 2427;
+		}
+	}
+	/* CmMic 1f6c1f6230bfa33ee0a320ee7c937420; */
+	/* CmtsMic 5e2ffe0b22f50752e4804b9482f92a94; */
+	/*EndOfDataMkr*/
+}
+Progress: 14 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ICMPv4ICMPv6PacketClassification
+		{
+			ICMPv4ICMPv6TypeStart 0;
+			ICMPv4ICMPv6TypeEnd 255;
+		}
+	}
+	UsPacketClass
+	{
+		ICMPv4ICMPv6PacketClassification
+		{
+			ICMPv4ICMPv6TypeStart 0;
+			ICMPv4ICMPv6TypeEnd 255;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic b4ff4bfb713349e4fc804b0da6d4df89; */
+	/* CmtsMic 8875744eabf5db9ab8e44b08888bfa06; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ICMPv4ICMPv6PacketClassification
+		{
+			ICMPv4ICMPv6TypeStart 0;
+			ICMPv4ICMPv6TypeEnd 255;
+		}
+	}
+	UsPacketClass
+	{
+		ICMPv4ICMPv6PacketClassification
+		{
+			ICMPv4ICMPv6TypeStart 0;
+			ICMPv4ICMPv6TypeEnd 255;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic b4ff4bfb713349e4fc804b0da6d4df89; */
+	/* CmtsMic 8875744eabf5db9ab8e44b08888bfa06; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 15 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		ServiceClassName "USPrimaryBE";
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxConcatenatedBurst 0;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000080;
+		IpTosOverwrite 0xfc00;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 2;
+		ServiceClassName "USMTAMGCP";
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000088;
+		IpTosOverwrite 0xfc00;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		ServiceClassName "DSPrimaryBE";
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 100000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxDsLatency 20000;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 102;
+		ServiceClassName "DSMTAMGCP";
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 12000;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxDsLatency 5000;
+	}
+	UsPacketClass
+	{
+		ServiceFlowRef 2;
+		ClassifierRef 2;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			IpSrcAddr 0.0.0.0;
+			IpSrcMask 0.0.0.0;
+			IpDstAddr 0.0.0.0;
+			IpDstMask 0.0.0.0;
+			SrcPortStart 2727;
+			SrcPortEnd 2727;
+		}
+	}
+	DsPacketClass
+	{
+		ServiceFlowRef 102;
+		ClassifierRef 102;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			IpSrcAddr 0.0.0.0;
+			IpSrcMask 0.0.0.0;
+			IpDstAddr 0.0.0.0;
+			IpDstMask 0.0.0.0;
+			DstPortStart 2427;
+			DstPortEnd 2427;
+		}
+	}
+	/* CmMic 394f40be499f52227de8aa3b6c82ade0; */
+	/* CmtsMic 557c87c9812bc4c0f2481dfb27e828cd; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		ServiceClassName "USPrimaryBE";
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxConcatenatedBurst 0;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000080;
+		IpTosOverwrite 0xfc00;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 2;
+		ServiceClassName "USMTAMGCP";
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 0;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxConcatenatedBurst 3000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000088;
+		IpTosOverwrite 0xfc00;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		ServiceClassName "DSPrimaryBE";
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 100000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 0;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxDsLatency 20000;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 102;
+		ServiceClassName "DSMTAMGCP";
+		QosParamSetType 7;
+		TrafficPriority 7;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 1522;
+		MinReservedRate 12000;
+		MinResPacketSize 64;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 200;
+		MaxDsLatency 5000;
+	}
+	UsPacketClass
+	{
+		ServiceFlowRef 2;
+		ClassifierRef 2;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			IpSrcAddr 0.0.0.0;
+			IpSrcMask 0.0.0.0;
+			IpDstAddr 0.0.0.0;
+			IpDstMask 0.0.0.0;
+			SrcPortStart 2727;
+			SrcPortEnd 2727;
+		}
+	}
+	DsPacketClass
+	{
+		ServiceFlowRef 102;
+		ClassifierRef 102;
+		RulePriority 1;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpProto 17;
+			IpSrcAddr 0.0.0.0;
+			IpSrcMask 0.0.0.0;
+			IpDstAddr 0.0.0.0;
+			IpDstMask 0.0.0.0;
+			DstPortStart 2427;
+			DstPortEnd 2427;
+		}
+	}
+	/* CmMic 394f40be499f52227de8aa3b6c82ade0; */
+	/* CmtsMic 557c87c9812bc4c0f2481dfb27e828cd; */
+	/*EndOfDataMkr*/
+}
+Progress: 16 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		MPLSClassificationEncoding
+		{
+			MPLSTCbits 0x01;
+			MPLSLabel 0x010203;
+		}
+	}
+	UsPacketClass
+	{
+		MPLSClassificationEncoding
+		{
+			MPLSTCbits 0x01;
+			MPLSLabel 0x010203;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 9444e6c7e37d09e2d62e7fae46a136b3; */
+	/* CmtsMic c27a75eb1c273433d992592ac9078a5c; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		MPLSClassificationEncoding
+		{
+			MPLSTCbits 0x01;
+			MPLSLabel 0x010203;
+		}
+	}
+	UsPacketClass
+	{
+		MPLSClassificationEncoding
+		{
+			MPLSTCbits 0x01;
+			MPLSLabel 0x010203;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 9444e6c7e37d09e2d62e7fae46a136b3; */
+	/* CmtsMic c27a75eb1c273433d992592ac9078a5c; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 17 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 340000000;
+	NetworkAccess 1;
+	BaselinePrivacy
+	{
+		AuthTimeout 5;
+		ReAuthTimeout 20;
+		AuthGraceTime 60;
+		OperTimeout 2;
+		ReKeyTimeout 2;
+		TEKGraceTime 60;
+		AuthRejectTimeout 60;
+		SAMapWaitTimeout 1;
+		SAMapMaxRetries 4;
+	}
+	MaxCPE 8;
+	UsPacketClass
+	{
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+		RulePriority 4;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpSrcAddr 10.0.100.100;
+		}
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 2500000;
+		MaxTrafficBurst 2000;
+		MinReservedRate 0;
+		MinResPacketSize 1;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 1522;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x000000f4;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 5;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 2000;
+		MinReservedRate 0;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+	}
+	GlobalPrivacyEnable 1;
+	SnmpMibObject docsDevFilterLLCStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterLLCIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterLLCProtocolType.1 Integer 1; /* ethertype */
+	SnmpMibObject docsDevFilterLLCProtocol.1 Integer 8137;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 2;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 1; /* inbound */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 172.11.12.13;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 172.16.0.1;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpSourcePortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterIpDestPortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDestPortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterPolicyId.1 Integer 3;
+	SnmpMibObject docsDevFilterPolicyStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterTosStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterTosAndMask.1 HexString 0xf0;
+	SnmpMibObject docsDevFilterTosOrMask.1 HexString 0x0f;
+	SnmpMibObject docsDevCpeIpMax.0 Integer 3;
+	SnmpMibObject docsDevCpeStatus.10.0.34.172 Integer 4; /* createAndGo */
+	SnmpMibObject snmpCommunityStatus.'rocablelabs' Integer 4; /* createAndGo */
+	SnmpMibObject snmpCommunityName.'rocablelabs' String "rotesting";
+	SnmpMibObject snmpCommunitySecurityName.'rocablelabs' String "rotesting";
+	SnmpMibObject snmpCommunityStorageType.'rocablelabs' Integer 2; /* volatile */
+	SnmpMibObject snmpCommunityStatus.'rwcablelabs' Integer 4; /* createAndGo */
+	SnmpMibObject snmpCommunityName.'rwcablelabs' String "rwtesting";
+	SnmpMibObject snmpCommunitySecurityName.'rwcablelabs' String "rwtesting";
+	SnmpMibObject snmpCommunityStorageType.'rwcablelabs' Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.1."rotesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.1."rotesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.1."rotesting" Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.1."rwtesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.1."rwtesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.1."rwtesting" Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.2."rotesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.2."rotesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.2."rotesting" Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.2."rwtesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.2."rwtesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.2."rwtesting" Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rotesting"."".1.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rotesting"."".1.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rotesting"."".1.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rotesting"."".1.noAuthNoPriv Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rwtesting"."".1.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rwtesting"."".1.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rwtesting"."".1.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessWriteViewName."rwtesting"."".1.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rwtesting"."".1.noAuthNoPriv Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rotesting"."".2.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rotesting"."".2.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rotesting"."".2.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rotesting"."".2.noAuthNoPriv Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rwtesting"."".2.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rwtesting"."".2.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rwtesting"."".2.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessWriteViewName."rwtesting"."".2.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rwtesting"."".2.noAuthNoPriv Integer 2; /* volatile */
+	SnmpV3Kickstart
+	{
+		SnmpV3SecurityName "2adfla6";
+	}
+	SnmpV3TrapReceiver
+	{
+		SnmpV3TrapRxIP 10.0.1.253;
+		SnmpV3TrapRxPort 56790;
+		SnmpV3TrapRxType 2;
+		SnmpV3TrapRxTimeout 500;
+		SnmpV3TrapRxRetries 3;
+		SnmpV3TrapRxSecurityName "2adfla6";
+		SnmpV3TrapRxFilterOID .1.3.6.1;
+	}
+	SnmpWriteControl .1.3.6.1 1;
+	/* CmMic c2dfb86d3b184900fd01562e14c2aca9; */
+	/* CmtsMic 3470eff95b148d0c29f218ae172658ad; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 340000000;
+	NetworkAccess 1;
+	BaselinePrivacy
+	{
+		AuthTimeout 5;
+		ReAuthTimeout 20;
+		AuthGraceTime 60;
+		OperTimeout 2;
+		ReKeyTimeout 2;
+		TEKGraceTime 60;
+		AuthRejectTimeout 60;
+		SAMapWaitTimeout 1;
+		SAMapMaxRetries 4;
+	}
+	MaxCPE 8;
+	UsPacketClass
+	{
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+		RulePriority 4;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpSrcAddr 10.0.100.100;
+		}
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 2500000;
+		MaxTrafficBurst 2000;
+		MinReservedRate 0;
+		MinResPacketSize 1;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+		MaxConcatenatedBurst 1522;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x000000f4;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 5;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 10000000;
+		MaxTrafficBurst 2000;
+		MinReservedRate 0;
+		ActQosParamsTimeout 0;
+		AdmQosParamsTimeout 0;
+	}
+	GlobalPrivacyEnable 1;
+	SnmpMibObject docsDevFilterLLCStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterLLCIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterLLCProtocolType.1 Integer 1; /* ethertype */
+	SnmpMibObject docsDevFilterLLCProtocol.1 Integer 8137;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 2;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 1; /* inbound */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 172.11.12.13;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 172.16.0.1;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpSourcePortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterIpDestPortLow.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDestPortHigh.1 Integer 65535;
+	SnmpMibObject docsDevFilterPolicyId.1 Integer 3;
+	SnmpMibObject docsDevFilterPolicyStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterTosStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterTosAndMask.1 HexString 0xf0;
+	SnmpMibObject docsDevFilterTosOrMask.1 HexString 0x0f;
+	SnmpMibObject docsDevCpeIpMax.0 Integer 3;
+	SnmpMibObject docsDevCpeStatus.10.0.34.172 Integer 4; /* createAndGo */
+	SnmpMibObject snmpCommunityStatus.'rocablelabs' Integer 4; /* createAndGo */
+	SnmpMibObject snmpCommunityName.'rocablelabs' String "rotesting";
+	SnmpMibObject snmpCommunitySecurityName.'rocablelabs' String "rotesting";
+	SnmpMibObject snmpCommunityStorageType.'rocablelabs' Integer 2; /* volatile */
+	SnmpMibObject snmpCommunityStatus.'rwcablelabs' Integer 4; /* createAndGo */
+	SnmpMibObject snmpCommunityName.'rwcablelabs' String "rwtesting";
+	SnmpMibObject snmpCommunitySecurityName.'rwcablelabs' String "rwtesting";
+	SnmpMibObject snmpCommunityStorageType.'rwcablelabs' Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.1."rotesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.1."rotesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.1."rotesting" Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.1."rwtesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.1."rwtesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.1."rwtesting" Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.2."rotesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.2."rotesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.2."rotesting" Integer 2; /* volatile */
+	SnmpMibObject vacmSecurityToGroupStatus.2."rwtesting" Integer 4; /* createAndGo */
+	SnmpMibObject vacmGroupName.2."rwtesting" String "rotesting";
+	SnmpMibObject vacmSecurityToGroupStorageType.2."rwtesting" Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rotesting"."".1.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rotesting"."".1.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rotesting"."".1.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rotesting"."".1.noAuthNoPriv Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rwtesting"."".1.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rwtesting"."".1.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rwtesting"."".1.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessWriteViewName."rwtesting"."".1.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rwtesting"."".1.noAuthNoPriv Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rotesting"."".2.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rotesting"."".2.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rotesting"."".2.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rotesting"."".2.noAuthNoPriv Integer 2; /* volatile */
+	SnmpMibObject vacmAccessStatus."rwtesting"."".2.noAuthNoPriv Integer 4; /* createAndGo */
+	SnmpMibObject vacmAccessContextMatch."rwtesting"."".2.noAuthNoPriv Integer 1; /* exact */
+	SnmpMibObject vacmAccessReadViewName."rwtesting"."".2.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessWriteViewName."rwtesting"."".2.noAuthNoPriv String "docsisManagerView";
+	SnmpMibObject vacmAccessStorageType."rwtesting"."".2.noAuthNoPriv Integer 2; /* volatile */
+	SnmpV3Kickstart
+	{
+		SnmpV3SecurityName "2adfla6";
+	}
+	SnmpV3TrapReceiver
+	{
+		SnmpV3TrapRxIP 10.0.1.253;
+		SnmpV3TrapRxPort 56790;
+		SnmpV3TrapRxType 2;
+		SnmpV3TrapRxTimeout 500;
+		SnmpV3TrapRxRetries 3;
+		SnmpV3TrapRxSecurityName "2adfla6";
+		SnmpV3TrapRxFilterOID .1.3.6.1;
+	}
+	SnmpWriteControl .1.3.6.1 1;
+	/* CmMic c2dfb86d3b184900fd01562e14c2aca9; */
+	/* CmtsMic 3470eff95b148d0c29f218ae172658ad; */
+	/*EndOfDataMkr*/
+}
+Progress: 18 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	DownstreamFrequency 681000000;
+	SwUpgradeServer 10.50.50.50;
+	SwUpgradeFilename "SomeFile.bin";
+	MaxCPE 16;
+	MaxClassifiers 20;
+	GlobalPrivacyEnable 0;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 256000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x0000008a;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 1000000;
+	}
+	/* CmMic 43f19c8d8b93b667a2bbb123a081ff6a; */
+	/* CmtsMic 0d0bbbc6fa59c362cf894ac16834772d; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	DownstreamFrequency 681000000;
+	SwUpgradeServer 10.50.50.50;
+	SwUpgradeFilename "SomeFile.bin";
+	MaxCPE 16;
+	MaxClassifiers 20;
+	GlobalPrivacyEnable 0;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 256000;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x0000008a;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 101;
+		QosParamSetType 7;
+		TrafficPriority 1;
+		MaxRateSustained 1000000;
+	}
+	/* CmMic 43f19c8d8b93b667a2bbb123a081ff6a; */
+	/* CmtsMic 0d0bbbc6fa59c362cf894ac16834772d; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 19 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		STagCTagFrameClassification
+		{
+			STPID 0x88a8;
+			SVID 0x0102;
+			SPCP 0x01;
+			SDEI 0x01;
+			CTPID 0x8100;
+			CVID 0x0001;
+			CPCP 0x01;
+			CCFI 0x01;
+			STCI 0x0102;
+			CTCI 0x0102;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		STagCTagFrameClassification
+		{
+			STPID 0x88a8;
+			SVID 0x0102;
+			SPCP 0x01;
+			SDEI 0x01;
+			CTPID 0x8100;
+			CVID 0x0001;
+			CPCP 0x01;
+			CCFI 0x01;
+			STCI 0x0102;
+			CTCI 0x0102;
+		}
+	}
+	/* CmMic c2ef1bb86c52c77f73cd21b954e6a85e; */
+	/* CmtsMic 53ce4697f22f2104a422b97ca15bd6d2; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		STagCTagFrameClassification
+		{
+			STPID 0x88a8;
+			SVID 0x0102;
+			SPCP 0x01;
+			SDEI 0x01;
+			CTPID 0x8100;
+			CVID 0x0001;
+			CPCP 0x01;
+			CCFI 0x01;
+			STCI 0x0102;
+			CTCI 0x0102;
+		}
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		STagCTagFrameClassification
+		{
+			STPID 0x88a8;
+			SVID 0x0102;
+			SPCP 0x01;
+			SDEI 0x01;
+			CTPID 0x8100;
+			CVID 0x0001;
+			CPCP 0x01;
+			CCFI 0x01;
+			STCI 0x0102;
+			CTCI 0x0102;
+		}
+	}
+	/* CmMic c2ef1bb86c52c77f73cd21b954e6a85e; */
+	/* CmtsMic 53ce4697f22f2104a422b97ca15bd6d2; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 20 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ClassifierRef 255;
+		ClassifierId 65535;
+		ServiceFlowRef 65535;
+		ServiceFlowId 2147483647;
+		RulePriority 255;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpProto 234;
+			IpSrcAddr 10.1.2.3;
+			IpSrcMask 255.255.0.0;
+			IpDstAddr 10.5.2.5;
+			IpDstMask 255.255.0.0;
+			SrcPortStart 80;
+			SrcPortEnd 81;
+			DstPortStart 500;
+			DstPortEnd 501;
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 253;
+		ClassifierId 65533;
+		ServiceFlowRef 65533;
+		ServiceFlowId 2147483645;
+		RulePriority 255;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			DstMacAddress 00:00:de:ad:be:ef/00:00:ff:ff:ff:ff;
+			SrcMacAddress 00:a0:a0:a0:a0:a0;
+			EtherType 0x030303;
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 65535;
+		DsServiceFlowId 2147483647;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		MaxDsLatency 7856345;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 65533;
+		UsServiceFlowId 2147483645;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		SchedulingType 3;
+		MaxConcatenatedBurst 34534;
+		ToleratedGrantJitter 4653512;
+	}
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 254;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 1b3e8b7a7214a926842c58f0d6d71565; */
+	/* CmtsMic 0efa9049a566f0f558a07a52ab84fc78; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ClassifierRef 255;
+		ClassifierId 65535;
+		ServiceFlowRef 65535;
+		ServiceFlowId 2147483647;
+		RulePriority 255;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpProto 234;
+			IpSrcAddr 10.1.2.3;
+			IpSrcMask 255.255.0.0;
+			IpDstAddr 10.5.2.5;
+			IpDstMask 255.255.0.0;
+			SrcPortStart 80;
+			SrcPortEnd 81;
+			DstPortStart 500;
+			DstPortEnd 501;
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 253;
+		ClassifierId 65533;
+		ServiceFlowRef 65533;
+		ServiceFlowId 2147483645;
+		RulePriority 255;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			DstMacAddress 00:00:de:ad:be:ef/00:00:ff:ff:ff:ff;
+			SrcMacAddress 00:a0:a0:a0:a0:a0;
+			EtherType 0x030303;
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 65535;
+		DsServiceFlowId 2147483647;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		MaxDsLatency 7856345;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 65533;
+		UsServiceFlowId 2147483645;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		SchedulingType 3;
+		MaxConcatenatedBurst 34534;
+		ToleratedGrantJitter 4653512;
+	}
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 254;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 1b3e8b7a7214a926842c58f0d6d71565; */
+	/* CmtsMic 0efa9049a566f0f558a07a52ab84fc78; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 21 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	VendorSpecific
+	{
+		VendorIdentifier 0xffffff;
+		L2VPNEncoding
+		{
+			VPNIdentifier 0x564c414e313030;
+			NSIEncapsulation
+			{
+				NSIEncapsulationSingleQTag 16;
+				NSIEncapsulationDualQTag 1,2;
+			}
+		}
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		MaxRateSustained 256000;
+		MaxConcatenatedBurst 0;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+		MaxRateSustained 2000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 5;
+		ServiceFlowRef 1;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x018864;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsPacketClass
+	{
+		ClassifierRef 6;
+		ServiceFlowRef 2;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x040000;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	/* CmMic 6e4def985f1c846d69f1614838dcc862; */
+	/* CmtsMic 328a3a88b217876e893c5d2cda959732; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	VendorSpecific
+	{
+		VendorIdentifier 0xffffff;
+		L2VPNEncoding
+		{
+			VPNIdentifier 0x564c414e313030;
+			NSIEncapsulation
+			{
+				NSIEncapsulationSingleQTag 16;
+				NSIEncapsulationDualQTag 1,2;
+			}
+		}
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		MaxRateSustained 256000;
+		MaxConcatenatedBurst 0;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+		MaxRateSustained 2000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 5;
+		ServiceFlowRef 1;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x018864;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsPacketClass
+	{
+		ClassifierRef 6;
+		ServiceFlowRef 2;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x040000;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	/* CmMic 6e4def985f1c846d69f1614838dcc862; */
+	/* CmtsMic 328a3a88b217876e893c5d2cda959732; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 22 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	VendorSpecific
+	{
+		VendorIdentifier 0xffffff;
+		L2VPNEncoding
+		{
+			VPNIdentifier 0x564c414e313030;
+			NSIEncapsulation
+			{
+				NSIEncapsulationSingleQTag 16;
+			}
+		}
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		MaxRateSustained 256000;
+		MaxConcatenatedBurst 0;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+		MaxRateSustained 2000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 5;
+		ServiceFlowRef 1;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x018864;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsPacketClass
+	{
+		ClassifierRef 6;
+		ServiceFlowRef 2;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x040000;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	/* CmMic e0c8990baedd2729d682dde0e4757cbf; */
+	/* CmtsMic e9092d47d07494f869c758fa41447263; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	VendorSpecific
+	{
+		VendorIdentifier 0xffffff;
+		L2VPNEncoding
+		{
+			VPNIdentifier 0x564c414e313030;
+			NSIEncapsulation
+			{
+				NSIEncapsulationSingleQTag 16;
+			}
+		}
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+		MaxRateSustained 256000;
+		MaxConcatenatedBurst 0;
+		SchedulingType 2;
+		RequestOrTxPolicy 0x00000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+		MaxRateSustained 2000000;
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 5;
+		ServiceFlowRef 1;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x018864;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	DsPacketClass
+	{
+		ClassifierRef 6;
+		ServiceFlowRef 2;
+		RulePriority 2;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			EtherType 0x040000;
+		}
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				VPNIdentifier 0x564c414e313030;
+			}
+		}
+	}
+	/* CmMic e0c8990baedd2729d682dde0e4757cbf; */
+	/* CmtsMic e9092d47d07494f869c758fa41447263; */
+	/*EndOfDataMkr*/
+}
+Progress: 23 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ClassifierRef 255;
+		ClassifierId 65535;
+		ServiceFlowRef 65535;
+		ServiceFlowId 2147483647;
+		RulePriority 255;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpProto 234;
+			IpSrcAddr 10.1.2.3;
+			IpSrcMask 255.255.0.0;
+			IpDstAddr 10.5.2.5;
+			IpDstMask 255.255.0.0;
+			SrcPortStart 80;
+			SrcPortEnd 81;
+			DstPortStart 500;
+			DstPortEnd 501;
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 253;
+		ClassifierId 65533;
+		ServiceFlowRef 65533;
+		ServiceFlowId 2147483645;
+		RulePriority 255;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			DstMacAddress 00:00:de:ad:be:ef/00:00:ff:ff:ff:ff;
+			SrcMacAddress 00:a0:a0:a0:a0:a0;
+			EtherType 0x030303;
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 65535;
+		DsServiceFlowId 2147483647;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		MaxDsLatency 7856345;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 65533;
+		UsServiceFlowId 2147483645;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		SchedulingType 3;
+		MaxConcatenatedBurst 34534;
+		ToleratedGrantJitter 4653512;
+	}
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 254;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	MaxCPE 3;
+	/* CmMic c1fccf6926dc30fefc6393d538de7207; */
+	/* CmtsMic 5664c4d5a2f2e7be82183cb85f7e951d; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ClassifierRef 255;
+		ClassifierId 65535;
+		ServiceFlowRef 65535;
+		ServiceFlowId 2147483647;
+		RulePriority 255;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpProto 234;
+			IpSrcAddr 10.1.2.3;
+			IpSrcMask 255.255.0.0;
+			IpDstAddr 10.5.2.5;
+			IpDstMask 255.255.0.0;
+			SrcPortStart 80;
+			SrcPortEnd 81;
+			DstPortStart 500;
+			DstPortEnd 501;
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 253;
+		ClassifierId 65533;
+		ServiceFlowRef 65533;
+		ServiceFlowId 2147483645;
+		RulePriority 255;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			DstMacAddress 00:00:de:ad:be:ef/00:00:ff:ff:ff:ff;
+			SrcMacAddress 00:a0:a0:a0:a0:a0;
+			EtherType 0x030303;
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 65535;
+		DsServiceFlowId 2147483647;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		MaxDsLatency 7856345;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 65533;
+		UsServiceFlowId 2147483645;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		SchedulingType 3;
+		MaxConcatenatedBurst 34534;
+		ToleratedGrantJitter 4653512;
+	}
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 254;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	MaxCPE 3;
+	/* CmMic c1fccf6926dc30fefc6393d538de7207; */
+	/* CmtsMic 5664c4d5a2f2e7be82183cb85f7e951d; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 24 / 142
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ClassifierRef 255;
+		ClassifierId 65535;
+		ServiceFlowRef 65535;
+		ServiceFlowId 2147483647;
+		RulePriority 255;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpProto 234;
+			IpSrcAddr 10.1.2.3;
+			IpSrcMask 255.255.0.0;
+			IpDstAddr 10.5.2.5;
+			IpDstMask 255.255.0.0;
+			SrcPortStart 80;
+			SrcPortEnd 81;
+			DstPortStart 500;
+			DstPortEnd 501;
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 253;
+		ClassifierId 65533;
+		ServiceFlowRef 65533;
+		ServiceFlowId 2147483645;
+		RulePriority 255;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			DstMacAddress 00:00:de:ad:be:ef/00:00:ff:ff:ff:ff;
+			SrcMacAddress 00:a0:a0:a0:a0:a0;
+			EtherType 0x030303;
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 65535;
+		DsServiceFlowId 2147483647;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		MaxDsLatency 7856345;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 65533;
+		UsServiceFlowId 2147483645;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		SchedulingType 3;
+		MaxConcatenatedBurst 34534;
+		ToleratedGrantJitter 4653512;
+	}
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 254;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 1b3e8b7a7214a926842c58f0d6d71565; */
+	/* CmtsMic 0efa9049a566f0f558a07a52ab84fc78; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DsPacketClass
+	{
+		ClassifierRef 255;
+		ClassifierId 65535;
+		ServiceFlowRef 65535;
+		ServiceFlowId 2147483647;
+		RulePriority 255;
+		ActivationState 1;
+		IpPacketClassifier
+		{
+			IpTos 0x00ffff;
+			IpProto 234;
+			IpSrcAddr 10.1.2.3;
+			IpSrcMask 255.255.0.0;
+			IpDstAddr 10.5.2.5;
+			IpDstMask 255.255.0.0;
+			SrcPortStart 80;
+			SrcPortEnd 81;
+			DstPortStart 500;
+			DstPortEnd 501;
+		}
+	}
+	UsPacketClass
+	{
+		ClassifierRef 253;
+		ClassifierId 65533;
+		ServiceFlowRef 65533;
+		ServiceFlowId 2147483645;
+		RulePriority 255;
+		ActivationState 1;
+		LLCPacketClassifier
+		{
+			DstMacAddress 00:00:de:ad:be:ef/00:00:ff:ff:ff:ff;
+			SrcMacAddress 00:a0:a0:a0:a0:a0;
+			EtherType 0x030303;
+		}
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 65535;
+		DsServiceFlowId 2147483647;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		MaxDsLatency 7856345;
+	}
+	UsServiceFlow
+	{
+		UsServiceFlowRef 65533;
+		UsServiceFlowId 2147483645;
+		TrafficPriority 6;
+		MaxRateSustained 3421234;
+		MaxTrafficBurst 564343;
+		SchedulingType 3;
+		MaxConcatenatedBurst 34534;
+		ToleratedGrantJitter 4653512;
+	}
+	NetworkAccess 1;
+	DownstreamFrequency 123000000;
+	UpstreamChannelId 1;
+	ClassOfService
+	{
+		ClassID 1;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 254;
+	}
+	BaselinePrivacy
+	{
+		AuthTimeout 10;
+		ReAuthTimeout 10;
+		AuthGraceTime 600;
+		OperTimeout 10;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+		AuthRejectTimeout 9;
+	}
+	SnmpMibObject docsDevFilterIpDefault.0 Integer 1; /* discard */
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.1 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.1 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.1 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.1 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.1 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.1 Integer 1;
+	SnmpMibObject docsDevFilterIpStatus.1 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.2 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.2 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.2 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.2 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.2 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.2 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpDmask.2 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpProtocol.2 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.2 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.3 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.3 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.3 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.3 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.3 IPAddress 10.1.1.1;
+	SnmpMibObject docsDevFilterIpSmask.3 IPAddress 255.255.255.255;
+	SnmpMibObject docsDevFilterIpDaddr.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.3 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.3 Integer 6;
+	SnmpMibObject docsDevFilterIpStatus.3 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.4 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.4 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.4 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.4 Integer 1; /* true */
+	SnmpMibObject docsDevFilterIpSaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.4 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.4 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.4 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.5 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.5 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.5 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.5 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.5 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.5 Integer 17;
+	SnmpMibObject docsDevFilterIpStatus.5 Integer 4; /* createAndGo */
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 6; /* destroy */
+	SnmpMibObject docsDevFilterIpControl.6 Integer 2; /* accept */
+	SnmpMibObject docsDevFilterIpIfIndex.6 Integer 0;
+	SnmpMibObject docsDevFilterIpDirection.6 Integer 3; /* both */
+	SnmpMibObject docsDevFilterIpBroadcast.6 Integer 2; /* false */
+	SnmpMibObject docsDevFilterIpSaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpSmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDaddr.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpDmask.6 IPAddress 0.0.0.0;
+	SnmpMibObject docsDevFilterIpProtocol.6 Integer 6;
+	SnmpMibObject docsDevFilterIpSourcePortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpSourcePortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortLow.6 Integer 53;
+	SnmpMibObject docsDevFilterIpDestPortHigh.6 Integer 53;
+	SnmpMibObject docsDevFilterIpStatus.6 Integer 4; /* createAndGo */
+	MaxCPE 3;
+	/* CmMic 1b3e8b7a7214a926842c58f0d6d71565; */
+	/* CmtsMic 0efa9049a566f0f558a07a52ab84fc78; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 25 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	ChannelAssignmentConfig
+	{
+		CaTransmit 1;
+		CaTransmit 10;
+		CaReceive 410000000;
+		CaReceive 418000000;
+		CaReceive 426000000;
+		CaReceive 434000000;
+	}
+	/* CmMic 95760f70759e16e320ad0a9162c05eef; */
+	/* CmtsMic 86d8197b8aa81e300620379e8ed3fe97; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	ChannelAssignmentConfig
+	{
+		CaTransmit 1;
+		CaTransmit 10;
+		CaReceive 410000000;
+		CaReceive 418000000;
+		CaReceive 426000000;
+		CaReceive 434000000;
+	}
+	/* CmMic 95760f70759e16e320ad0a9162c05eef; */
+	/* CmtsMic 86d8197b8aa81e300620379e8ed3fe97; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 26 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		InitializationModeOverride 1;
+	}
+	/* CmMic 7ac5da893c765764a0b1b18bc6b91b07; */
+	/* CmtsMic 8a71fa02bbcd9afe8bf524e612a4aebc; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		InitializationModeOverride 1;
+	}
+	/* CmMic 7ac5da893c765764a0b1b18bc6b91b07; */
+	/* CmtsMic 8a71fa02bbcd9afe8bf524e612a4aebc; */
+	/*EndOfDataMkr*/
+}
+Progress: 27 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	ModemCapabilities
+	{
+		ConcatenationSupport 1;
+		ModemDocsisVersion 3;
+		FragmentationSupport 1;
+		PHSSupport 0;
+		IGMPSupport 1;
+		BaselinePrivacySupport 1;
+		DownstreamSAIDSupport 16;
+		UpstreamSIDSupport 32;
+		OptionalFilteringSupport 7;
+		TransmitPreEqualizerTapsPerModulationInterval 4;
+		NumberofTransmitEqualizerTaps 64;
+		DCCSupport 1;
+		IPFiltersSupport 128;
+		LLCFiltersSupport 128;
+		ExpandedUnicastSIDSpace 1;
+		RangingHoldOffSupport 0x01020304;
+		L2VPNCapability 1;
+		L2VPNeSAFEHostCapability 0x010203;
+		DUTFilteringSupport 1;
+		UpstreamFrequencyRangeSupport 0;
+		UpstreamSymbolRateSupport 6;
+		SelectableActiveCodeMode2Support 1;
+		CodeHoppingMode2Support 0;
+		MultipleTransmitChannelSupport 24;
+		M512MspsUpstreamTransmitChannel 16;
+		M256MspsUpstreamTransmitChannel 8;
+		TotalSIDClusterSupport 4;
+		SIDClustersPerServiceFlow 4;
+		MultipleReceiveChannelSupport 32;
+		TotalDownstreamServiceIDSupport 128;
+		ResequencingDownstreamServiceID 16;
+		MulticastDownstreamServiceID 24;
+		MulticastDSIDForwarding 2;
+		FrameControlTypeForwarding 1;
+		DPVCapability 0;
+		UnsolicitedGrantServiceSupport 6;
+		MAPandUCDReceiptSupport 1;
+		UpstreamDropClassifierSupport 128;
+		IPv6Support 1;
+		ExtendedUpstreamTransmitPower 244;
+		MPLSClassificationSupport 0x01020304;
+		DONUCapabilitiesEncoding 0x010203040506;
+		EnergyManagementCapabilities 0x01020304;
+		CDOCSISCapabilityEncoding 0x0102;
+		CMSTATUSACK 1;
+	}
+	/* CmMic 6cb9810a9b900a815fb7e0f6c917efcd; */
+	/* CmtsMic 9254870e94cdd29ac6ded2e31782ad84; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	ModemCapabilities
+	{
+		ConcatenationSupport 1;
+		ModemDocsisVersion 3;
+		FragmentationSupport 1;
+		PHSSupport 0;
+		IGMPSupport 1;
+		BaselinePrivacySupport 1;
+		DownstreamSAIDSupport 16;
+		UpstreamSIDSupport 32;
+		OptionalFilteringSupport 7;
+		TransmitPreEqualizerTapsPerModulationInterval 4;
+		NumberofTransmitEqualizerTaps 64;
+		DCCSupport 1;
+		IPFiltersSupport 128;
+		LLCFiltersSupport 128;
+		ExpandedUnicastSIDSpace 1;
+		RangingHoldOffSupport 0x01020304;
+		L2VPNCapability 1;
+		L2VPNeSAFEHostCapability 0x010203;
+		DUTFilteringSupport 1;
+		UpstreamFrequencyRangeSupport 0;
+		UpstreamSymbolRateSupport 6;
+		SelectableActiveCodeMode2Support 1;
+		CodeHoppingMode2Support 0;
+		MultipleTransmitChannelSupport 24;
+		M512MspsUpstreamTransmitChannel 16;
+		M256MspsUpstreamTransmitChannel 8;
+		TotalSIDClusterSupport 4;
+		SIDClustersPerServiceFlow 4;
+		MultipleReceiveChannelSupport 32;
+		TotalDownstreamServiceIDSupport 128;
+		ResequencingDownstreamServiceID 16;
+		MulticastDownstreamServiceID 24;
+		MulticastDSIDForwarding 2;
+		FrameControlTypeForwarding 1;
+		DPVCapability 0;
+		UnsolicitedGrantServiceSupport 6;
+		MAPandUCDReceiptSupport 1;
+		UpstreamDropClassifierSupport 128;
+		IPv6Support 1;
+		ExtendedUpstreamTransmitPower 244;
+		MPLSClassificationSupport 0x01020304;
+		DONUCapabilitiesEncoding 0x010203040506;
+		EnergyManagementCapabilities 0x01020304;
+		CDOCSISCapabilityEncoding 0x0102;
+		CMSTATUSACK 1;
+	}
+	/* CmMic 6cb9810a9b900a815fb7e0f6c917efcd; */
+	/* CmtsMic 9254870e94cdd29ac6ded2e31782ad84; */
+	/*EndOfDataMkr*/
+}
+Progress: 28 / 142
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 130000000;
+	UpstreamChannelId 123;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 5;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	SwUpgradeFilename "filename1.bin";
+	BaselinePrivacy
+	{
+		AuthTimeout 25;
+		ReAuthTimeout 15;
+		AuthGraceTime 120;
+		OperTimeout 9;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+	}
+	MaxCPE 13;
+	SwUpgradeServer 10.1.1.1;
+	SwUpgradeServer6 2001:db8::1;
+	/* CmMic 775d20a2183878cd8351c58087183561; */
+	/* CmtsMic 81c6aa8340dab8e0d508fecf9c766fc4; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	DownstreamFrequency 130000000;
+	UpstreamChannelId 123;
+	NetworkAccess 1;
+	ClassOfService
+	{
+		ClassID 5;
+		MaxRateDown 512000;
+		MaxRateUp 64000;
+		PriorityUp 3;
+		GuaranteedUp 32000;
+		MaxBurstUp 54314;
+		PrivacyEnable 1;
+	}
+	SwUpgradeFilename "filename1.bin";
+	BaselinePrivacy
+	{
+		AuthTimeout 25;
+		ReAuthTimeout 15;
+		AuthGraceTime 120;
+		OperTimeout 9;
+		ReKeyTimeout 10;
+		TEKGraceTime 600;
+	}
+	MaxCPE 13;
+	SwUpgradeServer 10.1.1.1;
+	SwUpgradeServer6 2001:db8::1;
+	/* CmMic 775d20a2183878cd8351c58087183561; */
+	/* CmtsMic 81c6aa8340dab8e0d508fecf9c766fc4; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 29 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		InitializationMode 1;
+		TR69ManagementServer
+		{
+			EnableCWMP 1;
+			URL "https://www.example.com/index.xml";
+			Username "ExampleUsername";
+			Password "ExamplePassword";
+			ConnectionRequestUsername "ConnectionUsername";
+			ConnectionRequestPassword "ConnectionPassword";
+			ACSOverride 0;
+		}
+	}
+	/* CmMic 25a823457d112076a8b586b687f27f41; */
+	/* CmtsMic ce23716193b592ade7186db7900440bb; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		InitializationMode 1;
+		TR69ManagementServer
+		{
+			EnableCWMP 1;
+			URL "https://www.example.com/index.xml";
+			Username "ExampleUsername";
+			Password "ExamplePassword";
+			ConnectionRequestUsername "ConnectionUsername";
+			ConnectionRequestPassword "ConnectionPassword";
+			ACSOverride 0;
+		}
+	}
+	/* CmMic 25a823457d112076a8b586b687f27f41; */
+	/* CmtsMic ce23716193b592ade7186db7900440bb; */
+	/*EndOfDataMkr*/
+}
+Progress: 30 / 142
+Final content of config file:
+Main 
+{
+	eRouter
+	{
+		RATransmissionInterval 1800;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic b2fa2ed42b5d1e67d8466840a92686ff; */
+	/* CmtsMic d35a652f486da2ec6bf610aa911dcf2d; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	eRouter
+	{
+		RATransmissionInterval 1800;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic b2fa2ed42b5d1e67d8466840a92686ff; */
+	/* CmtsMic d35a652f486da2ec6bf610aa911dcf2d; */
+	/*EndOfDataMkr*/
+}
+Progress: 31 / 142
+Final content of config file:
+Main 
+{
+	eRouter
+	{
+		SnmpMibObject sysName.0 String "Cisco";
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic c453b0d85e0a559594831c97d2e9d54d; */
+	/* CmtsMic acf4311b948bc0cf688837e896d5b1ec; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	eRouter
+	{
+		SnmpMibObject sysName.0 String "Cisco";
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic c453b0d85e0a559594831c97d2e9d54d; */
+	/* CmtsMic acf4311b948bc0cf688837e896d5b1ec; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 32 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		SNMPv1v2cCoexistenceConfig
+		{
+			SNMPv1v2cCommunityName "public";
+			SNMPv1v2cTransportAddressAccess
+			{
+				SNMPv1v2cTransportAddress 2002::22:1/1234;
+				SNMPv1v2cTransportAddressMask 11.22.33.44/4321;
+			}
+			SNMPv1v2cAccessViewType 2;
+			SNMPv1v2cAccessViewName "write";
+		}
+	}
+	/* CmMic 72415a207e9b326740adc4edf12ec1ec; */
+	/* CmtsMic 005355b692863c638204ae2ba9ef591e; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		SNMPv1v2cCoexistenceConfig
+		{
+			SNMPv1v2cCommunityName "public";
+			SNMPv1v2cTransportAddressAccess
+			{
+				SNMPv1v2cTransportAddress 2002::22:1/1234;
+				SNMPv1v2cTransportAddressMask 11.22.33.44/4321;
+			}
+			SNMPv1v2cAccessViewType 2;
+			SNMPv1v2cAccessViewName "write";
+		}
+	}
+	/* CmMic 72415a207e9b326740adc4edf12ec1ec; */
+	/* CmtsMic 005355b692863c638204ae2ba9ef591e; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 33 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		SNMPv3AccessViewConfiguration
+		{
+			SNMPv3AccessViewName "accessviewname";
+			SNMPv3AccessViewSubtree .1.3.6.1.1.2.1.2.3;
+			SNMPv3AccessViewMask 0x0102;
+			SNMPv3AccessViewType 2;
+		}
+	}
+	/* CmMic 644df8c53e6c3bdbaea42c9d2c29a467; */
+	/* CmtsMic 5771949370cfbeb12ca243eba60b5563; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		SNMPv3AccessViewConfiguration
+		{
+			SNMPv3AccessViewName "accessviewname";
+			SNMPv3AccessViewSubtree .1.3.6.1.1.2.1.2.3;
+			SNMPv3AccessViewMask 0x0102;
+			SNMPv3AccessViewType 2;
+		}
+	}
+	/* CmMic 644df8c53e6c3bdbaea42c9d2c29a467; */
+	/* CmtsMic 5771949370cfbeb12ca243eba60b5563; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 34 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		TopologyModeEncoding 2;
+	}
+	/* CmMic 8759d15c1354d1cdbdc5c469e650af20; */
+	/* CmtsMic d88a5e8a310dd4666f7e6f6642e8d4ad; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		TopologyModeEncoding 2;
+	}
+	/* CmMic 8759d15c1354d1cdbdc5c469e650af20; */
+	/* CmtsMic d88a5e8a310dd4666f7e6f6642e8d4ad; */
+	/*EndOfDataMkr*/
+}
+Progress: 35 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0x010203;
+		}
+	}
+	/* CmMic 226b32e43a0bdd20f1941e32146faca7; */
+	/* CmtsMic b0a60c54b725d7b06ae05148aa7bc63b; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	eRouter
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0x010203;
+		}
+	}
+	/* CmMic 226b32e43a0bdd20f1941e32146faca7; */
+	/* CmtsMic b0a60c54b725d7b06ae05148aa7bc63b; */
+	/*EndOfDataMkr*/
+}
+Progress: 36 / 142
+First TLV is MtaConfigDelimiter, forcing PacketCable MTA file.
+Final content of config file:
+Main 
+{
+	MtaConfigDelimiter 1;
+	SnmpMibObject enterprises.4115.11.1.2.1 String "000|106|101|[*#]xx#|*#xx#|*xx.#|*xx.*x.#|##|183[12]|11xx|12xxx.[t#]|130xxxxxxx|13[1-35-9]xxx|134[0-46-9]xx|1345xxxx|1[89]0[012]xxxxxx|180[2-9]xxx|[45689]xxxxxxx|0198xxxxxx|02[4689]xxxxxxx|03[45689]xxxxxxx|04xxxxxxxx|07[3459]xxxxxxx|08xxxxxxxx|0011x.[t#]000|106|101|[*#]xx#|*#xx#|*xx.#|*xx.*x.#|##|183[12]|11xx|12xxx.[t#]|130xxxxxxx|13[1-35-9]xxx|134[0-46-9]xx|1345xxxx|1[89]0[012]xxxxxx|180[2-9]xxx|[45689]xxxxxxx|0198xxxxxx|02[4689]xxxxxxx|03[45689]xxxxxxx|04xxxxxxxx|07[3459]xxxxxxx|08xxxxxxxx|0011x.[t#]";
+	MtaConfigDelimiter 255;
+}
+First TLV is MtaConfigDelimiter, forcing PacketCable MTA file.
+Final content of config file:
+Main 
+{
+	MtaConfigDelimiter 1;
+	SnmpMibObject enterprises.4115.11.1.2.1 String "000|106|101|[*#]xx#|*#xx#|*xx.#|*xx.*x.#|##|183[12]|11xx|12xxx.[t#]|130xxxxxxx|13[1-35-9]xxx|134[0-46-9]xx|1345xxxx|1[89]0[012]xxxxxx|180[2-9]xxx|[45689]xxxxxxx|0198xxxxxx|02[4689]xxxxxxx|03[45689]xxxxxxx|04xxxxxxxx|07[3459]xxxxxxx|08xxxxxxxx|0011x.[t#]000|106|101|[*#]xx#|*#xx#|*xx.#|*xx.*x.#|##|183[12]|11xx|12xxx.[t#]|130xxxxxxx|13[1-35-9]xxx|134[0-46-9]xx|1345xxxx|1[89]0[012]xxxxxx|180[2-9]xxx|[45689]xxxxxxx|0198xxxxxx|02[4689]xxxxxxx|03[45689]xxxxxxx|04xxxxxxxx|07[3459]xxxxxxx|08xxxxxxxx|0011x.[t#]";
+	MtaConfigDelimiter 255;
+}
+Progress: 37 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	PHS
+	{
+		PHSClassifierRef 1;
+		PHSDSCAction 1;
+		PHSDBCAction 1;
+	}
+	/* CmMic 69c4ac44fe830e648e3b211233587bb2; */
+	/* CmtsMic 35683985272eb1c911b7c643f749e6db; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	PHS
+	{
+		PHSClassifierRef 1;
+		PHSDSCAction 1;
+		PHSDBCAction 1;
+	}
+	/* CmMic 69c4ac44fe830e648e3b211233587bb2; */
+	/* CmtsMic 35683985272eb1c911b7c643f749e6db; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 38 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	CMTSStaticMulticastSessionEncodings
+	{
+		CMTSStaticMulticastSessionGroup 1.2.3.4;
+		CMTSStaticMulticastSessionSource 5.6.7.8;
+		CMTSStaticMulticastSessionCMIM 0xaabb;
+	}
+	/* CmMic d11cc663cd9b6b02070030cc0f7ddfd1; */
+	/* CmtsMic beab0af9777313eb3de54d983dc35807; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	CMTSStaticMulticastSessionEncodings
+	{
+		CMTSStaticMulticastSessionGroup 1.2.3.4;
+		CMTSStaticMulticastSessionSource 5.6.7.8;
+		CMTSStaticMulticastSessionCMIM 0xaabb;
+	}
+	/* CmMic d11cc663cd9b6b02070030cc0f7ddfd1; */
+	/* CmtsMic beab0af9777313eb3de54d983dc35807; */
+	/*EndOfDataMkr*/
+}
+Progress: 39 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			IPMulticastJoinAuthorization
+			{
+				IPMulticastProfileName "profileName";
+				IPMulticastJoinAuthStaticSessionRule
+				{
+					MulticastRulePriority 0;
+					AuthorizationAction 0;
+					SourcePrefixAddress 1.2.3.4;
+					SourcePrefixLength 32;
+					GroupPrefixAddress 2002::2:1;
+					GroupPrefixLength 128;
+				}
+				MaximumMulticastSessions 1;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic ebd676e10c63c3b86f2ce37467041401; */
+	/* CmtsMic 68b5a1fa883dd50c78970fdea0e417e7; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			IPMulticastJoinAuthorization
+			{
+				IPMulticastProfileName "profileName";
+				IPMulticastJoinAuthStaticSessionRule
+				{
+					MulticastRulePriority 0;
+					AuthorizationAction 0;
+					SourcePrefixAddress 1.2.3.4;
+					SourcePrefixLength 32;
+					GroupPrefixAddress 2002::2:1;
+					GroupPrefixLength 128;
+				}
+				MaximumMulticastSessions 1;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic ebd676e10c63c3b86f2ce37467041401; */
+	/* CmtsMic 68b5a1fa883dd50c78970fdea0e417e7; */
+	/*EndOfDataMkr*/
+}
+Progress: 40 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			ServiceTypeIdentifier "basic";
+			DEMARCAutoConfiguration
+			{
+				DACDisableEnableConfig 1;
+				CMIMEncoding 0x0102;
+				UpstreamServiceClassName "string1";
+				DownstreamServiceClassName "string2";
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic f22cec02e72c1eaba4b8aa3bfde6f203; */
+	/* CmtsMic d98ad95b3a2ed394f2e5eb928a187545; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			ServiceTypeIdentifier "basic";
+			DEMARCAutoConfiguration
+			{
+				DACDisableEnableConfig 1;
+				CMIMEncoding 0x0102;
+				UpstreamServiceClassName "string1";
+				DownstreamServiceClassName "string2";
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic f22cec02e72c1eaba4b8aa3bfde6f203; */
+	/* CmtsMic d98ad95b3a2ed394f2e5eb928a187545; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 41 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			CMLoadBalancingPolicyID 1;
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 1ee30a5b0e4fc7145c100334f629f6a9; */
+	/* CmtsMic 6fb8b4bfc5418367a83990f7d7a9a094; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			CMLoadBalancingPolicyID 1;
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 1ee30a5b0e4fc7145c100334f629f6a9; */
+	/* CmtsMic 6fb8b4bfc5418367a83990f7d7a9a094; */
+	/*EndOfDataMkr*/
+}
+Progress: 42 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			CMLoadBalancingPriority 1;
+			CMLoadBalancingGroupID 1;
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic eeaee880f0476c1a52c87e7869eb339a; */
+	/* CmtsMic 44c36771e83efbe9f58d5a895fe5720f; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			CMLoadBalancingPriority 1;
+			CMLoadBalancingGroupID 1;
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic eeaee880f0476c1a52c87e7869eb339a; */
+	/* CmtsMic 44c36771e83efbe9f58d5a895fe5720f; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 43 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			CMLoadBalancingPriority 1;
+			CMLoadBalancingGroupID 1;
+			CMRangingClassIDExtension 1;
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 71a846ff23d830e0e727c61faf855399; */
+	/* CmtsMic 313b9e221df9fb1447ee6e7639d25371; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			CMLoadBalancingPriority 1;
+			CMLoadBalancingGroupID 1;
+			CMRangingClassIDExtension 1;
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 71a846ff23d830e0e727c61faf855399; */
+	/* CmtsMic 313b9e221df9fb1447ee6e7639d25371; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 44 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				L2VPNSADescriptorSubtype 0x0102030405060708091011121314;
+				PseudowireType 5;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic bc746b93b945c4bf12fdd80c1eb07723; */
+	/* CmtsMic 9867f383634d9b5a507dc097ec1d9f4e; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				L2VPNSADescriptorSubtype 0x0102030405060708091011121314;
+				PseudowireType 5;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic bc746b93b945c4bf12fdd80c1eb07723; */
+	/* CmtsMic 9867f383634d9b5a507dc097ec1d9f4e; */
+	/*EndOfDataMkr*/
+}
+Progress: 45 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				L2VPNMode 1;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic d5dd14f99e070bd6bdaf33567e7a2c06; */
+	/* CmtsMic 80a51dfea4ea3802a30b671a13498d34; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				L2VPNMode 1;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic d5dd14f99e070bd6bdaf33567e7a2c06; */
+	/* CmtsMic 80a51dfea4ea3802a30b671a13498d34; */
+	/*EndOfDataMkr*/
+}
+Progress: 46 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				TPIDTranslation
+				{
+					UpstreamTPIDTranslation 0x0102;
+					DownstreamTPIDTranslation 0x0102;
+					UpstreamSTPIDTranslation 0x0102;
+					DownstreamSTPIDTranslation 0x0102;
+					UpstreamBTPIDTranslation 0x0102;
+					DownstreamBTPIDTranslation 0x0102;
+					UpstreamITPIDTranslation 0x0102;
+					DownstreamITPIDTranslation 0x0102;
+				}
+				L2CPProcessing
+				{
+					L2CPTunnelMode 1;
+					L2CPDMACAddress 00:11:22:33:44:55;
+					L2CPOverwrotingDMACAddress 55:44:33:22:11:00;
+				}
+				DACDisableEnableConfiguration 1;
+				PseudowireClass 0x010203;
+				ServiceDelimiter
+				{
+					CVIDDelimiter 0x0102;
+					SVIDDelimiter 0x0102;
+					ISIDDelimiter 0x010203;
+					BVIDDelimiter 0x0102;
+				}
+				VirtualSwitchInstanceEncoding
+				{
+					VPLSClass 0x0102;
+					ETreeRole 1;
+					ETreeRootVID 0x0102;
+					ETreeLeafVID 0x0304;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 10fb88b17247a1c783b32e875700bd03; */
+	/* CmtsMic b4090c447fa79d1820b6c80a2049dbbd; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				TPIDTranslation
+				{
+					UpstreamTPIDTranslation 0x0102;
+					DownstreamTPIDTranslation 0x0102;
+					UpstreamSTPIDTranslation 0x0102;
+					DownstreamSTPIDTranslation 0x0102;
+					UpstreamBTPIDTranslation 0x0102;
+					DownstreamBTPIDTranslation 0x0102;
+					UpstreamITPIDTranslation 0x0102;
+					DownstreamITPIDTranslation 0x0102;
+				}
+				L2CPProcessing
+				{
+					L2CPTunnelMode 1;
+					L2CPDMACAddress 00:11:22:33:44:55;
+					L2CPOverwrotingDMACAddress 55:44:33:22:11:00;
+				}
+				DACDisableEnableConfiguration 1;
+				PseudowireClass 0x010203;
+				ServiceDelimiter
+				{
+					CVIDDelimiter 0x0102;
+					SVIDDelimiter 0x0102;
+					ISIDDelimiter 0x010203;
+					BVIDDelimiter 0x0102;
+				}
+				VirtualSwitchInstanceEncoding
+				{
+					VPLSClass 0x0102;
+					ETreeRole 1;
+					ETreeRootVID 0x0102;
+					ETreeLeafVID 0x0304;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 10fb88b17247a1c783b32e875700bd03; */
+	/* CmtsMic b4090c447fa79d1820b6c80a2049dbbd; */
+	/*EndOfDataMkr*/
+}
+Progress: 47 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				BGPAttribute
+				{
+					BGPVPNID 1;
+					RouteDistinguisher 0x0101010100000001;
+					RouteTargetImport 0x000000010101010100000001010101010000000101010101;
+					RouteTargetExport 0x00000001010101010000000101010101;
+					CEIDVEID 5;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic cd15897b246c026e540f865b8793c839; */
+	/* CmtsMic 2ae17d46ff60a407644e982a08932560; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				BGPAttribute
+				{
+					BGPVPNID 1;
+					RouteDistinguisher 0x0101010100000001;
+					RouteTargetImport 0x000000010101010100000001010101010000000101010101;
+					RouteTargetExport 0x00000001010101010000000101010101;
+					CEIDVEID 5;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic cd15897b246c026e540f865b8793c839; */
+	/* CmtsMic 2ae17d46ff60a407644e982a08932560; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 48 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					ServiceMultiplexingValueOther 0x00;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 686b4233924b7809001ce7402d1d1366; */
+	/* CmtsMic a4710ae4fd0a1f1336aeb225b630dbe1; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					ServiceMultiplexingValueOther 0x00;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 686b4233924b7809001ce7402d1d1366; */
+	/* CmtsMic a4710ae4fd0a1f1336aeb225b630dbe1; */
+	/*EndOfDataMkr*/
+}
+Progress: 49 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					NSIEncapsulationSingleQTag 15;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 84149283b81e152cae15b8cbc233f940; */
+	/* CmtsMic 16249d90cab47148afa37be772c5dad0; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					NSIEncapsulationSingleQTag 15;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 84149283b81e152cae15b8cbc233f940; */
+	/* CmtsMic 16249d90cab47148afa37be772c5dad0; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 50 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				PseudowireSignaling 0;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 8ef89288faa0b62ae4f4a492d8f97115; */
+	/* CmtsMic 52675730f8831ffebc39731d48b291e1; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				PseudowireSignaling 0;
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic 8ef89288faa0b62ae4f4a492d8f97115; */
+	/* CmtsMic 52675730f8831ffebc39731d48b291e1; */
+	/*EndOfDataMkr*/
+}
+Progress: 51 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					NSIEncapsulationDualQTag 11,22;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 2ca3fa3e29b0caca5075cd3271ef4ed6; */
+	/* CmtsMic e964f7f1b20636a4e5dc0c4e578b5e7c; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					NSIEncapsulationDualQTag 11,22;
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 2ca3fa3e29b0caca5075cd3271ef4ed6; */
+	/* CmtsMic e964f7f1b20636a4e5dc0c4e578b5e7c; */
+	/*EndOfDataMkr*/
+}
+Progress: 52 / 142
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					ServiceMultiplexingValueMPLSPW
+					{
+						MPLSPseudowireID 1;
+						MPLSPeerIpAddress 1.1.1.1;
+						MPLSPseudowireType 5;
+						MPLSBackupPseudowireID 1;
+						MPLSBackupPeerIpAddress 2002::2:1;
+					}
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic d4a9a5ceac27b51bd47ed7443008ec7c; */
+	/* CmtsMic bb367e7c388dbe1e3e261d015d3dac9c; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Final content of config file:
+Main 
+{
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					ServiceMultiplexingValueMPLSPW
+					{
+						MPLSPseudowireID 1;
+						MPLSPeerIpAddress 1.1.1.1;
+						MPLSPseudowireType 5;
+						MPLSBackupPseudowireID 1;
+						MPLSBackupPeerIpAddress 2002::2:1;
+					}
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	/* CmMic d4a9a5ceac27b51bd47ed7443008ec7c; */
+	/* CmtsMic bb367e7c388dbe1e3e261d015d3dac9c; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Progress: 53 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					ServiceMultiplexingValueMPLSPW
+					{
+						MPLSPseudowireID 1;
+						MPLSPseudowireType 5;
+						MPLSBackupPseudowireID 1;
+					}
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 6ba9a973d44e471485da91e34ca55f38; */
+	/* CmtsMic 66b14b31e51eeecbeb290f65c8e273b5; */
+	/*EndOfDataMkr*/
+}
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				NSIEncapsulation
+				{
+					ServiceMultiplexingValueMPLSPW
+					{
+						MPLSPseudowireID 1;
+						MPLSPseudowireType 5;
+						MPLSBackupPseudowireID 1;
+					}
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic 6ba9a973d44e471485da91e34ca55f38; */
+	/* CmtsMic 66b14b31e51eeecbeb290f65c8e273b5; */
+	/*EndOfDataMkr*/
+}
+Progress: 54 / 142
+Final content of config file:
+Main 
+{
+	UsPacketClass
+	{
+		VendorSpecific
+		{
+			VendorIdentifier 0xffffff;
+			L2VPNEncoding
+			{
+				SOAMSubtype
+				{
+					MEPConfiguration
+					{
+						MDLevel 1;
+						MDName "MD Name";
+						MAName "MA Name";
+						MEPID 1024;
+					}
+					RemoteMEPConfiguration
+					{
+						RemoteMDLevel 2;
+						RemoteMDName "MD Name";
+						RemoteMAName "MA Name";
+						RemoteMEPID 5;
+					}
+					FaultManagementConfiguration
+					{
+						ContinuityCheckMessages 2;
+						LoopbackFunction 1;
+						LinktraceFunction 1;
+					}
+					PerformanceManagementConfiguration
+					{
+						FrameDelayMeasurement
+						{
+							FrameDelayMeasurementEnable 1;
+							FrameDelayMeasurementOneWayTwoWay 1;
+							FrameDelayMeasurementTransmissionPeriodicity 120;
+						}
+						FrameLossMeasurement
+						{
+							FrameLossMeasurementEnable 1;
+							FrameLossMeasurementTransmissionPeriodicity 120;
+						}
+					}
+				}
+			}
+		}
+		ClassifierRef 1;
+		ServiceFlowRef 1;
+	}
+	NetworkAccess 1;
+	UsServiceFlow
+	{
+		UsServiceFlowRef 1;
+		QosParamSetType 7;
+	}
+	DsServiceFlow
+	{
+		DsServiceFlowRef 2;
+		QosParamSetType 7;
+	}
+	/* CmMic f78403f3f09ae84931e7a4f3b4d76115; */
+	/* CmtsMic a448ccdfc29f067524c2112a428e64c5; */
+	/*EndOfDataMkr*/
+	/* Pad */
+}
+Test TLV_22_43_5_24_SOAMSubtype created a wrong CM file on first pass.
+FAIL RunTests.sh (exit status: 255)

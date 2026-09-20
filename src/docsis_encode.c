@@ -58,7 +58,7 @@ int encode_uint ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr )
   helper = (union t_val *) tval;
   if ( sym_ptr->low_limit || sym_ptr->high_limit ) {
 	if ( helper->uintval < sym_ptr->low_limit || helper->uintval > sym_ptr->high_limit ) {
-		fprintf(stderr, "docsis: at line %d, %s value %d linea 61 out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
+		fprintf(stderr, "docsis: at line %d, %s value %d out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
 		return(-15);
 	}
   }
@@ -103,7 +103,7 @@ int encode_ushort ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr
   helper = (union t_val *) tval;
   if ( sym_ptr->low_limit || sym_ptr->high_limit ) {
 	if ( helper->uintval < sym_ptr->low_limit || helper->uintval > sym_ptr->high_limit ) {
-		fprintf(stderr, "docsis: at line %d, %s value %d linea 106 out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
+		fprintf(stderr, "docsis: at line %d, %s value %d out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
 		return(-15);
 	}
   }
@@ -136,7 +136,7 @@ int encode_uchar ( unsigned char *buf, void *tval, struct symbol_entry *sym_ptr 
 
   if ( sym_ptr->low_limit || sym_ptr->high_limit ) {
 	if ( helper->uintval < sym_ptr->low_limit || helper->uintval > sym_ptr->high_limit ) {
-		fprintf(stderr, "docsis: at line %d, %s value %d linea 138 out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
+		fprintf(stderr, "docsis: at line %d, %s value %d out of range %hd-%hd\n ", line,sym_ptr->sym_ident,helper->uintval,sym_ptr->low_limit, sym_ptr->high_limit);
 		return(-1);
     
 	}
@@ -715,8 +715,9 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
 
 	value_found = strtoul( cp, endptr, 10);
 
-	if (endptr == NULL)
-
+	/* There used to be an "if (endptr == NULL)" with an empty body here:
+	   endptr is an array, so the comparison was always false AND it
+	   swallowed the if below as its body. This check never ran. */
 	if (cp == *endptr) {
 		fprintf(stderr, "Parse error at line %d: expecting digits\n",line);
 		return (-11);

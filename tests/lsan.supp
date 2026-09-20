@@ -1,0 +1,18 @@
+# LeakSanitizer suppressions.
+#
+# Every entry here is known debt, not noise. If the cause gets fixed, drop the
+# line: LSAN reports suppressions that stop matching.
+
+# Token copies made by TSAVE (docsis_lex.l) that are lost when the parse
+# aborts before reaching the encoder, which owns them.
+#
+# The encoders in docsis_encode.c free these strings on the normal path
+# (~20 free(helper->strval) calls there), so an arena in the lexer would free
+# them twice. Fixing this properly means unifying ownership across those 20
+# sites, which also carries a documented landmine: the TODO at
+# docsis_encode.c:656 about T_STRING values, which point at the static strbuf
+# rather than at an allocated copy.
+#
+# Bound: a few bytes per failed parse, and only when the error happens after
+# an IP, MAC, hex or OID token. Does not grow with successful parses.
+leak:docsis_lex

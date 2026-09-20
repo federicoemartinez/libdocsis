@@ -36,6 +36,7 @@
 #include <net-snmp/config_api.h>
 #include <net-snmp/output_api.h>
 #include <net-snmp/mib_api.h>
+#include <net-snmp/library/parse.h>
 
 #include "docsis.h"
 #include "docsis_globals.h"
@@ -45,11 +46,10 @@
 #include "sha1.h"
 
 
-symbol_type global_symtable[125576];
+symbol_type global_symtable[NUM_IDENTIFIERS];
 unsigned int nohash = 0;
 unsigned int dialplan = 0;
 
-static void setup_mib_flags(int resolve_oids, char *custom_mibs);
 
 static unsigned int
 add_cm_mic (unsigned char *tlvbuf, unsigned int tlvbuflen)
@@ -248,324 +248,89 @@ add_dialplan (unsigned char *tlvbuf, unsigned int tlvbuflen) {
   return (tlvbuflen);
 }
 
-#ifdef __GNUC__
-static void usage () __attribute__((__noreturn__));
-#endif
-
-static void
-usage ()
-{
-  fprintf(stderr, "DOCSIS Configuration File creator, version %s\n", VERSION);
-  fprintf(stderr, "Copyright (c) 1999,2000,2001 Cornel Ciocirlan, ctrl@users.sourceforge.net\n");
-  fprintf(stderr, "Copyright (c) 2002,2003,2004,2005 Evvolve Media SRL, docsis@evvolve.com\n");
-  fprintf(stderr, "Copyright (c) 2014 - 2015 Adrian Simionov, daniel.simionov@gmail.com\n\n");
-
-  fprintf(stderr, "To encode a cable modem configuration file: \n\tdocsis [modifiers] -e <modem_cfg_file> <key_file> <output_file>\n");
-  fprintf(stderr, "To encode multiple cable modem configuration files: \n\tdocsis [modifiers] -m <modem_cfg_file1> ... <key_file> <new_extension>\n");
-  fprintf(stderr, "To encode a MTA configuration file: \n\tdocsis [modifiers] -p <mta_cfg_file> <output_file>\n");
-  fprintf(stderr, "To encode multiple MTA configuration files: \n\tdocsis [modifiers] -m -p <mta_file1> ... <new_extension>\n");
-  fprintf(stderr, "To decode a CM or MTA config file: \n\tdocsis [modifiers] -d <binary_file>\n\n");
-
-  fprintf(stderr, "Where:\n<cfg_file>\t\t= name of text (human readable) cable modem or MTA \n"
-		  "\t\t\t  configuration file;\n"
-		  "<key_file>\t\t= text file containing the authentication key\n"
-		  "\t\t\t  (shared secret) to be used for the CMTS MIC;\n"
-		  "<output_file> \t\t= name of output file where"
-		  " the binary data will\n\t\t\t  be written to (if it does not exist it is created);\n"
-		  "<binary_file>\t\t= name of binary file to be decoded;\n"
-		  "<new_extension>\t\t= new extension to be used when encoding multiple files.\n\n");
-
-  fprintf(stderr, "The following command-line modifiers are available:\n"
-	"	-o\n"
-	"		Decode OIDs numerically.\n\n"
-	"	-M \"PATH1:PATH2\"\n"
-	"		Specify the SNMP MIB directory when encoding or decoding configuration\n"
-	"		files.\n\n"
-	"	-na | -eu\n"
-	"		Adds CableLabs PacketCable or Excentis EuroPacketCable SHA1 hash\n"
-	"		when encoding an MTA config file.\n\n"
-	"	-dialplan\n"
-	"		Adds a PC20 dialplan from an external file called \"dialplan.txt\" in\n"
-	"		the current directory.\n\n"
-	"	-nohash\n"
-	"		Removes the PacketCable SHA1 hash from the MTA config file when\n"
-	"		decoding.\n"
-	);
-  fprintf(stderr, "\nSee examples/*.cfg for sample configuration files.\n");
-  fprintf(stderr, "\nPlease report bugs or feature requests on GitHub.");
-  fprintf(stderr, "\nProject repository is https://github.com/rlaager/docsis\n\n");
-  exit (-10);
-}
-
-
-int
-main (int argc, char *argv[])
-{
-  unsigned char key[65];
-  FILE *kf;
-  char *config_file=NULL, *key_file=NULL, *output_file=NULL, *extension_string=NULL, *custom_mibs=NULL;
-  unsigned int keylen = 0;
-  unsigned int encode_docsis = FALSE, decode_bin = FALSE, hash = 0;
-  int i;
-  int resolve_oids = 1;
-
-  while (argc > 0) {
-    argc--; argv++;
-
-    if (!argc) {
-      usage();
-    }
-
-    /* the initial command-line parameters are flags / modifiers */
-    if (!strcmp (argv[0], "-nohash")) {
-      nohash = 1;
-
-      continue;
-    }
-
-    if (!strcmp (argv[0], "-o")) {
-      resolve_oids = 0;
-      continue;
-    }
-
-    if (!strcmp (argv[0], "-M")) {
-      if (argc < 2 ) {
-        usage();
-      }
-
-      custom_mibs=argv[1];
-
-      argc--; argv++;
-      continue;
-    }
-
-    if (!strcmp (argv[0], "-na")) {
-      if (hash) {
-        usage();
-      }
-      hash = 1;
-      continue;
-    }
-
-    if (!strcmp (argv[0], "-eu")) {
-      if (hash) {
-        usage();
-      }
-      hash = 2;
-      continue;
-    }
-
-    if (!strcmp (argv[0], "-dialplan")) {
-      dialplan = 1;
-      continue;
-    }
-
-    /* the following command-line parameters are actions */
-
-    if (!strcmp (argv[0], "-d")) {
-      if (argc < 2 ) {
-        usage();
-      }
-
-      decode_bin = TRUE;
-      config_file = argv[1];
-
-      break;
-    }
-
-    if (!strcmp (argv[0], "-e")) {
-      if (argc < 4 ) {
-        usage();
-      }
-
-      encode_docsis = TRUE;
-      config_file = argv[1];
-      key_file = argv[2];
-      output_file = argv[3];
-
-      break;
-    }
-
-    if (!strcmp (argv[0], "-m")) {
-      extension_string = argv[argc-1];
-      key_file = argv[argc-2];
-      encode_docsis = TRUE;
-
-      continue;
-    }
-
-    if (!strcmp (argv[0], "-p")) {
-      /* encode_docsis may already have been set via the "-m" option */
-      encode_docsis = 0;
-
-      argc--; argv++;
-
-      if (argc < 2 ) {
-        usage();
-      }
-
-      /* -p might be followed by -dialplan.  This is allowed for backwards
-       * compatibility */
-      if (!strcmp (argv[0], "-dialplan")) {
-        dialplan = 1;
-        argc--; argv++;
-      }
-
-      if (argc < 2 ) {
-        usage();
-      }
-
-      /* if -m has not already been specified, then we expect "<mta_cfg_file> <output_file>" */
-      if (extension_string == NULL) {
-        config_file = argv[0];
-        output_file = argv[1];
-      }
-
-      break;
-    }
-
-    /* no more recognisable options means that we've either finished parsing
-     * all arguments or else that the remaining arguments refer to a list of
-     * config files */
-    if ((argc && encode_docsis) || (argc && decode_bin)) {
-      break;
-    }
-  }
-
-  if (encode_docsis)
-    {
-      if ((kf = fopen (key_file, "r")) == NULL)
-        {
-          fprintf (stderr, "docsis: error: can't open keyfile %s\n", key_file);
-          exit (-5);
-        }
-      keylen = fread (key, sizeof (unsigned char), 64, kf);
-      while (keylen > 0 && (key[keylen - 1] == 10 || key[keylen - 1] == 13))
-        {
-          keylen--;		/* eliminate trailing \n or \r */
-        }
-      fclose(kf);
-    }
-
-  init_global_symtable ();
-  setup_mib_flags(resolve_oids,custom_mibs);
-
-  if (decode_bin)
-  {
-      decode_file (config_file);
-      exit(0); // TODO: clean shutdown
-  }
-
-  if (extension_string) { /* encoding multiple files */
-	if (encode_docsis) {
-		/* encode argv[argc-3] to argv[0] */
-		for (i=0; i<argc-2; i++) {
-			if ( (output_file = get_output_name (argv[i], extension_string)) == NULL ) {
-				fprintf(stderr, "Cannot process input file %s, extension too short ?\n",argv[i] );
-				continue;
-			}
-
-			fprintf(stderr, "Processing input file %s: output to  %s\n",argv[i], output_file);
-			if (encode_one_file (argv[i], output_file, key, keylen, encode_docsis, hash)) {
-				exit(2);
-			}
-			free (output_file);
-			output_file = NULL;
-		}
-	} else {
-		/* encode argv[argc-2] to argv[0] */
-		for (i=0; i<argc-1; i++) {
-			if ( (output_file = get_output_name (argv[i], extension_string)) == NULL ) {
-				fprintf(stderr, "Cannot process input file %s, extension too short ?\n",argv[i] );
-				continue;
-			}
-			fprintf (stderr, "Processing input file %s: output to  %s\n",argv[i], output_file);
-			if (encode_one_file (argv[i], output_file, key, keylen, encode_docsis, hash)) {
-				exit(2);
-			}
-			free (output_file);
-			output_file = NULL;
-		}
-	}
-  } else {
-	if (encode_one_file (config_file, output_file, key, keylen, encode_docsis, hash)) {
-		exit(2);
-	}
-	/* encode argv[1] */
-  }
-  //free(global_symtable);
-  shutdown_mib();
-  return 0;
-}
 
 int encode_one_file ( char *input_file, char *output_file,
-	 		unsigned char *key, unsigned int keylen, int encode_docsis, unsigned int hash)
+			unsigned char *key, unsigned int keylen,
+			int encode_docsis, unsigned int hash)
 {
-  int parse_result=0;
-  unsigned int buflen;
-  unsigned char *buffer;
-  struct tlv *global_tlvtree_head;
-  FILE *of;
-  //init_global_symtable ();
-  //setup_mib_flags(0,0);
+  unsigned char *content = NULL, *buffer = NULL;
+  unsigned int content_size = 0;
+  int buflen;
+  FILE *inf, *of;
+  struct stat st;
+
   /* It's not an error to specify the input and output as "-". */
   if (!strcmp (input_file, output_file) && strcmp (input_file, "-"))
-  {
-	fprintf(stderr, "docsis: Error: source file is the same as destination file\n");
-	return -1;
-  }
-
-  parse_result = parse_config_file (input_file, &global_tlvtree_head );
-
-  if (parse_result || global_tlvtree_head == NULL)
     {
-      fprintf(stderr, "Error parsing config file %s\n", input_file);
+      fprintf (stderr, "docsis: Error: source file is the same as destination file\n");
       return -1;
     }
-/* Check whether we're encoding PacketCable */
 
-  if (global_tlvtree_head->docs_code == 254) {
-	fprintf(stderr, "First TLV is MtaConfigDelimiter, forcing PacketCable MTA file.\n");
-	encode_docsis=0;
-  }
-
-/* walk the tree to find out how much memory we need */
-	/* leave some room for CM MIC, CMTS MIC, pad, and a HUGE PC20 dialplan */
-  buflen = tlvtreelen (global_tlvtree_head);
-  buffer = (unsigned char *) malloc ( buflen + 255 + 8192 );
-  buflen = flatten_tlvsubtree(buffer, 0, global_tlvtree_head);
-
-
-#ifdef DEBUG
-  fprintf(stderr, "TLVs found in parsed config file:\n");
-  decode_main_aggregate (buffer, buflen);
-#endif
-
-  if (encode_docsis)
+  /* Read the whole input into memory and delegate to encode_one_string(),
+     which is the real pipeline -- the very one the library exports. There
+     used to be two copies of it, and they had already diverged. */
+  if (!strcmp (input_file, "-"))
     {
-      /* CM config file => add CM MIC, CMTS MIC, End-of-Data and pad */
-      buflen = add_cm_mic (buffer, buflen);
-      buflen = add_cmts_mic (buffer, buflen, key, keylen);
-      buflen = add_eod_and_pad (buffer, buflen);
+      size_t cap = 65536, used = 0, got;
+      content = (unsigned char *) malloc (cap);
+      if (content == NULL)
+	return -2;
+      while ((got = fread (content + used, 1, cap - used, stdin)) > 0)
+	{
+	  used += got;
+	  if (used == cap)
+	    {
+	      unsigned char *bigger = (unsigned char *) realloc (content, cap * 2);
+	      if (bigger == NULL)
+		{
+		  free (content);
+		  return -2;
+		}
+	      content = bigger;
+	      cap *= 2;
+	    }
+	}
+      content_size = (unsigned int) used;
+    }
+  else
+    {
+      if (stat (input_file, &st) != 0 || (inf = fopen (input_file, "rb")) == NULL)
+	{
+	  fprintf (stderr, "docsis: Can't open input file %s\n", input_file);
+	  return -1;
+	}
+      content_size = (unsigned int) st.st_size;
+      content = (unsigned char *) malloc (content_size ? content_size : 1);
+      if (content == NULL)
+	{
+	  fclose (inf);
+	  return -2;
+	}
+      if (fread (content, 1, content_size, inf) != content_size)
+	{
+	  fprintf (stderr, "docsis: Can't read input file %s\n", input_file);
+	  fclose (inf);
+	  free (content);
+	  return -1;
+	}
+      fclose (inf);
     }
 
-  if (dialplan == 1) {
-    //printf("Adding PC20 dialplan from external file.\n");
-    buflen = add_dialplan (buffer, buflen);
-  }
+  buflen = encode_one_string (content, content_size, &buffer,
+			      key, keylen, encode_docsis, hash);
+  free (content);
 
-  if (hash == 1) {
-    //printf("Adding NA ConfigHash to MTA file.\n");
-    buflen = add_mta_hash (buffer, buflen, hash);
-  }
-  if (hash == 2) {
-    //printf("Adding EU ConfigHash to MTA file.\n");
-    buflen = add_mta_hash (buffer, buflen, hash);
-  }
+  if (buflen <= 0 || buffer == NULL)
+    {
+      fprintf (stderr, "Error parsing config file %s\n", input_file);
+      return -1;
+    }
 
-  //fprintf (stdout, "Final content of config file:\n");
+  /* CLI progress output. The library prints none of this:
+     examples/Makefile.am parses exactly this line. */
+  fprintf (stdout, "Final content of config file:\n");
+  decode_main_aggregate (buffer, (unsigned int) buflen);
 
-  decode_main_aggregate (buffer, buflen);
   if (!strcmp (output_file, "-"))
     {
       of = stdout;
@@ -573,20 +338,21 @@ int encode_one_file ( char *input_file, char *output_file,
   else if ((of = fopen (output_file, "wb")) == NULL)
     {
       fprintf (stderr, "docsis: error: can't open output file %s\n", output_file);
+      free (buffer);
       return -2;
     }
-  if (fwrite (buffer, 1, buflen, of) != buflen)
+  if (fwrite (buffer, 1, (size_t) buflen, of) != (size_t) buflen)
     {
       fprintf (stderr, "docsis: error: can't write to output file %s\n", output_file);
+      if (of != stdout)
+	fclose (of);
+      free (buffer);
       return -2;
     }
-  fclose (of);
-  free(buffer);
-  //free(global_symtable);
-  //shutdown_mib();
+  if (of != stdout)
+    fclose (of);
+  free (buffer);
   return 0;
-
-  /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */
 }
 
 int
@@ -632,8 +398,8 @@ decode_file (char *file)
 }
 
 
-static void
-setup_mib_flags(int resolve_oids, char *custom_mibs) {
+void
+setup_mib_flags (int resolve_oids, char *custom_mibs) {
 
 #ifdef DEBUG
 /*  snmp_set_mib_warnings (2); */
@@ -769,26 +535,27 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
   int parse_result=0;
   unsigned int buflen;
   unsigned char* buffer;
-  struct tlv *global_tlvtree_head;
-  FILE *of;
-  //int global_table_inialized = init_global_symtable ();
-  //if( ! global_table_inialized){
-  //  fprintf(stderr, "Unable to initialize global table");
-  //  return 0;
-  //}
-  //if(!mibs_loaded){
-  //  setup_mib_flags(0,0);
-  //  mibs_loaded = 1;
-  //}
-  /* It's not an error to specify the input and output as "-". */
+  struct tlv *global_tlvtree_head = NULL;
 
+  if (bufferp == NULL)
+    return 0;
+  /* The contract: if we return 0, the caller sees NULL. This used to
+     return 0 without touching the pointer, so a caller that skipped the
+     return check read uninitialized memory. */
+  *bufferp = NULL;
+
+  if (file_content == NULL || file_content_size == 0)
+    {
+      fprintf(stderr, "Error: empty config\n");
+      return 0;
+    }
 
   parse_result = parse_config_string (file_content,file_content_size, &global_tlvtree_head );
 
   if (parse_result || global_tlvtree_head == NULL)
     {
       fprintf(stderr, "Error parsing config file \n");
-      //free(global_symtable);
+      free_tlv (global_tlvtree_head);
       return 0;
     }
 /* Check whether we're encoding PacketCable */
@@ -801,8 +568,12 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 /* walk the tree to find out how much memory we need */
   /* leave some room for CM MIC, CMTS MIC, pad, and a HUGE PC20 dialplan */
   buflen = tlvtreelen (global_tlvtree_head);
-  *bufferp = (unsigned char *) malloc ( buflen + 255 + 8192 );
-  buffer = *bufferp;
+  buffer = (unsigned char *) malloc ( buflen + 255 + 8192 );
+  if (buffer == NULL)
+    {
+      free_tlv (global_tlvtree_head);
+      return 0;
+    }
   buflen = flatten_tlvsubtree(buffer, 0, global_tlvtree_head);
 
 
@@ -837,12 +608,37 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 
   //decode_main_aggregate (buffer, buflen);
   free_tlv(global_tlvtree_head);
-  return buflen;
+  /* Only now is the buffer published: until this point every exit is an
+     error and *bufferp must stay NULL. */
+  *bufferp = buffer;
+  return (int) buflen;
 
   /*free(global_tlvlist->tlvlist); free(global_tlvlist); */ /* TODO free tree */
 }
 
-void initialize_lib(){
-  setup_mib_flags(0,0);
-  init_global_symtable ();
+int initialize_lib (void)
+{
+  setup_mib_flags (0, 0);
+
+  /* Probe: get_node() then read_objid(), the same order docsis_snmp.c:52
+     uses while encoding. get_tree_head() is useless here (net-snmp builds a
+     minimal tree even when it loads nothing), and read_objid() alone is too
+     (it only sees the MIBs listed in the MIBS variable, not all of
+     MIBDIRS). */
+  {
+    oid probe[MAX_OID_LEN];
+    size_t probe_len = MAX_OID_LEN;
+
+    if (!get_node ("sysDescr.0", probe, &probe_len)
+	&& !read_objid ("sysDescr.0", probe, &probe_len))
+      {
+	fprintf (stderr,
+	         "libdocsis: net-snmp cannot resolve symbolic OIDs. Export "
+	         "MIBDIRS pointing at this distribution's mibs/, mibs/iana "
+	         "and mibs/ietf directories.\n");
+	return 0;
+      }
+  }
+
+  return init_global_symtable ();
 }
