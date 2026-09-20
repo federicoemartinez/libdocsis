@@ -7,7 +7,11 @@ on:
   workflow_dispatch:
 
 env:
-  DEPS: autoconf automake libtool libsnmp-dev bison flex gcc make
+  # libglib2.0-dev: autogen.sh requires glib-gettextize and aborts without it.
+  # libfl-dev: the flex runtime library, needed at link time.
+  DEPS: >-
+    autoconf automake libtool bison flex gcc make
+    libsnmp-dev libglib2.0-dev libfl-dev
 
 jobs:
   test:

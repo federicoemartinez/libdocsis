@@ -12,7 +12,8 @@ buffer to buffer, without going through files.
 Debian / Ubuntu:
 
 ```sh
-sudo apt-get install autoconf automake libtool flex bison libsnmp-dev gcc make
+sudo apt-get install autoconf automake libtool flex bison gcc make \
+                     libsnmp-dev libglib2.0-dev libfl-dev
 ```
 
 ## Build
