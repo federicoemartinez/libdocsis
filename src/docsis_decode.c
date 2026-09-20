@@ -345,7 +345,7 @@ void decode_snmp_object (unsigned char *tlvbuf, symbol_type *sym, size_t length 
     FILE *dialplan = fopen(DIALPLAN_OUTPUT, "w");
     if (dialplan == NULL) {
       fprintf(stderr, "Error: can't write dialplan to %s\n", DIALPLAN_OUTPUT);
-      goto bailout;   /* la función reserva ~14 buffers; bailout los libera */
+      goto bailout;   /* this function allocates ~14 buffers; bailout frees them */
     }
     // when dialplan is shorter than 7F
     if (*(int*)pm == *(int*)pn) {

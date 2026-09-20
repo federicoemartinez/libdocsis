@@ -1,13 +1,13 @@
 # libdocsis
 
-Codificador de archivos de configuración DOCSIS, empaquetado como librería
-compartida para consumir desde Python con `ctypes`.
+DOCSIS configuration file encoder, packaged as a shared library for use from
+Python through `ctypes`.
 
-Fork de [rlaager/docsis](https://github.com/rlaager/docsis). Upstream es una
-herramienta de línea de comandos; este fork expone el codificador como `.so`
-que trabaja de buffer a buffer, sin pasar por archivos.
+Fork of [rlaager/docsis](https://github.com/rlaager/docsis). Upstream is a
+command-line tool; this fork exposes the encoder as a `.so` that works from
+buffer to buffer, without going through files.
 
-## Dependencias
+## Dependencies
 
 Debian / Ubuntu:
 
@@ -24,26 +24,26 @@ make
 sudo make install
 ```
 
-Eso instala `libdocsis.so`, su header, y los MIBs de DOCSIS en la ruta de
-net-snmp.
+That installs `libdocsis.so`, its header, and the DOCSIS MIBs into net-snmp's
+search path.
 
 ## MIBs
 
-`initialize()` carga los MIBs a través de net-snmp y **no** setea `MIBDIRS`.
+`initialize()` loads the MIBs through net-snmp and does **not** set `MIBDIRS`.
 
-- Después de `make install` no hace falta hacer nada: los MIBs quedan en
-  `/usr/share/snmp/mibs`, que es la ruta por defecto de net-snmp.
-- Corriendo desde el árbol de build, exportá:
+- After `make install` there is nothing to do: the MIBs land in
+  `/usr/share/snmp/mibs`, which is net-snmp's default path.
+- Running from the build tree, export:
 
 ```sh
 export MIBDIRS="$PWD/mibs:$PWD/mibs/iana:$PWD/mibs/ietf"
 ```
 
-Si los MIBs no están, `initialize()` devuelve 0 y explica qué falta.
+If the MIBs are missing, `initialize()` returns 0 and says what is wrong.
 
 ## API
 
-Tres funciones. **`0` significa fallo en todas, sin excepciones.**
+Three functions. **`0` means failure in all of them, with no exceptions.**
 
 ```c
 int  initialize (void);
@@ -54,13 +54,14 @@ int  encode_file (unsigned char *content, unsigned content_size,
 void free_encoded_file (unsigned char *buffer);
 ```
 
-- `initialize()` — una vez, antes de todo. Devuelve 1 en éxito.
-- `encode_file()` — devuelve el largo en bytes (`> 0`) y deja el buffer en
-  `*output`. En error devuelve `0` y deja `*output` en `NULL`. El detalle del
-  error va a `stderr`.
-- `free_encoded_file()` — libera lo que devolvió `encode_file()`. Acepta `NULL`.
+- `initialize()` — once, before anything else. Returns 1 on success.
+- `encode_file()` — returns the length in bytes (`> 0`) and stores the buffer
+  in `*output`. On error it returns `0` and leaves `*output` as `NULL`. The
+  error detail goes to `stderr`.
+- `free_encoded_file()` — releases what `encode_file()` returned. Accepts
+  `NULL`.
 
-## Ejemplo con ctypes
+## ctypes example
 
 ```python
 import ctypes
@@ -85,7 +86,7 @@ lib.free_encoded_file.restype = None
 lib.free_encoded_file.argtypes = [ctypes.c_char_p]
 
 if not lib.initialize():
-    raise RuntimeError("no se pudieron cargar los MIBs: revisá MIBDIRS")
+    raise RuntimeError("could not load the MIBs: check MIBDIRS")
 
 config = b"""Main {
   DownstreamFrequency 123000000;
@@ -99,26 +100,26 @@ out = ctypes.c_char_p()
 length = lib.encode_file(config, len(config), ctypes.byref(out),
                          key, len(key), 1, 0)
 if length == 0:
-    raise RuntimeError("falló la codificación; el detalle salió por stderr")
+    raise RuntimeError("encoding failed; the detail went to stderr")
 
 try:
-    data = ctypes.string_at(out, length)   # copia los bytes a Python
+    data = ctypes.string_at(out, length)   # copy the bytes into Python
 finally:
     lib.free_encoded_file(out)
 
 print(f"{len(data)} bytes: {data[:16].hex()}")
 ```
 
-**`ctypes.string_at(out, length)` y no `out.value`**: el buffer es binario y
-contiene ceros, así que tratarlo como cadena terminada en NUL lo trunca en el
-primer `0x00`.
+Use **`ctypes.string_at(out, length)`, not `out.value`**: the buffer is binary
+and contains zero bytes, so treating it as a NUL-terminated string truncates it
+at the first `0x00`.
 
-## Concurrencia
+## Concurrency
 
-`encode_file()` serializa internamente con un mutex. Es seguro llamarla desde
-varios hilos, pero no corre en paralelo. El candado hace falta porque `ctypes`
-libera el GIL durante la llamada y el parser todavía tiene estado global; el
-camino de mejora está anotado en `src/docsis_yy.y`.
+`encode_file()` serializes internally with a mutex. Calling it from several
+threads is safe, but the calls do not run in parallel. The lock is needed
+because `ctypes` releases the GIL for the duration of the call and the parser
+still has global state; the upgrade path is noted in `src/docsis_yy.y`.
 
 ## Tests
 
@@ -126,43 +127,42 @@ camino de mejora está anotado en `src/docsis_yy.y`.
 make check
 ```
 
-Corre tres suites:
+Runs three suites:
 
-- `tests/test_api` — la API pública, incluidos los caminos de error.
-- `tests/run-fixtures.sh` — 142 configuraciones reales, round-trip triple.
-  Falla solo si el conjunto de casos rotos cambia respecto de
-  `tests/known-failures.txt`, en cualquier dirección.
-- `examples/` — comparación encode-contra-decode sobre 21 ejemplos.
+- `tests/test_api` — the public API, error paths included.
+- `tests/run-fixtures.sh` — 142 real configurations, triple round-trip. Fails
+  only when the set of broken cases changes with respect to
+  `tests/known-failures.txt`, in either direction.
+- `examples/` — encode-vs-decode comparison over 21 examples.
 
-Hay 10 fixtures y 1 ejemplo que fallan por bugs de upstream, documentados en
-`docs/superpowers/specs/2026-09-19-baseline.txt`. Ninguno afecta al camino de
-la librería.
+Ten fixtures and one example fail because of upstream bugs, documented in
+`docs/superpowers/specs/2026-09-19-baseline.txt`. None of them affect the
+library path.
 
 ## CI
 
-`.github/workflows/ci.yml` corre cuatro jobs en cada push y PR:
+`.github/workflows/ci.yml` runs four jobs on every push and pull request:
 
-| Job | Qué hace |
+| Job | What it does |
 |---|---|
-| `test` | `make check`: las tres suites |
-| `analyzer` | `gcc -fanalyzer -Werror` sobre los fuentes escritos a mano |
-| `asan` | `test_api` bajo AddressSanitizer + LeakSanitizer |
-| `valgrind` | `test_api` bajo valgrind, falla si hay algo `definitely lost` |
+| `test` | `make check`: all three suites |
+| `analyzer` | `gcc -fanalyzer -Werror` over the hand-written sources |
+| `asan` | `test_api` under AddressSanitizer + LeakSanitizer |
+| `valgrind` | `test_api` under valgrind, fails on anything `definitely lost` |
 
-Los sanitizers corren solo sobre `test_api` y no sobre los 142 fixtures: los
-caminos de error son donde aparecen las fugas, y 426 procesos bajo valgrind
-multiplican el tiempo sin agregar señal.
+The sanitizers run over `test_api` only, not over the 142 fixtures: the error
+paths are where leaks show up, and 426 processes under valgrind multiply the
+runtime without adding signal.
 
-`tests/lsan.supp` lista las fugas conocidas, cada una con su explicación y su
-cota. Si se arregla una, sacar la línea — LSAN avisa cuando una supresión deja
-de coincidir.
+`tests/lsan.supp` lists the known leaks, each with its explanation and its
+bound. If one gets fixed, drop the line — LSAN reports suppressions that stop
+matching.
 
-## Diferencias con upstream
+## Differences from upstream
 
-- El binario `docsis` **no se instala**. Existe solo como arnés de test.
-- El decodificador no se exporta: la librería solo codifica.
-- Sin soporte de Windows: `parse_config_string()` usa `fmemopen()`, que es
+- The `docsis` binary is **not installed**. It exists only as a test harness.
+- The decoder is not exported: the library only encodes.
+- No Windows support: `parse_config_string()` uses `fmemopen()`, which is
   POSIX.
-- La librería nunca llama a `exit()` ni escribe en `stdout`. Upstream, siendo
-  un CLI, hace las dos cosas, y cualquiera de ellas rompe a un consumidor
-  embebido.
+- The library never calls `exit()` and never writes to `stdout`. Upstream,
+  being a CLI, does both, and either one breaks an embedded consumer.

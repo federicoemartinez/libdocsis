@@ -1,6 +1,6 @@
 /*
- * Fachada pública de libdocsis. Todo lo que la .so exporta vive acá;
- * el resto del árbol es interno (ver -export-symbols-regex en Makefile.am).
+ * Public facade of libdocsis. Everything the .so exports lives here; the
+ * rest of the tree is internal (see -export-symbols-regex in Makefile.am).
  */
 #include <stdlib.h>
 #include <pthread.h>
@@ -8,15 +8,15 @@
 #include "docsis.h"
 #include "libdocsis.h"
 
-/* ponytail: candado global sobre todo el encode. El parser todavía tiene
- * estado global (_my_tlvtree_head en docsis_yy.y, line y strbuf en
- * docsis_lex.l) y ctypes libera el GIL durante la llamada, así que sin esto
- * dos hilos de Python se pisan en silencio. Serializa: correcto siempre,
- * lento solo si alguien realmente paraleliza.
- * Camino de mejora: mover ese estado a un struct de contexto que viaje por
- * %parse-param junto al yyscan_t, y sacar el candado. Toca cada regla de la
- * gramática, así que conviene hacerlo justo después de un merge con upstream
- * y no justo antes. */
+/* ponytail: one global lock around the whole encode. The parser still has
+ * global state (_my_tlvtree_head in docsis_yy.y, line and strbuf in
+ * docsis_lex.l) and ctypes releases the GIL for the duration of the call,
+ * so without this two Python threads corrupt each other silently. It
+ * serializes: always correct, only slow if somebody actually parallelizes.
+ * Upgrade path: move that state into a context struct carried through
+ * %parse-param alongside the yyscan_t, then drop the lock. That touches
+ * every grammar rule, so it is best done right after an upstream merge
+ * rather than right before one. */
 static pthread_mutex_t encode_lock = PTHREAD_MUTEX_INITIALIZER;
 
 int

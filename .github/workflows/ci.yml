@@ -19,7 +19,7 @@ jobs:
       - run: ./autogen.sh && ./configure
       - run: make
       - run: make check
-      - name: Logs de los tests que fallaron
+      - name: Logs of the failing tests
         if: failure()
         run: |
           for f in examples/test-suite.log tests/test-suite.log tests/RunTests.log; do
@@ -35,12 +35,12 @@ jobs:
       - run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends $DEPS
       # configure genera config.h, que los fuentes necesitan
       - run: ./autogen.sh && ./configure
-      - name: Analizar los fuentes escritos a mano
+      - name: Analyze the hand-written sources
         working-directory: src
         run: |
-          # -c -o /dev/null y NO -fsyntax-only: con -fsyntax-only el analizador
-          # no corre y el silencio parece limpieza.
-          # Se excluyen docsis_yy.c y docsis_lex.c: los generan bison y flex.
+          # -c -o /dev/null and NOT -fsyntax-only: with -fsyntax-only the
+          # analyzer does not run at all, and the silence reads as cleanliness.
+          # docsis_yy.c and docsis_lex.c are excluded: bison and flex generate them.
           for f in docsis.c docsis_encode.c docsis_decode.c docsis_snmp.c \
                    libdocsis.c docsis_main.c ethermac.c hmac_md5.c; do
             echo "--- $f"
@@ -57,9 +57,9 @@ jobs:
       - run: ./autogen.sh
       - run: ./configure CFLAGS="-fsanitize=address -fno-omit-frame-pointer -g -O1" LDFLAGS="-fsanitize=address"
       - run: make
-      # Solo test_api: cubre los caminos de error, que es donde estaba la fuga.
-      # Los 142 fixtures bajo ASAN no agregan señal y multiplican el tiempo.
-      - name: test_api bajo ASAN
+      # test_api only: it covers the error paths, which is where the leak was.
+      # The 142 fixtures under ASAN add no signal and multiply the runtime.
+      - name: test_api under ASAN
         working-directory: tests
         env:
           MIBDIRS: ../mibs:../mibs/iana:../mibs/ietf
@@ -76,17 +76,17 @@ jobs:
       - run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends $DEPS valgrind
       - run: ./autogen.sh && ./configure CFLAGS="-g -O0"
       - run: make
-      - name: test_api bajo valgrind
+      - name: test_api under valgrind
         working-directory: tests
         env:
           MIBDIRS: ../mibs:../mibs/iana:../mibs/ietf
           srcdir: .
         run: |
           make test_api
-          # --error-exitcode: sin esto valgrind reporta y sale 0, o sea que el
-          # job pasaría con errores adentro.
-          # definite: net-snmp deja su árbol de MIBs "still reachable" a
-          # propósito, así que exigir cero de eso daría un falso positivo.
+          # --error-exitcode: without it valgrind reports and exits 0, so the
+          # job would pass with errors inside.
+          # definite only: net-snmp leaves its MIB tree "still reachable" on
+          # purpose, so demanding zero of that would be a standing false positive.
           valgrind --leak-check=full \
                    --errors-for-leak-kinds=definite \
                    --error-exitcode=9 \

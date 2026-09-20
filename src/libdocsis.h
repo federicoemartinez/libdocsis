@@ -1,20 +1,20 @@
 /*
- * libdocsis - API pública.
+ * libdocsis - public API.
  *
- * Uso: initialize() una vez, después encode_file() cuantas veces haga falta,
- * liberando cada buffer con free_encoded_file().
+ * Usage: call initialize() once, then encode_file() as often as needed,
+ * releasing every buffer with free_encoded_file().
  *
- * MIBs: initialize() carga los MIBs vía net-snmp y NO setea MIBDIRS. Si los
- * MIBs no están en la ruta por defecto de net-snmp, exportá MIBDIRS antes de
- * llamar a initialize(), apuntando a los directorios mibs/, mibs/iana y
- * mibs/ietf de esta distribución.
+ * MIBs: initialize() loads the MIBs through net-snmp and does NOT set
+ * MIBDIRS. If the MIBs are not on net-snmp's default search path, export
+ * MIBDIRS before calling initialize(), pointing at this distribution's
+ * mibs/, mibs/iana and mibs/ietf directories.
  *
- * Concurrencia: encode_file() serializa internamente con un mutex. Es seguro
- * llamarla desde varios hilos, pero no corre en paralelo. Ver el comentario
- * ponytail: sobre _my_tlvtree_head en docsis_yy.y.
+ * Concurrency: encode_file() serializes internally with a mutex. Calling it
+ * from several threads is safe, but the calls do not run in parallel. See
+ * the ponytail: note on _my_tlvtree_head in docsis_yy.y.
  *
- * Plataforma: POSIX. parse_config_string() usa fmemopen(), que no existe en
- * MSVC.
+ * Platform: POSIX. parse_config_string() uses fmemopen(), which does not
+ * exist on MSVC.
  */
 #ifndef LIBDOCSIS_H
 #define LIBDOCSIS_H
@@ -23,21 +23,21 @@
 extern "C" {
 #endif
 
-/* Carga los MIBs y la tabla de símbolos. Llamar una vez antes de todo.
-   Devuelve 1 en éxito, 0 si los MIBs no cargaron.
-   (0 significa fallo en toda esta API, sin excepciones.) */
+/* Loads the MIBs and the symbol table. Call once, before anything else.
+   Returns 1 on success, 0 if the MIBs could not be loaded.
+   (0 means failure throughout this API, with no exceptions.) */
 int initialize (void);
 
-/* Codifica `content` (largo `content_size`) en un buffer nuevo.
-   En éxito devuelve el largo en bytes (> 0) y deja el buffer en *output.
-   En error devuelve 0 y deja *output en NULL.
-   El buffer se libera con free_encoded_file(). */
+/* Encodes `content` (of `content_size` bytes) into a fresh buffer.
+   On success returns the length in bytes (> 0) and stores the buffer in
+   *output. On error returns 0 and leaves *output as NULL.
+   Release the buffer with free_encoded_file(). */
 int encode_file (unsigned char *content, unsigned content_size,
                  unsigned char **output,
                  unsigned char *key, unsigned int keylen,
                  int encode_docsis, unsigned int hash);
 
-/* Libera un buffer devuelto por encode_file(). Acepta NULL. */
+/* Releases a buffer returned by encode_file(). Accepts NULL. */
 void free_encoded_file (unsigned char *buffer);
 
 #ifdef __cplusplus

@@ -1,11 +1,11 @@
 /*
- * Tests de la API pública de libdocsis.
+ * Tests for the public libdocsis API.
  *
- * Sin framework: un main() con asserts. Correr con `make check`.
+ * No framework: a main() with asserts. Run through `make check`.
  *
- * Linkea contra libdocsis.la, o sea contra la .so con la tabla de símbolos
- * ya restringida: si algo de acá no linkea, es que la API pública está
- * incompleta.
+ * Links against libdocsis.la, i.e. against the .so with its symbol table
+ * already restricted: if anything here fails to link, the public API is
+ * incomplete.
  */
 #include <assert.h>
 #include <stdio.h>
@@ -17,12 +17,12 @@
 
 static unsigned char KEY[] = "aaaaaaaaaaaaaaaa";
 
-/* Veneno para el puntero de salida: si el helper lo pusiera en NULL, los
-   tests del camino de error pasarían sin probar nada. Nunca se desreferencia. */
+/* Poison for the output pointer: were the helper to set it to NULL, the
+   error-path tests would pass without proving anything. Never dereferenced. */
 #define POISON ((unsigned char *) 0xDEADBEEF)
 
-/* Codifica una config y devuelve el largo; *out queda con el buffer (o en
-   NULL si falló). El llamador libera con free_encoded_file(). */
+/* Encodes a config and returns the length; *out receives the buffer (or
+   NULL on failure). The caller releases it with free_encoded_file(). */
 static int
 encode (const char *cfg, unsigned char **out)
 {
@@ -47,10 +47,10 @@ test_minimal_config_encodes (void)
   assert (len > 0);
   assert (buf != NULL && buf != POISON);
   free_encoded_file (buf);
-  printf ("ok - una config mínima codifica (%d bytes)\n", len);
+  printf ("ok - a minimal config encodes (%d bytes)\n", len);
 }
 
-/* Lee un fixture de tests/ a memoria. Devuelve NULL si no está. */
+/* Reads a fixture from tests/ into memory. Returns NULL if absent. */
 static char *
 slurp_fixture (const char *name, unsigned *size)
 {
@@ -89,8 +89,8 @@ slurp_fixture (const char *name, unsigned *size)
   return buf;
 }
 
-/* Una config real del set de fixtures: la mínima de arriba tiene 4 líneas y
-   no ejercita anidamiento, TLVs vendor-specific ni OIDs. */
+/* A real config from the fixture set: the minimal one above is four lines
+   and exercises no nesting, no vendor-specific TLVs and no OIDs. */
 static void
 test_real_world_config_encodes (void)
 {
@@ -101,7 +101,7 @@ test_real_world_config_encodes (void)
 
   if (cfg == NULL)
     {
-      printf ("skip - no encontré el fixture\n");
+      printf ("skip - fixture not found\n");
       return;
     }
   len = encode_file ((unsigned char *) cfg, size, &buf,
@@ -111,13 +111,13 @@ test_real_world_config_encodes (void)
   assert (len > 0);
   assert (buf != NULL && buf != POISON);
   free_encoded_file (buf);
-  printf ("ok - una config real y compleja codifica (%d bytes)\n", len);
+  printf ("ok - a real, complex config encodes (%d bytes)\n", len);
 }
 
 static void
 test_invalid_value_fails_cleanly (void)
 {
-  /* NetworkAccess acepta 0 o 1; 99 está fuera de rango. */
+  /* NetworkAccess accepts 0 or 1; 99 is out of range. */
   static const char *BAD =
     "Main {\n"
     "  DownstreamFrequency 123000000;\n"
@@ -129,7 +129,7 @@ test_invalid_value_fails_cleanly (void)
 
   assert (len == 0);
   assert (buf == NULL);
-  printf ("ok - un valor fuera de rango falla sin dejar el puntero colgado\n");
+  printf ("ok - an out-of-range value fails without leaving a dangling pointer\n");
 }
 
 static void
@@ -141,7 +141,7 @@ test_unknown_symbol_fails_cleanly (void)
 
   assert (len == 0);
   assert (buf == NULL);
-  printf ("ok - un símbolo desconocido falla sin dejar el puntero colgado\n");
+  printf ("ok - an unknown symbol fails without leaving a dangling pointer\n");
 }
 
 static void
@@ -153,7 +153,7 @@ test_unclosed_brace_fails_cleanly (void)
 
   assert (len == 0);
   assert (buf == NULL);
-  printf ("ok - una llave sin cerrar falla sin dejar el puntero colgado\n");
+  printf ("ok - an unclosed brace fails without leaving a dangling pointer\n");
 }
 
 static void
@@ -164,15 +164,15 @@ test_empty_input_fails_cleanly (void)
 
   assert (len == 0);
   assert (buf == NULL);
-  printf ("ok - una entrada vacía falla sin crashear\n");
+  printf ("ok - empty input fails without crashing\n");
 }
 
 static void
 test_unterminated_string_fails_cleanly (void)
 {
-  /* Comilla sin cerrar: el lexer encuentra \n dentro del estado STRING.
-     Antes eso llamaba exit(-1) y mataba el proceso del llamador, así que
-     este test pasa solo si el proceso sobrevive hasta el final de main(). */
+  /* Unterminated quote: the lexer hits \n while in the STRING state. That
+     used to call exit(-1) and kill the caller's process, so this test only
+     passes if the process survives to the end of main(). */
   static const char *BAD =
     "Main {\n"
     "  SnmpMibObject sysContact.0 String \"sin cerrar;\n"
@@ -182,22 +182,22 @@ test_unterminated_string_fails_cleanly (void)
 
   assert (len == 0);
   assert (buf == NULL);
-  printf ("ok - un string sin cerrar falla sin matar el proceso\n");
+  printf ("ok - an unterminated string fails without killing the process\n");
 }
 
 static void
 test_null_output_pointer_is_rejected (void)
 {
-  /* No debe desreferenciar NULL. */
+  /* Must not dereference NULL. */
   int len = encode_file ((unsigned char *) MINIMAL, (unsigned) strlen (MINIMAL),
 			 NULL, KEY, (unsigned) strlen ((char *) KEY), 1, 0);
   assert (len == 0);
-  printf ("ok - un puntero de salida NULL se rechaza sin desreferenciarlo\n");
+  printf ("ok - a NULL output pointer is rejected without being dereferenced\n");
 }
 
-/* El spec lo pide explícitamente: dos llamadas seguidas con la misma entrada
-   tienen que dar exactamente los mismos bytes. Es el test que detecta que el
-   estado global se filtre de una llamada a la siguiente. */
+/* The spec asks for this explicitly: two consecutive calls with the same
+   input must yield exactly the same bytes. This is the test that catches
+   global state leaking from one call into the next. */
 static void
 test_repeated_calls_are_identical (void)
 {
@@ -215,23 +215,23 @@ test_repeated_calls_are_identical (void)
 
   free_encoded_file (a);
   free_encoded_file (b);
-  printf ("ok - dos llamadas seguidas producen bytes idénticos\n");
+  printf ("ok - two consecutive calls produce identical bytes\n");
 }
 
-/* free_encoded_file(NULL) tiene que ser inocuo, como free(). */
+/* free_encoded_file(NULL) must be harmless, like free(). */
 static void
 test_free_accepts_null (void)
 {
   free_encoded_file (NULL);
-  printf ("ok - free_encoded_file(NULL) es inocuo\n");
+  printf ("ok - free_encoded_file(NULL) is harmless\n");
 }
 
 
 static void
 test_snmp_oid_resolves (void)
 {
-  /* Si los MIBs no cargaron, este OID simbólico no resuelve y el encode
-     falla. Es la prueba indirecta de que initialize() hizo su trabajo. */
+  /* If the MIBs did not load, this symbolic OID does not resolve and the
+     encode fails. It is the indirect proof that initialize() did its job. */
   static const char *WITH_OID =
     "Main {\n"
     "  DownstreamFrequency 123000000;\n"
@@ -245,14 +245,14 @@ test_snmp_oid_resolves (void)
   assert (len > 0);
   assert (buf != NULL && buf != POISON);
   free_encoded_file (buf);
-  printf ("ok - un OID simbólico resuelve, o sea que los MIBs cargaron\n");
+  printf ("ok - a symbolic OID resolves, so the MIBs loaded\n");
 }
 
 
-/* `line` es global. Sin resetearla, desde el segundo encode del proceso los
-   números de línea de los errores vienen acumulados: un error en la línea 4
-   del segundo archivo se reportaba como línea 15. Dos entradas idénticas
-   tienen que producir el mismo mensaje. */
+/* `line` is global. Without resetting it, from the process's second encode
+   onwards the error line numbers accumulate: an error on line 4 of the
+   second input was reported as line 15. Two identical inputs must produce
+   the same message. */
 static void
 test_line_numbers_reset_between_calls (void)
 {
@@ -277,7 +277,7 @@ test_line_numbers_reset_between_calls (void)
 
       if (freopen (i ? "stderr2.tmp" : "stderr1.tmp", "w", stderr) == NULL)
 	{
-	  printf ("skip - no pude redirigir stderr\n");
+	  printf ("skip - could not redirect stderr\n");
 	  dup2 (saved, fileno (stderr));
 	  close (saved);
 	  return;
@@ -298,7 +298,7 @@ test_line_numbers_reset_between_calls (void)
 
   assert (strstr (first, "out of range") != NULL);
   assert (strcmp (first, second) == 0);
-  printf ("ok - los números de línea se resetean entre llamadas\n");
+  printf ("ok - line numbers reset between calls\n");
 }
 
 int
@@ -306,7 +306,7 @@ main (void)
 {
   if (!initialize ())
     {
-      fprintf (stderr, "initialize() falló: ¿están los MIBs en MIBDIRS?\n");
+      fprintf (stderr, "initialize() failed: are the MIBs on MIBDIRS?\n");
       return 1;
     }
 
@@ -323,6 +323,6 @@ main (void)
   test_snmp_oid_resolves ();
   test_line_numbers_reset_between_calls ();
 
-  printf ("todos los tests de la API pasaron\n");
+  printf ("all API tests passed\n");
   return 0;
 }

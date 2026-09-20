@@ -67,13 +67,13 @@ EXTRA_DIST = $(examples_DATA)
 	chmod +x $@
 TESTS = $(CONFIGS_SCRIPT)
 
-# Roto en upstream, no acá: un build de upstream/master puro falla este mismo
-# test y ningún otro. decode_main_aggregate lee memoria no inicializada sobre
-# este fixture -- un TLV declara 77 bytes y el contenido real es más corto, así
-# que el volcado en memoria y el decode del archivo escrito difieren según lo
-# que hubiera en el heap de cada proceso.
-# XFAIL en vez de borrarlo: si upstream lo arregla, automake lo reporta como
-# XPASS y nos enteramos.
+# Broken upstream, not here: a build of pristine upstream/master fails this
+# very test and no other. decode_main_aggregate reads uninitialized memory on
+# this fixture -- a TLV declares 77 bytes while the real content is shorter,
+# so the in-memory dump and the decode of the written file differ depending on
+# whatever was left on each process's heap.
+# XFAIL rather than deleting it: if upstream fixes it, automake reports an
+# XPASS and we find out.
 XFAIL_TESTS = docsis20_stresstest.sh
 
 clean-local:

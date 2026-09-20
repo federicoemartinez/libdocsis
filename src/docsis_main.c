@@ -1,11 +1,12 @@
 /*
- * docsis - arnés de línea de comandos sobre libdocsis.
+ * docsis - command-line harness on top of libdocsis.
  *
- * Este binario NO es el producto: no se instala. Existe porque los 142
- * fixtures de tests/ y la comparación encode-contra-decode de examples/ se
- * manejan a través suyo. El producto es libdocsis (ver src/libdocsis.h).
+ * This binary is NOT the product: it is not installed. It exists because
+ * the 142 fixtures under tests/ and the encode-vs-decode comparison under
+ * examples/ are driven through it. The product is libdocsis (see
+ * src/libdocsis.h).
  *
- * Separado de docsis.c para que la librería compartida no exporte un main().
+ * Split out of docsis.c so the shared library does not export a main().
  */
 
 #ifdef HAVE_CONFIG_H

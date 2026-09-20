@@ -715,9 +715,9 @@ union t_val *helper; /* We only use this to cast the void* we receive to what we
 
 	value_found = strtoul( cp, endptr, 10);
 
-	/* Acá había un "if (endptr == NULL)" sin cuerpo: endptr es un array,
-	   así que la comparación era siempre falsa Y se tragaba el if de abajo
-	   como cuerpo. O sea que esta validación nunca corría. */
+	/* There used to be an "if (endptr == NULL)" with an empty body here:
+	   endptr is an array, so the comparison was always false AND it
+	   swallowed the if below as its body. This check never ran. */
 	if (cp == *endptr) {
 		fprintf(stderr, "Parse error at line %d: expecting digits\n",line);
 		return (-11);

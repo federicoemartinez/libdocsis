@@ -40,9 +40,9 @@ extern unsigned int line; 	/* current line number, defined in a.l */
 //extern symbol_type *global_symtable;
 extern FILE *yyin;
 
-/* ponytail: estado global del parser. encode_file() lo protege con un mutex
- * (ver src/libdocsis.c). Para reentrancia real esto tiene que vivir en un
- * struct de contexto pasado por %parse-param. */
+/* ponytail: global parser state. encode_file() guards it with a mutex (see
+ * src/libdocsis.c). For real reentrancy this has to live in a context
+ * struct passed through %parse-param. */
 struct tlv *_my_tlvtree_head;
 
 %}
@@ -261,22 +261,22 @@ void yyerror(yyscan_t unused, const char* s){
 
 
 /*
- * Arena de nodos del árbol de TLVs.
+ * Arena for the nodes of the TLV tree.
  *
- * Cuando el parseo aborta, el árbol a medio construir queda inalcanzable:
- * _my_tlvtree_head solo se asigna al reducir main_stmt con éxito. Sin esto
- * cada encode_file() con una config inválida perdía el árbol entero, unos
- * 9 KB por nodo (TLV_VSIZE es 9000).
+ * When the parse aborts, the half-built tree becomes unreachable:
+ * _my_tlvtree_head is only assigned when main_stmt reduces successfully.
+ * Without this, every encode_file() on an invalid config leaked the whole
+ * tree, around 9 KB per node (TLV_VSIZE is 9000).
  *
- * No se usa %destructor de bison: los destructores también corren al ACEPTAR,
- * así que liberaban el árbol que el llamador todavía tiene que usar -- doble
- * free. Registrar cada nodo y liberarlos solo en el camino de fallo es
- * preciso y no depende del ciclo de vida interno del parser.
+ * Bison's %destructor is deliberately not used: destructors also run on
+ * ACCEPT, so they freed the tree the caller still has to use -- a double
+ * free. Registering every node and releasing them only on the failure path
+ * is precise and does not depend on the parser's internal lifecycle.
  */
 struct tlv_node { struct tlv *tlv; struct tlv_node *next; };
 static struct tlv_node *tlv_arena = NULL;
 
-/* Reserva un nodo y lo registra en la arena. */
+/* Allocates a node and registers it in the arena. */
 static struct tlv *
 tlv_alloc (void)
 {
@@ -297,7 +297,7 @@ tlv_alloc (void)
   return t;
 }
 
-/* Éxito: el árbol pasa a ser del llamador, solo se tira la lista. */
+/* Success: the tree becomes the caller's, only the list is discarded. */
 static void
 tlv_arena_discard (void)
 {
@@ -309,8 +309,9 @@ tlv_arena_discard (void)
     }
 }
 
-/* Fallo: se libera cada nodo exactamente una vez. No se usa free_tlv() acá
-   porque recorre hijos y hermanos, y la arena ya tiene todos los nodos. */
+/* Failure: every node is released exactly once. free_tlv() is not used
+   here because it walks children and siblings, and the arena already holds
+   every node. */
 static void
 tlv_arena_free_all (void)
 {
@@ -343,13 +344,14 @@ create_tlv(struct symbol_entry *sym_ptr, union t_val *value)
   tlvbuf->docs_code = sym_ptr->docsis_code;
   tlv_len = sym_ptr->encode_func(tlvbuf->tlv_value,value,sym_ptr);
   tlvbuf->tlv_len = tlv_len;
-  /* Solo negativo es error. Cero es un TLV de longitud cero legítimo:
-     encode_lenzero() devuelve 0 a propósito para los 7 TLV del tipo
-     ServiceMultiplexingValue* (L2VPN-I13 Annex B.3.2). Tratar el cero como
-     error rechazaba configs válidas. */
+  /* Only a negative value is an error. Zero is a legitimate zero-length
+     TLV: encode_lenzero() returns 0 on purpose for the seven
+     ServiceMultiplexingValue* TLVs (L2VPN-I13 Annex B.3.2). Treating zero
+     as an error rejected valid configs. */
   if (tlv_len < 0 ) {
-		/* No liberar acá: tlv_alloc() registró el nodo en la arena, que
-		   lo libera al fallar el parseo. Liberarlo dos veces aborta. */
+		/* Do not free here: tlv_alloc() registered the node in the
+		   arena, which releases it when the parse fails. Freeing it
+		   twice aborts. */
 		return 0;
   }
   return tlvbuf;
@@ -579,7 +581,7 @@ struct tlv * create_dialplan_tlv(struct symbol_entry *sym_ptr, union t_val *valu
     return 0;
   }
   fseek(dialplan_file, 0, SEEK_SET);
-  /* +1: abajo se escribe un terminador en dialplan_buffer[fileSize]. */
+  /* +1: a terminator is written at dialplan_buffer[fileSize] below. */
   dialplan_buffer = (char *)malloc(fileSize + 1);
   if (!dialplan_buffer) {
     fprintf(stderr, "Error allocating memory for dialplan buffer at line %d\n", line);
@@ -597,7 +599,7 @@ struct tlv * create_dialplan_tlv(struct symbol_entry *sym_ptr, union t_val *valu
 
   value->strval = dialplan_buffer;
   value->strval[fileSize] = '\0';
-  oidStr2 = (char *)malloc(strlen(oidStr) + 1); /* create_snmpset_tlv lo libera */
+  oidStr2 = (char *)malloc(strlen(oidStr) + 1); /* create_snmpset_tlv frees it */
   if (!oidStr2) {
     free(dialplan_buffer);
     return 0;
@@ -824,8 +826,8 @@ int parse_config_string ( unsigned char *file_content, unsigned file_size, struc
   if (cf == NULL)
     return -1;
 
-  /* `line` es global y no vuelve sola: sin esto, desde el segundo parseo del
-     proceso los números de línea de los errores vienen acumulados. */
+  /* `line` is global and does not reset itself: without this, from the
+     process's second parse onwards the error line numbers accumulate. */
   line = 1;
 
 #ifdef DEBUG

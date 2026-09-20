@@ -266,9 +266,9 @@ int encode_one_file ( char *input_file, char *output_file,
       return -1;
     }
 
-  /* Leer la entrada entera a memoria y delegar en encode_one_string(), que es
-     el pipeline real -- el mismo que exporta la libreria. Antes habia dos
-     copias de ese pipeline y ya habian divergido. */
+  /* Read the whole input into memory and delegate to encode_one_string(),
+     which is the real pipeline -- the very one the library exports. There
+     used to be two copies of it, and they had already diverged. */
   if (!strcmp (input_file, "-"))
     {
       size_t cap = 65536, used = 0, got;
@@ -326,8 +326,8 @@ int encode_one_file ( char *input_file, char *output_file,
       return -1;
     }
 
-  /* Salida de progreso del CLI. La libreria no imprime nada de esto:
-     examples/Makefile.am parsea justamente esta linea. */
+  /* CLI progress output. The library prints none of this:
+     examples/Makefile.am parses exactly this line. */
   fprintf (stdout, "Final content of config file:\n");
   decode_main_aggregate (buffer, (unsigned int) buflen);
 
@@ -539,9 +539,9 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 
   if (bufferp == NULL)
     return 0;
-  /* El contrato: si devolvemos 0, el llamador ve NULL. Antes se devolvía 0
-     sin tocar el puntero, así que quien no chequeara el retorno leía memoria
-     sin inicializar. */
+  /* The contract: if we return 0, the caller sees NULL. This used to
+     return 0 without touching the pointer, so a caller that skipped the
+     return check read uninitialized memory. */
   *bufferp = NULL;
 
   if (file_content == NULL || file_content_size == 0)
@@ -608,8 +608,8 @@ int encode_one_string ( unsigned char *file_content, unsigned file_content_size,
 
   //decode_main_aggregate (buffer, buflen);
   free_tlv(global_tlvtree_head);
-  /* Recién acá se publica el buffer: hasta este punto cualquier salida es un
-     error y *bufferp tiene que quedar en NULL. */
+  /* Only now is the buffer published: until this point every exit is an
+     error and *bufferp must stay NULL. */
   *bufferp = buffer;
   return (int) buflen;
 
@@ -620,10 +620,11 @@ int initialize_lib (void)
 {
   setup_mib_flags (0, 0);
 
-  /* Sonda: get_node() y si no read_objid(), el mismo orden que docsis_snmp.c:52
-     usa al codificar. get_tree_head() no sirve (net-snmp arma un árbol mínimo
-     aunque no cargue nada) y read_objid() solo tampoco (solo ve los MIBs que
-     lista la variable MIBS, no todo MIBDIRS). */
+  /* Probe: get_node() then read_objid(), the same order docsis_snmp.c:52
+     uses while encoding. get_tree_head() is useless here (net-snmp builds a
+     minimal tree even when it loads nothing), and read_objid() alone is too
+     (it only sees the MIBs listed in the MIBS variable, not all of
+     MIBDIRS). */
   {
     oid probe[MAX_OID_LEN];
     size_t probe_len = MAX_OID_LEN;
@@ -632,9 +633,9 @@ int initialize_lib (void)
 	&& !read_objid ("sysDescr.0", probe, &probe_len))
       {
 	fprintf (stderr,
-	         "libdocsis: net-snmp no puede resolver OIDs simbólicos. "
-	         "Exportá MIBDIRS apuntando a los directorios mibs/, "
-	         "mibs/iana y mibs/ietf de esta distribución.\n");
+	         "libdocsis: net-snmp cannot resolve symbolic OIDs. Export "
+	         "MIBDIRS pointing at this distribution's mibs/, mibs/iana "
+	         "and mibs/ietf directories.\n");
 	return 0;
       }
   }

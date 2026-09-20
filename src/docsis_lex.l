@@ -56,12 +56,13 @@ unsigned int line=1; /* On parse errors, we print the line number */
 char *str; char strbuf[2048]; unsigned int strsize;/* max string len = 2048; TODO check overflow */
 char *tsave;
 
-/* Los encoders de docsis_encode.c son dueños de estas copias y las liberan
-   (unos 20 free(helper->strval) ahí). No poner una arena acá: liberaría por
-   segunda vez. Quedan fugas en los tipos de token cuyo encoder no libera y en
-   los caminos de error que retornan antes del free -- ver el TODO de
-   docsis_encode.c:656, que documenta que la propiedad ya estaba rota para los
-   T_STRING, que apuntan al strbuf estático y no a una copia. */
+/* The encoders in docsis_encode.c own these copies and free them (around
+   20 free(helper->strval) calls there). Do not add an arena here: it would
+   free them a second time. Leaks remain for token types whose encoder does
+   not free, and on error paths that return before the free -- see the TODO
+   at docsis_encode.c:656, which documents that ownership was already broken
+   for T_STRING, whose values point at the static strbuf rather than at a
+   copy. */
 #define TSAVE(s) tsave=(char*)malloc(yyleng+1);memset(tsave,0,yyleng+1);memcpy(tsave,s,yyleng)
 %}
 %x STRING
@@ -139,7 +140,7 @@ TlvType			{ return T_TLV_TYPE;		}
 
 \"		{ BEGIN STRING; str=strbuf; memset(strbuf,0,2048); strsize=0; }
 <STRING>\\\"	{
-			if (strsize<2047)  /* 2047, no 2048: <STRING>\" escribe *str=0 al cerrar */
+			if (strsize<2047)  /* 2047, not 2048: <STRING>\" writes *str=0 when closing */
 			{
 				*str++ = '"';
 				strsize++;
@@ -148,7 +149,7 @@ TlvType			{ return T_TLV_TYPE;		}
 			}
 		}
 <STRING>\\ 	{
-			if (strsize<2047)  /* 2047, no 2048: <STRING>\" escribe *str=0 al cerrar */
+			if (strsize<2047)  /* 2047, not 2048: <STRING>\" writes *str=0 when closing */
 			{
 				*str++ = ' ';
 				strsize++;
@@ -160,7 +161,7 @@ TlvType			{ return T_TLV_TYPE;		}
 <STRING>\t	{ fprintf(stderr, "line %d: \\t not allowed in string, unmatched \" ?\n",line); yyterminate(); }
 <STRING>\"	{ *str=0; BEGIN 0; yylval->strval=strbuf; return T_STRING; }
 <STRING>.	{
-			if (strsize<2047)  /* 2047, no 2048: <STRING>\" escribe *str=0 al cerrar */
+			if (strsize<2047)  /* 2047, not 2048: <STRING>\" writes *str=0 when closing */
 			{
 				*str++ = *yytext;
 				strsize++;
